@@ -1,17 +1,81 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="KI-Content für lokale Unternehmen">
+
+  <!-- Hero -->
+  <section class="max-w-5xl mx-auto px-6 pt-20 pb-16">
+    <div class="max-w-2xl">
+      <span class="text-sm font-medium text-gray-500 uppercase tracking-widest">Neuss & Düsseldorf</span>
+      <h1 class="mt-4 text-5xl font-bold leading-tight tracking-tight">
+        Mehr Kunden durch smarten Content.
+      </h1>
+      <p class="mt-6 text-xl text-gray-600 leading-relaxed">
+        Ich helfe lokalen Unternehmen, regelmäßig sichtbar zu sein – ohne dass ihr dafür stundenlang texten müsst. Mit KI und einer klaren Strategie.
+      </p>
+      <div class="mt-8 flex gap-4">
+        <a href="/kontakt" class="bg-gray-900 text-white font-medium px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors">
+          Kostenloses Erstgespräch
+        </a>
+        <a href="/leistungen" class="text-gray-900 font-medium px-6 py-3 rounded-lg border border-gray-200 hover:border-gray-400 transition-colors">
+          Leistungen ansehen
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof / Trust -->
+  <section class="bg-gray-50 py-12">
+    <div class="max-w-5xl mx-auto px-6">
+      <p class="text-sm font-medium text-gray-500 text-center mb-8 uppercase tracking-widest">Für wen ich arbeite</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-gray-600 text-sm">
+        <div>Handwerksbetriebe</div>
+        <div>Dienstleister</div>
+        <div>Gastronomie</div>
+        <div>Einzelhändler</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Preview -->
+  <section class="max-w-5xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-2">Was ich anbiete</h2>
+    <p class="text-gray-600 mb-12">Drei klare Pakete – kein Schnickschnack.</p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="p-6 border border-gray-200 rounded-xl">
+        <h3 class="font-bold text-lg mb-2">Content-Starter</h3>
+        <p class="text-gray-600 text-sm mb-4">8 Posts/Monat für Instagram & Facebook, fertig zum Posten. Inkl. Bildvorschläge.</p>
+        <p class="font-bold text-2xl">299 €<span class="text-gray-400 font-normal text-base">/Monat</span></p>
+      </div>
+      <div class="p-6 border-2 border-gray-900 rounded-xl relative">
+        <span class="absolute -top-3 left-4 bg-gray-900 text-white text-xs font-medium px-3 py-1 rounded-full">Beliebt</span>
+        <h3 class="font-bold text-lg mb-2">Content-Pro</h3>
+        <p class="text-gray-600 text-sm mb-4">16 Posts + Google Business + monatlicher Newsletter. Komplett fertig.</p>
+        <p class="font-bold text-2xl">499 €<span class="text-gray-400 font-normal text-base">/Monat</span></p>
+      </div>
+      <div class="p-6 border border-gray-200 rounded-xl">
+        <h3 class="font-bold text-lg mb-2">KI-Automation</h3>
+        <p class="text-gray-600 text-sm mb-4">Einmalige Einrichtung eines KI-Workflows, der euch Arbeit abnimmt.</p>
+        <p class="font-bold text-2xl">ab 800 €<span class="text-gray-400 font-normal text-base"> einmalig</span></p>
+      </div>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a href="/leistungen" class="text-gray-900 font-medium underline underline-offset-4">Alle Details zu den Paketen →</a>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-gray-900 text-white py-16">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-4">Bereit, loszulegen?</h2>
+      <p class="text-gray-400 mb-8 max-w-lg mx-auto">15 Minuten reichen, um zu sehen, ob wir zusammenpassen. Kein Druck, kein Verkaufsgespräch.</p>
+      <a href="/kontakt" class="bg-white text-gray-900 font-medium px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+        Jetzt Termin buchen
+      </a>
+    </div>
+  </section>
+
+</Layout>
