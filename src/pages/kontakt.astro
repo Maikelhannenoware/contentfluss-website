@@ -117,9 +117,16 @@ import Layout from '../layouts/Layout.astro';
     errorDiv.classList.add('hidden');
 
     try {
+      const formData = new FormData(form);
       const res = await fetch('/api/contact', {
         method: 'POST',
-        body: new FormData(form),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          betrieb: formData.get('betrieb'),
+          nachricht: formData.get('nachricht'),
+        }),
       });
 
       if (res.ok) {

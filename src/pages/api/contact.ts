@@ -6,17 +6,17 @@ export const prerender = false;
 export const POST: APIRoute = async ({ request }) => {
   const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
-  let data: FormData;
+  let body: { name?: string; email?: string; betrieb?: string; nachricht?: string };
   try {
-    data = await request.formData();
+    body = await request.json();
   } catch {
     return new Response(JSON.stringify({ error: 'Ungültige Anfrage' }), { status: 400 });
   }
 
-  const name = data.get('name')?.toString().trim() ?? '';
-  const email = data.get('email')?.toString().trim() ?? '';
-  const betrieb = data.get('betrieb')?.toString().trim() ?? '';
-  const nachricht = data.get('nachricht')?.toString().trim() ?? '';
+  const name = body.name?.trim() ?? '';
+  const email = body.email?.trim() ?? '';
+  const betrieb = body.betrieb?.trim() ?? '';
+  const nachricht = body.nachricht?.trim() ?? '';
 
   if (!name || !email) {
     return new Response(JSON.stringify({ error: 'Name und E-Mail sind Pflichtfelder.' }), { status: 400 });
