@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://contentfluss.de/sitemap-index.xml
