@@ -33,12 +33,7 @@ import Layout from '../layouts/Layout.astro';
 
       <!-- Kontaktformular -->
       <div>
-        <form
-          name="kontakt"
-          method="POST"
-          data-netlify="true"
-          class="space-y-4"
-        >
+        <form id="kontaktform" class="space-y-4">
           <div>
             <label for="name" class="block text-sm font-medium text-gray-900 mb-1">Name</label>
             <input
@@ -85,13 +80,22 @@ import Layout from '../layouts/Layout.astro';
             ></textarea>
           </div>
 
+          <div id="form-error" class="hidden text-sm text-red-600 bg-red-50 px-4 py-3 rounded-lg"></div>
+
           <button
             type="submit"
-            class="w-full bg-gray-900 text-white font-medium px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors"
+            id="submit-btn"
+            class="w-full bg-gray-900 text-white font-medium px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Anfrage senden
           </button>
         </form>
+
+        <div id="form-success" class="hidden text-center py-8">
+          <p class="text-2xl mb-2">✓</p>
+          <p class="font-medium text-gray-900 mb-1">Nachricht angekommen!</p>
+          <p class="text-sm text-gray-600">Ich melde mich innerhalb von 24 Stunden bei dir.</p>
+        </div>
       </div>
 
     </div>
@@ -99,3 +103,40 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
 </Layout>
+
+<script>
+  const form = document.getElementById('kontaktform') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const errorDiv = document.getElementById('form-error') as HTMLDivElement;
+  const successDiv = document.getElementById('form-success') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet…';
+    errorDiv.classList.add('hidden');
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        body: new FormData(form),
+      });
+
+      if (res.ok) {
+        form.classList.add('hidden');
+        successDiv.classList.remove('hidden');
+      } else {
+        const json = await res.json();
+        errorDiv.textContent = json.error ?? 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.';
+        errorDiv.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Anfrage senden';
+      }
+    } catch {
+      errorDiv.textContent = 'Verbindungsfehler. Bitte versuche es erneut.';
+      errorDiv.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Anfrage senden';
+    }
+  });
+</script>
