@@ -1,0 +1,173 @@
+---
+// ChatWidget – Flo, der Contentfluss Assistent
+---
+
+<div id="chat-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+
+  <!-- Chat Window -->
+  <div
+    id="chat-window"
+    class="hidden flex-col bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden"
+    style="width: 320px; height: 450px; max-width: calc(100vw - 3rem);"
+  >
+    <!-- Header -->
+    <div class="flex items-center justify-between px-4 py-3 bg-gray-900 text-white flex-shrink-0">
+      <div>
+        <p class="font-semibold text-sm">Flo</p>
+        <p class="text-xs text-gray-400">Contentfluss Assistent</p>
+      </div>
+      <button id="chat-close" class="text-gray-400 hover:text-white transition-colors" aria-label="Chat schließen">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Messages -->
+    <div id="chat-messages" class="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+    </div>
+
+    <!-- Input -->
+    <div class="px-4 py-3 border-t border-gray-100 flex-shrink-0">
+      <form id="chat-form" class="flex gap-2">
+        <input
+          id="chat-input"
+          type="text"
+          placeholder="Nachricht schreiben..."
+          class="flex-1 text-sm px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-400"
+          autocomplete="off"
+        />
+        <button
+          type="submit"
+          class="bg-gray-900 text-white px-3 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+          aria-label="Senden"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toggle Button -->
+  <button
+    id="chat-toggle"
+    class="bg-gray-900 text-white w-14 h-14 rounded-full shadow-lg hover:bg-gray-700 transition-colors flex items-center justify-center"
+    aria-label="Chat öffnen"
+  >
+    <svg id="chat-icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/>
+    </svg>
+    <svg id="chat-icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+  </button>
+
+</div>
+
+<script>
+  const chatWindow = document.getElementById('chat-window')!;
+  const chatToggle = document.getElementById('chat-toggle')!;
+  const chatClose = document.getElementById('chat-close')!;
+  const chatMessages = document.getElementById('chat-messages')!;
+  const chatForm = document.getElementById('chat-form') as HTMLFormElement;
+  const chatInput = document.getElementById('chat-input') as HTMLInputElement;
+  const iconOpen = document.getElementById('chat-icon-open')!;
+  const iconClose = document.getElementById('chat-icon-close')!;
+
+  type Message = { role: 'user' | 'assistant'; content: string };
+  let messages: Message[] = [];
+  let isOpen = false;
+  let greeted = false;
+
+  function addMessage(role: 'user' | 'assistant', content: string) {
+    const wrapper = document.createElement('div');
+    wrapper.className = role === 'user' ? 'flex justify-end' : 'flex justify-start';
+
+    const bubble = document.createElement('div');
+    bubble.className = role === 'user'
+      ? 'bg-gray-900 text-white text-sm px-3 py-2 rounded-xl rounded-tr-sm max-w-[80%] leading-relaxed'
+      : 'bg-gray-100 text-gray-900 text-sm px-3 py-2 rounded-xl rounded-tl-sm max-w-[80%] leading-relaxed';
+    bubble.textContent = content;
+
+    wrapper.appendChild(bubble);
+    chatMessages.appendChild(wrapper);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function showTyping() {
+    const wrapper = document.createElement('div');
+    wrapper.id = 'typing-indicator';
+    wrapper.className = 'flex justify-start';
+    wrapper.innerHTML = '<div class="bg-gray-100 text-gray-500 text-sm px-3 py-2 rounded-xl rounded-tl-sm">...</div>';
+    chatMessages.appendChild(wrapper);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  function removeTyping() {
+    document.getElementById('typing-indicator')?.remove();
+  }
+
+  function openChat() {
+    isOpen = true;
+    chatWindow.classList.remove('hidden');
+    chatWindow.classList.add('flex');
+    iconOpen.classList.add('hidden');
+    iconClose.classList.remove('hidden');
+
+    if (!greeted) {
+      greeted = true;
+      const greeting = 'Hallo! Ich bin Flo, der Assistent von Contentfluss 👋 Wie kann ich euch helfen?';
+      messages.push({ role: 'assistant', content: greeting });
+      addMessage('assistant', greeting);
+    }
+
+    chatInput.focus();
+  }
+
+  function closeChat() {
+    isOpen = false;
+    chatWindow.classList.add('hidden');
+    chatWindow.classList.remove('flex');
+    iconOpen.classList.remove('hidden');
+    iconClose.classList.add('hidden');
+  }
+
+  chatToggle.addEventListener('click', () => {
+    if (isOpen) closeChat();
+    else openChat();
+  });
+
+  chatClose.addEventListener('click', closeChat);
+
+  chatForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const content = chatInput.value.trim();
+    if (!content) return;
+
+    chatInput.value = '';
+    messages.push({ role: 'user', content });
+    addMessage('user', content);
+    showTyping();
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages }),
+      });
+
+      const data = await res.json();
+      removeTyping();
+
+      if (data.reply) {
+        messages.push({ role: 'assistant', content: data.reply });
+        addMessage('assistant', data.reply);
+      }
+    } catch {
+      removeTyping();
+      addMessage('assistant', 'Entschuldigung, da ist etwas schiefgelaufen. Bitte versuche es nochmal.');
+    }
+  });
+</script>

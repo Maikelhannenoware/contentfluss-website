@@ -1,39 +1,102 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Contentfluss",
+  "description": "KI-Content und Automatisierung für lokale Unternehmen",
+  "url": "https://contentfluss.de",
+  "email": "hallo@contentfluss.de",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Neuss",
+    "addressRegion": "NRW",
+    "addressCountry": "DE"
+  },
+  "areaServed": ["Neuss", "Düsseldorf"]
+};
 ---
 
 <Layout title="KI-Content für lokale Unternehmen">
 
+  <Fragment slot="head">
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)}></script>
+  </Fragment>
+
   <!-- Hero -->
-  <section class="max-w-5xl mx-auto px-6 pt-20 pb-16">
-    <div class="max-w-2xl">
-      <span class="text-sm font-medium text-gray-500 uppercase tracking-widest">Neuss & Düsseldorf</span>
-      <h1 class="mt-4 text-5xl font-bold leading-tight tracking-tight">
-        Mehr Kunden durch smarten Content.
-      </h1>
-      <p class="mt-6 text-xl text-gray-600 leading-relaxed">
-        Ich helfe lokalen Unternehmen, regelmäßig sichtbar zu sein – ohne dass ihr dafür stundenlang texten müsst. Mit KI und einer klaren Strategie.
-      </p>
-      <div class="mt-8 flex gap-4">
-        <a href="/kontakt" class="bg-gray-900 text-white font-medium px-6 py-3 rounded-lg hover:bg-gray-700 transition-colors">
-          Kostenloses Erstgespräch
-        </a>
-        <a href="/leistungen" class="text-gray-900 font-medium px-6 py-3 rounded-lg border border-gray-200 hover:border-gray-400 transition-colors">
-          Leistungen ansehen
-        </a>
+  <section class="bg-gradient-to-b from-blue-50 via-white to-white">
+    <div class="max-w-5xl mx-auto px-6 pt-20 pb-16">
+      <div class="max-w-2xl">
+        <span class="inline-block text-sm font-semibold text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full mb-4">
+          ✦ KI-gestützte Agentur aus Neuss
+        </span>
+        <h1 class="mt-2 text-5xl font-bold leading-tight tracking-tight">
+          Mehr Zeit. Mehr Kunden. Weniger Aufwand.
+        </h1>
+        <p class="mt-6 text-xl text-gray-600 leading-relaxed">
+          Ich übernehme euren gesamten Online-Content – mit KI, Strategie und echtem Verständnis für lokale Betriebe. Ihr kümmert euch ums Handwerk, ich um eure Sichtbarkeit.
+        </p>
+        <div class="mt-8 flex gap-4 flex-wrap">
+          <a href="/kontakt" class="bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors btn-primary">
+            Kostenloses Erstgespräch
+          </a>
+          <a href="/leistungen" class="text-gray-900 font-medium px-6 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-400 transition-colors">
+            Leistungen ansehen
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Social Proof / Trust -->
+  <!-- So funktioniert's -->
+  <section class="max-w-5xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-2 text-center">So funktioniert's in 3 Schritten</h2>
+    <p class="text-gray-600 text-center mb-12">Vom Erstgespräch zum fertigen Content – einfach und unkompliziert.</p>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="p-6 border border-gray-200 rounded-xl fade-in">
+        <div class="text-4xl mb-4">🔍</div>
+        <p class="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Schritt 1</p>
+        <h3 class="font-bold text-lg mb-2">Kostenloses Erstgespräch</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">Wir schauen gemeinsam, wo ihr steht und was sinnvoll ist. Kein Druck, kein Verkauf.</p>
+      </div>
+      <div class="p-6 border border-gray-200 rounded-xl fade-in">
+        <div class="text-4xl mb-4">✍️</div>
+        <p class="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Schritt 2</p>
+        <h3 class="font-bold text-lg mb-2">Ich übernehme</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">Ihr bekommt fertigen Content, ready to post. Abgestimmt auf euren Betrieb und eure Region.</p>
+      </div>
+      <div class="p-6 border border-gray-200 rounded-xl fade-in">
+        <div class="text-4xl mb-4">📈</div>
+        <p class="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Schritt 3</p>
+        <h3 class="font-bold text-lg mb-2">Ihr werdet sichtbarer</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">Mehr Reichweite, mehr Anfragen – ohne dass ihr selbst einen Finger rühren müsst.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Für wen ich arbeite -->
   <section class="bg-gray-50 py-12">
     <div class="max-w-5xl mx-auto px-6">
       <p class="text-sm font-medium text-gray-500 text-center mb-8 uppercase tracking-widest">Für wen ich arbeite</p>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-gray-600 text-sm">
-        <div>Handwerksbetriebe</div>
-        <div>Dienstleister</div>
-        <div>Gastronomie</div>
-        <div>Einzelhändler</div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl p-4 text-center border border-gray-100 fade-in">
+          <div class="text-3xl mb-2">🔨</div>
+          <p class="text-sm font-medium text-gray-700">Handwerksbetriebe</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center border border-gray-100 fade-in">
+          <div class="text-3xl mb-2">🍽️</div>
+          <p class="text-sm font-medium text-gray-700">Gastronomie</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center border border-gray-100 fade-in">
+          <div class="text-3xl mb-2">💼</div>
+          <p class="text-sm font-medium text-gray-700">Dienstleister</p>
+        </div>
+        <div class="bg-white rounded-xl p-4 text-center border border-gray-100 fade-in">
+          <div class="text-3xl mb-2">🛍️</div>
+          <p class="text-sm font-medium text-gray-700">Einzelhändler</p>
+        </div>
       </div>
     </div>
   </section>
@@ -44,18 +107,18 @@ import Layout from '../layouts/Layout.astro';
     <p class="text-gray-600 mb-12">Drei klare Pakete – kein Schnickschnack.</p>
 
     <div class="grid md:grid-cols-3 gap-6">
-      <div class="p-6 border border-gray-200 rounded-xl">
+      <div class="p-6 border border-gray-200 rounded-xl card-hover fade-in">
         <h3 class="font-bold text-lg mb-2">Content-Starter</h3>
         <p class="text-gray-600 text-sm mb-4">8 Posts/Monat für Instagram & Facebook, fertig zum Posten. Inkl. Bildvorschläge.</p>
         <p class="font-bold text-2xl">299 €<span class="text-gray-400 font-normal text-base">/Monat</span></p>
       </div>
-      <div class="p-6 border-2 border-gray-900 rounded-xl relative">
-        <span class="absolute -top-3 left-4 bg-gray-900 text-white text-xs font-medium px-3 py-1 rounded-full">Beliebt</span>
+      <div class="p-6 border-2 border-blue-600 rounded-xl relative card-hover fade-in">
+        <span class="absolute -top-3 left-4 bg-blue-600 text-white text-xs font-medium px-3 py-1 rounded-full">Beliebt</span>
         <h3 class="font-bold text-lg mb-2">Content-Pro</h3>
         <p class="text-gray-600 text-sm mb-4">16 Posts + Google Business + monatlicher Newsletter. Komplett fertig.</p>
         <p class="font-bold text-2xl">499 €<span class="text-gray-400 font-normal text-base">/Monat</span></p>
       </div>
-      <div class="p-6 border border-gray-200 rounded-xl">
+      <div class="p-6 border border-gray-200 rounded-xl card-hover fade-in">
         <h3 class="font-bold text-lg mb-2">KI-Automation</h3>
         <p class="text-gray-600 text-sm mb-4">Einmalige Einrichtung eines KI-Workflows, der euch Arbeit abnimmt.</p>
         <p class="font-bold text-2xl">ab 800 €<span class="text-gray-400 font-normal text-base"> einmalig</span></p>
@@ -67,12 +130,51 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+  <!-- Warum Contentfluss -->
+  <section class="bg-gray-50 py-16">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-3xl font-bold mb-2 text-center">Warum Contentfluss?</h2>
+      <p class="text-gray-600 text-center mb-12">Was euch von anderen Agenturen unterscheidet.</p>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 fade-in">
+          <div class="text-3xl">🏠</div>
+          <div>
+            <h3 class="font-bold mb-1">Lokal</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Ich bin aus Neuss. Ich kenne den Markt und eure Zielgruppe.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 fade-in">
+          <div class="text-3xl">⚡</div>
+          <div>
+            <h3 class="font-bold mb-1">Schnell</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Fertige Posts innerhalb weniger Tage, kein wochenlanger Vorlauf.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 fade-in">
+          <div class="text-3xl">🤖</div>
+          <div>
+            <h3 class="font-bold mb-1">KI-gestützt</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Moderne Tools, die Qualität sichern und Kosten niedrig halten.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 fade-in">
+          <div class="text-3xl">🔒</div>
+          <div>
+            <h3 class="font-bold mb-1">Transparent</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Feste Preise, keine versteckten Kosten, monatlich kündbar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
-  <section class="bg-gray-900 text-white py-16">
+  <section class="bg-blue-600 text-white py-16">
     <div class="max-w-5xl mx-auto px-6 text-center">
       <h2 class="text-3xl font-bold mb-4">Bereit, loszulegen?</h2>
-      <p class="text-gray-400 mb-8 max-w-lg mx-auto">15 Minuten reichen, um zu sehen, ob wir zusammenpassen. Kein Druck, kein Verkaufsgespräch.</p>
-      <a href="/kontakt" class="bg-white text-gray-900 font-medium px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors">
+      <p class="text-blue-100 mb-8 max-w-lg mx-auto">15 Minuten reichen, um zu sehen, ob wir zusammenpassen. Kein Druck, kein Verkaufsgespräch.</p>
+      <a href="/kontakt" class="bg-white text-blue-600 font-medium px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">
         Jetzt Termin buchen
       </a>
     </div>

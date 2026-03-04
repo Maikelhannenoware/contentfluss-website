@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import ChatWidget from '../components/ChatWidget.astro';
 
 interface Props {
   title: string;
@@ -16,7 +17,11 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <title>{title} | Contentfluss</title>
+    <slot name="head" />
   </head>
   <body class="bg-white text-gray-900 font-sans">
 
@@ -25,11 +30,11 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
       <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="/" class="text-xl font-bold tracking-tight">Contentfluss</a>
         <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-          <a href="/leistungen" class="hover:text-gray-900 transition-colors">Leistungen</a>
-          <a href="/ueber-mich" class="hover:text-gray-900 transition-colors">Über mich</a>
-          <a href="/kontakt" class="hover:text-gray-900 transition-colors">Kontakt</a>
+          <a href="/leistungen" class="relative hover:text-gray-900 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-200 hover:after:w-full">Leistungen</a>
+          <a href="/ueber-mich" class="relative hover:text-gray-900 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-200 hover:after:w-full">Über mich</a>
+          <a href="/kontakt" class="relative hover:text-gray-900 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-200 hover:after:w-full">Kontakt</a>
         </nav>
-        <a href="/kontakt" class="hidden md:inline-block bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+        <a href="/kontakt" class="hidden md:inline-block bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors btn-primary">
           Gespräch buchen
         </a>
         <button id="menu-toggle" class="md:hidden p-2 text-gray-600" aria-label="Menü öffnen">
@@ -46,7 +51,7 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
         <a href="/leistungen" class="hover:text-gray-900 transition-colors">Leistungen</a>
         <a href="/ueber-mich" class="hover:text-gray-900 transition-colors">Über mich</a>
         <a href="/kontakt" class="hover:text-gray-900 transition-colors">Kontakt</a>
-        <a href="/kontakt" class="inline-block bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors text-center">
+        <a href="/kontakt" class="inline-block bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center">
           Gespräch buchen
         </a>
       </nav>
@@ -72,14 +77,51 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
 
     <!-- Footer -->
     <footer class="border-t border-gray-100 mt-24">
-      <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-        <p>© 2026 Contentfluss – Maikel Hannen</p>
-        <nav class="flex gap-6">
-          <a href="/impressum" class="hover:text-gray-900 transition-colors">Impressum</a>
-          <a href="/datenschutz" class="hover:text-gray-900 transition-colors">Datenschutz</a>
-        </nav>
+      <div class="max-w-5xl mx-auto px-6 py-12">
+        <div class="grid md:grid-cols-2 gap-8 mb-8">
+          <div>
+            <a href="/" class="text-xl font-bold tracking-tight">Contentfluss</a>
+            <p class="text-sm text-gray-500 mt-2">KI-Content und Automatisierung<br>für lokale Unternehmen.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-8 text-sm">
+            <div>
+              <p class="font-medium text-gray-900 mb-3">Seiten</p>
+              <nav class="flex flex-col gap-2 text-gray-500">
+                <a href="/leistungen" class="hover:text-gray-900 transition-colors">Leistungen</a>
+                <a href="/ueber-mich" class="hover:text-gray-900 transition-colors">Über mich</a>
+                <a href="/kontakt" class="hover:text-gray-900 transition-colors">Kontakt</a>
+              </nav>
+            </div>
+            <div>
+              <p class="font-medium text-gray-900 mb-3">Rechtliches</p>
+              <nav class="flex flex-col gap-2 text-gray-500">
+                <a href="/impressum" class="hover:text-gray-900 transition-colors">Impressum</a>
+                <a href="/datenschutz" class="hover:text-gray-900 transition-colors">Datenschutz</a>
+              </nav>
+            </div>
+          </div>
+        </div>
+        <div class="border-t border-gray-100 pt-6 flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-gray-400">
+          <p>© 2026 Contentfluss – Maikel Hannen</p>
+          <p>Gemacht in Neuss 🇩🇪</p>
+        </div>
       </div>
     </footer>
+
+    <script>
+      // Scroll animations
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+    <ChatWidget />
 
   </body>
 </html>
