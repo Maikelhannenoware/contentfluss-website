@@ -126,14 +126,20 @@ import Layout from '../layouts/Layout.astro';
         form.classList.add('hidden');
         successDiv.classList.remove('hidden');
       } else {
-        const json = await res.json();
-        errorDiv.textContent = json.error ?? 'Ein Fehler ist aufgetreten. Bitte versuche es erneut.';
+        let errorMsg = `Fehler ${res.status}`;
+        try {
+          const json = await res.json();
+          errorMsg = json.error ?? errorMsg;
+        } catch {
+          // response war kein JSON
+        }
+        errorDiv.textContent = errorMsg;
         errorDiv.classList.remove('hidden');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Anfrage senden';
       }
-    } catch {
-      errorDiv.textContent = 'Verbindungsfehler. Bitte versuche es erneut.';
+    } catch (err) {
+      errorDiv.textContent = `Netzwerkfehler: ${err instanceof Error ? err.message : String(err)}`;
       errorDiv.classList.remove('hidden');
       submitBtn.disabled = false;
       submitBtn.textContent = 'Anfrage senden';
