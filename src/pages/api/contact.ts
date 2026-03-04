@@ -24,7 +24,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const { error } = await resend.emails.send({
     from: 'Contentfluss Kontaktformular <hallo@contentfluss.de>',
-    to: ['maikel.hannen@gmail.com'],
+    to: ['hallo@contentfluss.de'],
     replyTo: email,
     subject: `Neue Anfrage von ${name}${betrieb ? ` (${betrieb})` : ''}`,
     html: `
