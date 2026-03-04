@@ -3,7 +3,7 @@ export const prerender = false;
 import Anthropic from '@anthropic-ai/sdk';
 
 const client = new Anthropic({
-  apiKey: import.meta.env.ANTHROPIC_API_KEY,
+  apiKey: import.meta.env.ANTHROPIC_API_KEY_CHATBO_WEBSITE,
 });
 
 const SYSTEM_PROMPT = `Du bist Flo, der freundliche KI-Assistent von Contentfluss. Contentfluss ist eine KI-Agentur aus Neuss, die lokale Unternehmen in der Region Neuss/Düsseldorf beim Content-Marketing und bei KI-Automatisierungen unterstützt. Inhaber ist Maikel Hannen.
