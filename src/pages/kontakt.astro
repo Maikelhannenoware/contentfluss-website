@@ -49,6 +49,11 @@ import Layout from '../layouts/Layout.astro';
       <!-- Kontaktformular -->
       <div>
         <form id="kontaktform" class="space-y-4">
+          <div class="hidden" aria-hidden="true">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+          </div>
+
           <div>
             <label for="name" class="block text-sm font-medium text-gray-900 mb-1">Name</label>
             <input
@@ -90,20 +95,30 @@ import Layout from '../layouts/Layout.astro';
               id="nachricht"
               name="nachricht"
               rows="4"
+              required
+              minlength="20"
+              maxlength="4000"
               class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-gray-400 resize-none"
               placeholder="Kurz erzählen, was ihr sucht oder was gerade nicht funktioniert..."
             ></textarea>
+            <p class="mt-1 text-xs text-gray-500">Mindestens 20 Zeichen.</p>
           </div>
 
-          <div id="form-error" class="hidden text-sm text-red-600 bg-red-50 px-4 py-3 rounded-lg"></div>
+          <div id="form-error" role="alert" class="hidden text-sm text-red-600 bg-red-50 px-4 py-3 rounded-lg"></div>
 
           <button
             type="submit"
             id="submit-btn"
+            data-track="contact_submit_clicked"
             class="w-full bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed btn-primary"
           >
             Anfrage senden
           </button>
+
+          <p class="text-xs text-gray-500 leading-relaxed">
+            Mit dem Absenden stimmst du der Verarbeitung deiner Daten zur Bearbeitung der Anfrage zu.
+            Details in der <a href="/datenschutz" class="underline hover:text-gray-700">Datenschutzerklärung</a>.
+          </p>
         </form>
 
         <div id="form-success" class="hidden text-center py-8">
@@ -120,51 +135,125 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <script>
+  type TrackFn = (eventName: string, data?: Record<string, string>) => void;
+  type TrackWindow = Window & typeof globalThis & { contentflussTrack?: TrackFn };
+
   const form = document.getElementById('kontaktform') as HTMLFormElement;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
   const errorDiv = document.getElementById('form-error') as HTMLDivElement;
   const successDiv = document.getElementById('form-success') as HTMLDivElement;
+  const nachrichtField = document.getElementById('nachricht') as HTMLTextAreaElement;
+
+  let formStartedTracked = false;
+  let isSubmitting = false;
+
+  function track(eventName: string, data?: Record<string, string>) {
+    (window as TrackWindow).contentflussTrack?.(eventName, data);
+  }
+
+  function setError(message: string) {
+    errorDiv.textContent = message;
+    errorDiv.classList.remove('hidden');
+  }
+
+  function clearError() {
+    errorDiv.textContent = '';
+    errorDiv.classList.add('hidden');
+  }
+
+  function setSubmitting(submitting: boolean) {
+    isSubmitting = submitting;
+    submitBtn.disabled = submitting;
+    submitBtn.textContent = submitting ? 'Wird gesendet…' : 'Anfrage senden';
+  }
+
+  function mapApiError(code: string, fallback: string): string {
+    if (code === 'NAME_REQUIRED') return 'Bitte gib deinen Namen ein.';
+    if (code === 'EMAIL_INVALID') return 'Bitte gib eine gültige E-Mail-Adresse ein.';
+    if (code === 'MESSAGE_TOO_SHORT') return 'Bitte beschreibe dein Anliegen in mindestens 20 Zeichen.';
+    if (code === 'BOT_DETECTED') return 'Anfrage konnte nicht verarbeitet werden.';
+    if (code === 'RATE_LIMITED') return 'Zu viele Anfragen. Bitte versuche es in einigen Minuten erneut.';
+    if (code === 'CONTACT_UNAVAILABLE') return 'Der Service ist aktuell nicht verfügbar. Bitte schreibe direkt an hallo@contentfluss.de.';
+    if (code === 'MAIL_SEND_FAILED') return 'E-Mail konnte nicht gesendet werden. Bitte versuche es erneut oder nutze hallo@contentfluss.de.';
+    return fallback;
+  }
+
+  function getTrimmedValue(formData: FormData, field: string) {
+    return String(formData.get(field) ?? '').trim();
+  }
+
+  function validateFormData(formData: FormData): string | null {
+    const name = getTrimmedValue(formData, 'name');
+    const email = getTrimmedValue(formData, 'email');
+    const nachricht = getTrimmedValue(formData, 'nachricht');
+    const website = getTrimmedValue(formData, 'website');
+
+    if (website) return 'Anfrage konnte nicht verarbeitet werden.';
+    if (!name) return 'Bitte gib deinen Namen ein.';
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Bitte gib eine gültige E-Mail-Adresse ein.';
+    if (!nachricht || nachricht.length < 20) return 'Bitte beschreibe dein Anliegen in mindestens 20 Zeichen.';
+
+    return null;
+  }
+
+  form.addEventListener('input', () => {
+    if (!formStartedTracked) {
+      formStartedTracked = true;
+      track('contact_form_started');
+    }
+  });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Wird gesendet…';
-    errorDiv.classList.add('hidden');
+    if (isSubmitting) return;
+
+    clearError();
+
+    const formData = new FormData(form);
+    const validationError = validateFormData(formData);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
+    setSubmitting(true);
+    track('contact_form_submit_attempted');
 
     try {
-      const formData = new FormData(form);
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: formData.get('name'),
-          email: formData.get('email'),
-          betrieb: formData.get('betrieb'),
-          nachricht: formData.get('nachricht'),
+          name: getTrimmedValue(formData, 'name'),
+          email: getTrimmedValue(formData, 'email'),
+          betrieb: getTrimmedValue(formData, 'betrieb'),
+          nachricht: getTrimmedValue(formData, 'nachricht'),
+          website: getTrimmedValue(formData, 'website'),
         }),
       });
 
-      if (res.ok) {
+      const json = (await res.json().catch(() => ({}))) as { success?: boolean; error?: string; code?: string };
+      if (res.ok && json.success) {
         form.classList.add('hidden');
         successDiv.classList.remove('hidden');
+        track('contact_form_submitted');
       } else {
-        let errorMsg = `Fehler ${res.status}`;
-        try {
-          const json = await res.json();
-          errorMsg = json.error ?? errorMsg;
-        } catch {
-          // response war kein JSON
-        }
-        errorDiv.textContent = errorMsg;
-        errorDiv.classList.remove('hidden');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Anfrage senden';
+        const code = typeof json.code === 'string' ? json.code : `HTTP_${res.status}`;
+        const fallback = typeof json.error === 'string' ? json.error : `Fehler ${res.status}`;
+        setError(mapApiError(code, fallback));
+        track('contact_form_submit_failed', { code });
       }
     } catch (err) {
-      errorDiv.textContent = `Netzwerkfehler: ${err instanceof Error ? err.message : String(err)}`;
-      errorDiv.classList.remove('hidden');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Anfrage senden';
+      setError(`Netzwerkfehler: ${err instanceof Error ? err.message : String(err)}`);
+      track('contact_form_submit_failed', { code: 'NETWORK_ERROR' });
+    } finally {
+      setSubmitting(false);
     }
+  });
+
+  nachrichtField.addEventListener('blur', () => {
+    const message = nachrichtField.value.trim();
+    if (!message || message.length >= 20) return;
+    setError('Bitte beschreibe dein Anliegen in mindestens 20 Zeichen.');
   });
 </script>

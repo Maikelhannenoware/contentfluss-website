@@ -34,8 +34,8 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
           <a href="/ueber-mich" class="relative hover:text-gray-900 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-200 hover:after:w-full">Über mich</a>
           <a href="/kontakt" class="relative hover:text-gray-900 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-200 hover:after:w-full">Kontakt</a>
         </nav>
-        <a href="/kontakt" class="hidden md:inline-block bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors btn-primary">
-          Gespräch buchen
+        <a href="/kontakt" data-track="nav_cta_clicked" data-track-label="header-desktop" class="hidden md:inline-block bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors btn-primary">
+          Kostenloses Erstgespräch (15 Min)
         </a>
         <button id="menu-toggle" class="md:hidden p-2 text-gray-600" aria-label="Menü öffnen">
           <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -51,8 +51,8 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
         <a href="/leistungen" class="hover:text-gray-900 transition-colors">Leistungen</a>
         <a href="/ueber-mich" class="hover:text-gray-900 transition-colors">Über mich</a>
         <a href="/kontakt" class="hover:text-gray-900 transition-colors">Kontakt</a>
-        <a href="/kontakt" class="inline-block bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center">
-          Gespräch buchen
+        <a href="/kontakt" data-track="nav_cta_clicked" data-track-label="header-mobile" class="inline-block bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center">
+          Kostenloses Erstgespräch (15 Min)
         </a>
       </nav>
     </header>
@@ -109,6 +109,65 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
     </footer>
 
     <script>
+      if (!window['__contentflussTrackingInit']) {
+        window['__contentflussTrackingInit'] = true;
+
+        const TRACK_ENDPOINT = '/api/event';
+        const TRACK_SESSION_KEY = 'contentfluss_session_id';
+
+        function getSessionId() {
+          try {
+            const existing = window.localStorage.getItem(TRACK_SESSION_KEY);
+            if (existing) return existing;
+            const generated = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
+            window.localStorage.setItem(TRACK_SESSION_KEY, generated);
+            return generated;
+          } catch {
+            return 'anonymous';
+          }
+        }
+
+        function sendTrack(payload) {
+          const body = JSON.stringify(payload);
+          if (navigator.sendBeacon) {
+            const blob = new Blob([body], { type: 'application/json' });
+            navigator.sendBeacon(TRACK_ENDPOINT, blob);
+            return;
+          }
+
+          fetch(TRACK_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body,
+            keepalive: true,
+          }).catch(() => {
+            // silently ignore tracking transport errors
+          });
+        }
+
+        window.contentflussTrack = (eventName, data = {}) => {
+          if (typeof eventName !== 'string' || !eventName.trim()) return;
+          sendTrack({
+            event: eventName,
+            path: window.location.pathname,
+            sessionId: getSessionId(),
+            data,
+          });
+        };
+
+        document.addEventListener('click', (event) => {
+          if (!(event.target instanceof Element)) return;
+          const trackTarget = event.target.closest('[data-track]');
+          if (!trackTarget) return;
+
+          const eventName = trackTarget.getAttribute('data-track');
+          if (!eventName) return;
+
+          const label = trackTarget.getAttribute('data-track-label') || '';
+          window.contentflussTrack?.(eventName, label ? { label } : {});
+        });
+      }
+
       // Scroll animations
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {

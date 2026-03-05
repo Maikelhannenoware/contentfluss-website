@@ -38,13 +38,34 @@ const jsonLd = {
           Ich übernehme euren gesamten Online-Content – mit KI, Strategie und echtem Verständnis für lokale Betriebe. Ihr kümmert euch ums Handwerk, ich um eure Sichtbarkeit.
         </p>
         <div class="mt-8 flex gap-4 flex-wrap">
-          <a href="/kontakt" class="bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors btn-primary">
-            Kostenloses Erstgespräch
+          <a href="/kontakt" data-track="hero_cta_clicked" data-track-label="hero-primary" class="bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors btn-primary">
+            Kostenloses Erstgespräch (15 Min)
           </a>
-          <a href="/leistungen" class="text-gray-900 font-medium px-6 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-400 transition-colors">
+          <a href="/leistungen" data-track="hero_cta_clicked" data-track-label="hero-secondary" class="text-gray-900 font-medium px-6 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-400 transition-colors">
             Leistungen ansehen
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Signals -->
+  <section class="max-w-5xl mx-auto px-6 py-10">
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="rounded-xl border border-gray-200 bg-white p-5 fade-in">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Antwortzeit</p>
+        <p class="text-2xl font-bold mb-1">Innerhalb von 24h</p>
+        <p class="text-sm text-gray-600">Du bekommst in der Regel am selben Werktag eine klare Rückmeldung.</p>
+      </div>
+      <div class="rounded-xl border border-gray-200 bg-white p-5 fade-in">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Vertrag</p>
+        <p class="text-2xl font-bold mb-1">Monatlich kündbar</p>
+        <p class="text-sm text-gray-600">Transparente Pakete ohne lange Laufzeiten oder versteckte Zusatzkosten.</p>
+      </div>
+      <div class="rounded-xl border border-gray-200 bg-white p-5 fade-in">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Fokus</p>
+        <p class="text-2xl font-bold mb-1">Lokal in Neuss</p>
+        <p class="text-sm text-gray-600">Spezialisiert auf lokale Betriebe aus Neuss und Düsseldorf.</p>
       </div>
     </div>
   </section>
@@ -109,24 +130,33 @@ const jsonLd = {
     <div class="grid md:grid-cols-3 gap-6">
       <div class="p-6 border border-gray-200 rounded-xl card-hover fade-in">
         <h3 class="font-bold text-lg mb-2">Content-Starter</h3>
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Für den Einstieg</p>
         <p class="text-gray-600 text-sm mb-4">8 Posts/Monat für Instagram & Facebook, fertig zum Posten. Inkl. Bildvorschläge.</p>
+        <p class="text-sm text-gray-500 mb-4">Geeignet für Betriebe, die regelmäßig sichtbar sein wollen, ohne viel Eigenaufwand.</p>
         <p class="font-bold text-2xl">299 €<span class="text-gray-400 font-normal text-base">/Monat</span></p>
       </div>
       <div class="p-6 border-2 border-blue-600 rounded-xl relative card-hover fade-in">
         <span class="absolute -top-3 left-4 bg-blue-600 text-white text-xs font-medium px-3 py-1 rounded-full">Beliebt</span>
         <h3 class="font-bold text-lg mb-2">Content-Pro</h3>
+        <p class="text-xs uppercase tracking-widest text-blue-700 mb-2">Für planbares Wachstum</p>
         <p class="text-gray-600 text-sm mb-4">16 Posts + Google Business + monatlicher Newsletter. Komplett fertig.</p>
+        <p class="text-sm text-gray-500 mb-4">Geeignet für Teams, die dauerhaft Anfragen über mehrere Kanäle erzeugen wollen.</p>
         <p class="font-bold text-2xl">499 €<span class="text-gray-400 font-normal text-base">/Monat</span></p>
       </div>
       <div class="p-6 border border-gray-200 rounded-xl card-hover fade-in">
         <h3 class="font-bold text-lg mb-2">KI-Automation</h3>
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Für interne Entlastung</p>
         <p class="text-gray-600 text-sm mb-4">Einmalige Einrichtung eines KI-Workflows, der euch Arbeit abnimmt.</p>
+        <p class="text-sm text-gray-500 mb-4">Geeignet für Betriebe mit wiederkehrenden Aufgaben wie Angebote oder Nachfass-Kommunikation.</p>
         <p class="font-bold text-2xl">ab 800 €<span class="text-gray-400 font-normal text-base"> einmalig</span></p>
       </div>
     </div>
 
-    <div class="mt-8 text-center">
-      <a href="/leistungen" class="text-gray-900 font-medium underline underline-offset-4">Alle Details zu den Paketen →</a>
+    <div class="mt-8 text-center flex flex-wrap justify-center gap-4">
+      <a href="/leistungen" data-track="package_cta_clicked" data-track-label="overview-link" class="text-gray-900 font-medium underline underline-offset-4">Alle Details zu den Paketen →</a>
+      <a href="/kontakt" data-track="package_cta_clicked" data-track-label="book-from-packages" class="bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors btn-primary">
+        Kostenloses Erstgespräch (15 Min)
+      </a>
     </div>
   </section>
 
@@ -174,8 +204,8 @@ const jsonLd = {
     <div class="max-w-5xl mx-auto px-6 text-center">
       <h2 class="text-3xl font-bold mb-4">Bereit, loszulegen?</h2>
       <p class="text-blue-100 mb-8 max-w-lg mx-auto">15 Minuten reichen, um zu sehen, ob wir zusammenpassen. Kein Druck, kein Verkaufsgespräch.</p>
-      <a href="/kontakt" class="bg-white text-blue-600 font-medium px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">
-        Jetzt Termin buchen
+      <a href="/kontakt" data-track="hero_cta_clicked" data-track-label="final-section" class="bg-white text-blue-600 font-medium px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">
+        Kostenloses Erstgespräch (15 Min)
       </a>
     </div>
   </section>
