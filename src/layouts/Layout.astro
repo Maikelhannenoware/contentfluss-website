@@ -7,7 +7,9 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing für lokale Unternehmen in Neuss und Düsseldorf.' } = Astro.props;
+const defaultDescription = 'Wir automatisieren Geschaeftsprozesse mit KI - pragmatisch, messbar und DSGVO-konform.';
+const { title, description = defaultDescription } = Astro.props;
+const computedTitle = title.includes('Contentfluss') ? title : `${title} | Contentfluss`;
 ---
 
 <!doctype html>
@@ -19,41 +21,54 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <title>{title} | Contentfluss</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>{computedTitle}</title>
     <slot name="head" />
   </head>
-  <body class="bg-white text-gray-900 font-sans">
+  <body class="bg-slate-50 text-slate-900 font-sans">
+    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
+      <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-4">
+        <a href="/" class="text-xl font-extrabold tracking-tight text-slate-900">Contentfluss</a>
 
-    <!-- Navigation -->
-    <header class="border-b border-gray-100">
-      <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="/" class="text-xl font-bold tracking-tight">Contentfluss</a>
-        <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-          <a href="/leistungen" class="relative hover:text-gray-900 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-200 hover:after:w-full">Leistungen</a>
-          <a href="/ueber-mich" class="relative hover:text-gray-900 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-200 hover:after:w-full">Über mich</a>
-          <a href="/kontakt" class="relative hover:text-gray-900 transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-blue-600 after:transition-all after:duration-200 hover:after:w-full">Kontakt</a>
+        <nav class="hidden gap-8 text-sm font-medium text-slate-600 md:flex">
+          <a href="/leistungen" class="nav-link">Leistungen</a>
+          <a href="/ueber-mich" class="nav-link">Ueber uns</a>
+          <a href="/kontakt" class="nav-link">Kontakt</a>
         </nav>
-        <a href="/kontakt" data-track="nav_cta_clicked" data-track-label="header-desktop" class="hidden md:inline-block bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors btn-primary">
-          Kostenloses Erstgespräch (15 Min)
+
+        <a
+          href="/kontakt"
+          data-track="nav_cta_clicked"
+          data-track-label="header-desktop"
+          class="btn-primary hidden rounded-lg px-4 py-2 text-sm font-semibold text-white md:inline-block"
+        >
+          Erstgespraech buchen
         </a>
-        <button id="menu-toggle" class="md:hidden p-2 text-gray-600" aria-label="Menü öffnen">
-          <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+        <button id="menu-toggle" class="p-2 text-slate-700 md:hidden" aria-label="Menue oeffnen">
+          <svg id="icon-open" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
-          <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg id="icon-close" xmlns="http://www.w3.org/2000/svg" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </button>
       </div>
-      <!-- Mobile menu -->
-      <nav id="mobile-menu" class="hidden md:hidden border-t border-gray-100 px-6 py-4 flex flex-col gap-4 text-sm font-medium text-gray-600">
-        <a href="/leistungen" class="hover:text-gray-900 transition-colors">Leistungen</a>
-        <a href="/ueber-mich" class="hover:text-gray-900 transition-colors">Über mich</a>
-        <a href="/kontakt" class="hover:text-gray-900 transition-colors">Kontakt</a>
-        <a href="/kontakt" data-track="nav_cta_clicked" data-track-label="header-mobile" class="inline-block bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-center">
-          Kostenloses Erstgespräch (15 Min)
-        </a>
+
+      <nav id="mobile-menu" class="hidden border-t border-slate-200 bg-white px-6 py-4 md:hidden">
+        <div class="flex flex-col gap-4 text-sm font-medium text-slate-700">
+          <a href="/leistungen" class="hover:text-slate-900 transition-colors">Leistungen</a>
+          <a href="/ueber-mich" class="hover:text-slate-900 transition-colors">Ueber uns</a>
+          <a href="/kontakt" class="hover:text-slate-900 transition-colors">Kontakt</a>
+          <a
+            href="/kontakt"
+            data-track="nav_cta_clicked"
+            data-track-label="header-mobile"
+            class="btn-primary inline-block rounded-lg px-4 py-2 text-center text-sm font-semibold text-white"
+          >
+            Erstgespraech buchen
+          </a>
+        </div>
       </nav>
     </header>
 
@@ -62,6 +77,7 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
       const menu = document.getElementById('mobile-menu');
       const iconOpen = document.getElementById('icon-open');
       const iconClose = document.getElementById('icon-close');
+
       toggle?.addEventListener('click', () => {
         const isOpen = !menu?.classList.contains('hidden');
         menu?.classList.toggle('hidden', isOpen);
@@ -70,40 +86,41 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
       });
     </script>
 
-    <!-- Content -->
     <main>
       <slot />
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-gray-100 mt-24">
-      <div class="max-w-5xl mx-auto px-6 py-12">
-        <div class="grid md:grid-cols-2 gap-8 mb-8">
+    <footer class="mt-24 border-t border-slate-200 bg-white">
+      <div class="mx-auto w-full max-w-6xl px-6 py-12">
+        <div class="mb-8 grid gap-8 md:grid-cols-2">
           <div>
-            <a href="/" class="text-xl font-bold tracking-tight">Contentfluss</a>
-            <p class="text-sm text-gray-500 mt-2">KI-Content und Automatisierung<br>für lokale Unternehmen.</p>
+            <a href="/" class="text-xl font-extrabold tracking-tight text-slate-900">Contentfluss</a>
+            <p class="mt-2 text-sm text-slate-500">KI-Automatisierung und Workflows fuer KMU in Deutschland.</p>
           </div>
+
           <div class="grid grid-cols-2 gap-8 text-sm">
             <div>
-              <p class="font-medium text-gray-900 mb-3">Seiten</p>
-              <nav class="flex flex-col gap-2 text-gray-500">
-                <a href="/leistungen" class="hover:text-gray-900 transition-colors">Leistungen</a>
-                <a href="/ueber-mich" class="hover:text-gray-900 transition-colors">Über mich</a>
-                <a href="/kontakt" class="hover:text-gray-900 transition-colors">Kontakt</a>
+              <p class="mb-3 font-semibold text-slate-900">Seiten</p>
+              <nav class="flex flex-col gap-2 text-slate-500">
+                <a href="/leistungen" class="hover:text-slate-900 transition-colors">Leistungen</a>
+                <a href="/ueber-mich" class="hover:text-slate-900 transition-colors">Ueber uns</a>
+                <a href="/kontakt" class="hover:text-slate-900 transition-colors">Kontakt</a>
               </nav>
             </div>
+
             <div>
-              <p class="font-medium text-gray-900 mb-3">Rechtliches</p>
-              <nav class="flex flex-col gap-2 text-gray-500">
-                <a href="/impressum" class="hover:text-gray-900 transition-colors">Impressum</a>
-                <a href="/datenschutz" class="hover:text-gray-900 transition-colors">Datenschutz</a>
+              <p class="mb-3 font-semibold text-slate-900">Rechtliches</p>
+              <nav class="flex flex-col gap-2 text-slate-500">
+                <a href="/impressum" class="hover:text-slate-900 transition-colors">Impressum</a>
+                <a href="/datenschutz" class="hover:text-slate-900 transition-colors">Datenschutz</a>
               </nav>
             </div>
           </div>
         </div>
-        <div class="border-t border-gray-100 pt-6 flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-gray-400">
-          <p>© 2026 Contentfluss – Maikel Hannen</p>
-          <p>Gemacht in Neuss 🇩🇪</p>
+
+        <div class="flex flex-col items-center justify-between gap-2 border-t border-slate-200 pt-6 text-sm text-slate-400 md:flex-row">
+          <p>© 2026 Contentfluss - Maikel Hannen</p>
+          <p>Deutschlandweit erreichbar (remote oder vor Ort)</p>
         </div>
       </div>
     </footer>
@@ -168,19 +185,17 @@ const { title, description = 'Contentfluss – KI-gestütztes Content-Marketing 
         });
       }
 
-      // Scroll animations
       const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
           }
         });
       }, { threshold: 0.1 });
 
-      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+      document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
     </script>
 
     <ChatWidget />
-
   </body>
 </html>

@@ -2,212 +2,195 @@
 import Layout from '../layouts/Layout.astro';
 
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Contentfluss",
-  "description": "KI-Content und Automatisierung für lokale Unternehmen",
-  "url": "https://contentfluss.de",
-  "email": "hallo@contentfluss.de",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Neuss",
-    "addressRegion": "NRW",
-    "addressCountry": "DE"
-  },
-  "areaServed": ["Neuss", "Düsseldorf"]
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Contentfluss',
+  description: 'KI-Automatisierung und Beratung fuer KMU in Deutschland',
+  url: 'https://contentfluss.de',
+  email: 'hallo@contentfluss.de',
+  areaServed: 'Deutschland',
+  serviceType: ['KI-Workflow-Automatisierung', 'KI-Beratung', 'Content-Marketing'],
 };
 ---
 
-<Layout title="KI-Content für lokale Unternehmen">
-
+<Layout
+  title="Contentfluss - KI-Automatisierung fuer Unternehmen"
+  description="Wir automatisieren Geschaeftsprozesse mit KI - pragmatisch, messbar und DSGVO-konform. Kostenloses Erstgespraech in 15 Minuten."
+>
   <Fragment slot="head">
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)}></script>
   </Fragment>
 
-  <!-- Hero -->
-  <section class="bg-gradient-to-b from-blue-50 via-white to-white">
-    <div class="max-w-5xl mx-auto px-6 pt-20 pb-16">
-      <div class="max-w-2xl">
-        <span class="inline-block text-sm font-semibold text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1 rounded-full mb-4">
-          ✦ KI-gestützte Agentur aus Neuss
+  <section class="bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white">
+    <div class="mx-auto w-full max-w-6xl px-6 pb-24 pt-24 md:pb-28 md:pt-28">
+      <div class="max-w-3xl">
+        <span class="hero-shimmer relative mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/35 bg-cyan-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan-200">
+          KI-Automatisierung fuer KMU
         </span>
-        <h1 class="mt-2 text-5xl font-bold leading-tight tracking-tight">
-          Mehr Zeit. Mehr Kunden. Weniger Aufwand.
-        </h1>
-        <p class="mt-6 text-xl text-gray-600 leading-relaxed">
-          Ich übernehme euren gesamten Online-Content – mit KI, Strategie und echtem Verständnis für lokale Betriebe. Ihr kümmert euch ums Handwerk, ich um eure Sichtbarkeit.
+        <h1 class="text-4xl font-extrabold leading-tight tracking-tight md:text-6xl">Weniger Routine. Mehr Wachstum.</h1>
+        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-200 md:text-xl">
+          Wir helfen Unternehmen, zeitfressende Prozesse mit KI zu automatisieren - pragmatisch, messbar und DSGVO-konform.
         </p>
-        <div class="mt-8 flex gap-4 flex-wrap">
-          <a href="/kontakt" data-track="hero_cta_clicked" data-track-label="hero-primary" class="bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors btn-primary">
-            Kostenloses Erstgespräch (15 Min)
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a
+            href="/kontakt"
+            data-track="hero_cta_clicked"
+            data-track-label="hero-primary"
+            class="btn-primary rounded-lg px-7 py-3.5 text-sm font-semibold text-white"
+          >
+            Kostenloses Erstgespraech buchen
           </a>
-          <a href="/leistungen" data-track="hero_cta_clicked" data-track-label="hero-secondary" class="text-gray-900 font-medium px-6 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 hover:border-gray-400 transition-colors">
-            Leistungen ansehen
+          <a
+            href="#prozess"
+            data-track="hero_cta_clicked"
+            data-track-label="hero-secondary"
+            class="rounded-lg border border-slate-400/40 px-7 py-3.5 text-sm font-semibold text-slate-100 transition-colors hover:border-cyan-300/70 hover:text-white"
+          >
+            So funktioniert's
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Trust Signals -->
-  <section class="max-w-5xl mx-auto px-6 py-10">
-    <div class="grid md:grid-cols-3 gap-4">
-      <div class="rounded-xl border border-gray-200 bg-white p-5 fade-in">
-        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Antwortzeit</p>
-        <p class="text-2xl font-bold mb-1">Innerhalb von 24h</p>
-        <p class="text-sm text-gray-600">Du bekommst in der Regel am selben Werktag eine klare Rückmeldung.</p>
+  <section class="mx-auto w-full max-w-6xl px-6 py-20">
+    <div class="grid gap-6 md:grid-cols-3">
+      <div class="fade-in rounded-xl border border-slate-200 bg-white p-6 card-hover">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-500">Antwort in 24h</p>
+        <p class="text-sm leading-relaxed text-slate-600">Schnelle Kommunikation, keine Warteschleifen.</p>
       </div>
-      <div class="rounded-xl border border-gray-200 bg-white p-5 fade-in">
-        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Vertrag</p>
-        <p class="text-2xl font-bold mb-1">Monatlich kündbar</p>
-        <p class="text-sm text-gray-600">Transparente Pakete ohne lange Laufzeiten oder versteckte Zusatzkosten.</p>
+      <div class="fade-in rounded-xl border border-slate-200 bg-white p-6 card-hover">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-500">DSGVO-konform</p>
+        <p class="text-sm leading-relaxed text-slate-600">Alle Loesungen auf deutschen/EU-Servern.</p>
       </div>
-      <div class="rounded-xl border border-gray-200 bg-white p-5 fade-in">
-        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Fokus</p>
-        <p class="text-2xl font-bold mb-1">Lokal in Neuss</p>
-        <p class="text-sm text-gray-600">Spezialisiert auf lokale Betriebe aus Neuss und Düsseldorf.</p>
+      <div class="fade-in rounded-xl border border-slate-200 bg-white p-6 card-hover">
+        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-500">Kein Vendor Lock-in</p>
+        <p class="text-sm leading-relaxed text-slate-600">Offene Loesungen, die euch gehoeren.</p>
       </div>
     </div>
   </section>
 
-  <!-- So funktioniert's -->
-  <section class="max-w-5xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold mb-2 text-center">So funktioniert's in 3 Schritten</h2>
-    <p class="text-gray-600 text-center mb-12">Vom Erstgespräch zum fertigen Content – einfach und unkompliziert.</p>
+  <section id="prozess" class="mx-auto w-full max-w-6xl px-6 py-20">
+    <h2 class="text-center text-3xl font-bold md:text-4xl">In 3 Schritten zur KI-Automatisierung</h2>
+    <p class="mx-auto mt-3 max-w-2xl text-center text-slate-600">
+      Von der Analyse bis zum fertigen Workflow - strukturiert und transparent.
+    </p>
 
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="p-6 border border-gray-200 rounded-xl fade-in">
-        <div class="text-4xl mb-4">🔍</div>
-        <p class="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Schritt 1</p>
-        <h3 class="font-bold text-lg mb-2">Kostenloses Erstgespräch</h3>
-        <p class="text-gray-600 text-sm leading-relaxed">Wir schauen gemeinsam, wo ihr steht und was sinnvoll ist. Kein Druck, kein Verkauf.</p>
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-cyan-700">Schritt 1</p>
+        <h3 class="text-xl font-semibold text-slate-900">Analyse</h3>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          Wir schauen gemeinsam auf eure Prozesse und identifizieren, wo KI den groessten Hebel hat.
+        </p>
       </div>
-      <div class="p-6 border border-gray-200 rounded-xl fade-in">
-        <div class="text-4xl mb-4">✍️</div>
-        <p class="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Schritt 2</p>
-        <h3 class="font-bold text-lg mb-2">Ich übernehme</h3>
-        <p class="text-gray-600 text-sm leading-relaxed">Ihr bekommt fertigen Content, ready to post. Abgestimmt auf euren Betrieb und eure Region.</p>
+
+      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-cyan-700">Schritt 2</p>
+        <h3 class="text-xl font-semibold text-slate-900">Aufbau</h3>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          Wir bauen den KI-Workflow, testen ihn mit eurem Team und optimieren ihn, bis er sitzt.
+        </p>
       </div>
-      <div class="p-6 border border-gray-200 rounded-xl fade-in">
-        <div class="text-4xl mb-4">📈</div>
-        <p class="text-xs font-semibold text-blue-600 uppercase tracking-widest mb-2">Schritt 3</p>
-        <h3 class="font-bold text-lg mb-2">Ihr werdet sichtbarer</h3>
-        <p class="text-gray-600 text-sm leading-relaxed">Mehr Reichweite, mehr Anfragen – ohne dass ihr selbst einen Finger rühren müsst.</p>
+
+      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-cyan-700">Schritt 3</p>
+        <h3 class="text-xl font-semibold text-slate-900">Betrieb</h3>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          Euer automatisierter Prozess laeuft - mit Support und Monitoring, solange ihr wollt.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Für wen ich arbeite -->
-  <section class="bg-gray-50 py-12">
-    <div class="max-w-5xl mx-auto px-6">
-      <p class="text-sm font-medium text-gray-500 text-center mb-8 uppercase tracking-widest">Für wen ich arbeite</p>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="bg-white rounded-xl p-4 text-center border border-gray-100 fade-in">
-          <div class="text-3xl mb-2">🔨</div>
-          <p class="text-sm font-medium text-gray-700">Handwerksbetriebe</p>
-        </div>
-        <div class="bg-white rounded-xl p-4 text-center border border-gray-100 fade-in">
-          <div class="text-3xl mb-2">🍽️</div>
-          <p class="text-sm font-medium text-gray-700">Gastronomie</p>
-        </div>
-        <div class="bg-white rounded-xl p-4 text-center border border-gray-100 fade-in">
-          <div class="text-3xl mb-2">💼</div>
-          <p class="text-sm font-medium text-gray-700">Dienstleister</p>
-        </div>
-        <div class="bg-white rounded-xl p-4 text-center border border-gray-100 fade-in">
-          <div class="text-3xl mb-2">🛍️</div>
-          <p class="text-sm font-medium text-gray-700">Einzelhändler</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section class="mx-auto w-full max-w-6xl px-6 py-20">
+    <h2 class="text-3xl font-bold md:text-4xl">Was wir fuer euch tun</h2>
 
-  <!-- Services Preview -->
-  <section class="max-w-5xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold mb-2">Was ich anbiete</h2>
-    <p class="text-gray-600 mb-12">Drei klare Pakete – kein Schnickschnack.</p>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      <a href="/leistungen#automatisierung" class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
+        <p class="text-sm font-semibold uppercase tracking-widest text-cyan-700">01</p>
+        <h3 class="mt-2 text-xl font-semibold text-slate-900">KI-Workflow-Automatisierung</h3>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          Wiederkehrende Aufgaben identifizieren und mit KI-Agenten automatisieren - von Angeboten bis Kundensupport.
+        </p>
+      </a>
 
-    <div class="grid md:grid-cols-3 gap-6">
-      <div class="p-6 border border-gray-200 rounded-xl card-hover fade-in">
-        <h3 class="font-bold text-lg mb-2">Content-Starter</h3>
-        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Für den Einstieg</p>
-        <p class="text-gray-600 text-sm mb-4">8 Posts/Monat für Instagram & Facebook, fertig zum Posten. Inkl. Bildvorschläge.</p>
-        <p class="text-sm text-gray-500 mb-4">Geeignet für Betriebe, die regelmäßig sichtbar sein wollen, ohne viel Eigenaufwand.</p>
-        <p class="font-bold text-2xl">299 €<span class="text-gray-400 font-normal text-base">/Monat</span></p>
-      </div>
-      <div class="p-6 border-2 border-blue-600 rounded-xl relative card-hover fade-in">
-        <span class="absolute -top-3 left-4 bg-blue-600 text-white text-xs font-medium px-3 py-1 rounded-full">Beliebt</span>
-        <h3 class="font-bold text-lg mb-2">Content-Pro</h3>
-        <p class="text-xs uppercase tracking-widest text-blue-700 mb-2">Für planbares Wachstum</p>
-        <p class="text-gray-600 text-sm mb-4">16 Posts + Google Business + monatlicher Newsletter. Komplett fertig.</p>
-        <p class="text-sm text-gray-500 mb-4">Geeignet für Teams, die dauerhaft Anfragen über mehrere Kanäle erzeugen wollen.</p>
-        <p class="font-bold text-2xl">499 €<span class="text-gray-400 font-normal text-base">/Monat</span></p>
-      </div>
-      <div class="p-6 border border-gray-200 rounded-xl card-hover fade-in">
-        <h3 class="font-bold text-lg mb-2">KI-Automation</h3>
-        <p class="text-xs uppercase tracking-widest text-gray-500 mb-2">Für interne Entlastung</p>
-        <p class="text-gray-600 text-sm mb-4">Einmalige Einrichtung eines KI-Workflows, der euch Arbeit abnimmt.</p>
-        <p class="text-sm text-gray-500 mb-4">Geeignet für Betriebe mit wiederkehrenden Aufgaben wie Angebote oder Nachfass-Kommunikation.</p>
-        <p class="font-bold text-2xl">ab 800 €<span class="text-gray-400 font-normal text-base"> einmalig</span></p>
-      </div>
-    </div>
+      <a href="/leistungen#beratung" class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
+        <p class="text-sm font-semibold uppercase tracking-widest text-cyan-700">02</p>
+        <h3 class="mt-2 text-xl font-semibold text-slate-900">KI-Beratung & Strategie</h3>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          Verstehen, wo KI in eurem Unternehmen Sinn macht: Tool-Auswahl, Roadmap und Team-Schulung.
+        </p>
+      </a>
 
-    <div class="mt-8 text-center flex flex-wrap justify-center gap-4">
-      <a href="/leistungen" data-track="package_cta_clicked" data-track-label="overview-link" class="text-gray-900 font-medium underline underline-offset-4">Alle Details zu den Paketen →</a>
-      <a href="/kontakt" data-track="package_cta_clicked" data-track-label="book-from-packages" class="bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors btn-primary">
-        Kostenloses Erstgespräch (15 Min)
+      <a href="/leistungen#content" class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
+        <p class="text-sm font-semibold uppercase tracking-widest text-cyan-700">03</p>
+        <h3 class="mt-2 text-xl font-semibold text-slate-900">Content-Marketing</h3>
+        <p class="mt-3 text-sm leading-relaxed text-slate-600">
+          Regelmaessiger Text-Content fuer Social Media, Newsletter und Website - strategisch und konsistent.
+        </p>
       </a>
     </div>
   </section>
 
-  <!-- Warum Contentfluss -->
-  <section class="bg-gray-50 py-16">
-    <div class="max-w-5xl mx-auto px-6">
-      <h2 class="text-3xl font-bold mb-2 text-center">Warum Contentfluss?</h2>
-      <p class="text-gray-600 text-center mb-12">Was euch von anderen Agenturen unterscheidet.</p>
+  <section class="bg-white py-20">
+    <div class="mx-auto w-full max-w-6xl px-6">
+      <h2 class="text-center text-3xl font-bold md:text-4xl">Branchen, die wir kennen</h2>
+      <p class="mx-auto mt-3 max-w-3xl text-center text-slate-600">
+        KI-Automatisierung funktioniert in fast jedem Unternehmen. Hier haben wir besondere Erfahrung.
+      </p>
 
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 fade-in">
-          <div class="text-3xl">🏠</div>
-          <div>
-            <h3 class="font-bold mb-1">Lokal</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">Ich bin aus Neuss. Ich kenne den Markt und eure Zielgruppe.</p>
-          </div>
-        </div>
-        <div class="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 fade-in">
-          <div class="text-3xl">⚡</div>
-          <div>
-            <h3 class="font-bold mb-1">Schnell</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">Fertige Posts innerhalb weniger Tage, kein wochenlanger Vorlauf.</p>
-          </div>
-        </div>
-        <div class="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 fade-in">
-          <div class="text-3xl">🤖</div>
-          <div>
-            <h3 class="font-bold mb-1">KI-gestützt</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">Moderne Tools, die Qualität sichern und Kosten niedrig halten.</p>
-          </div>
-        </div>
-        <div class="flex gap-4 p-6 bg-white rounded-xl border border-gray-100 fade-in">
-          <div class="text-3xl">🔒</div>
-          <div>
-            <h3 class="font-bold mb-1">Transparent</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">Feste Preise, keine versteckten Kosten, monatlich kündbar.</p>
-          </div>
-        </div>
+      <div class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-6">
+        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Dienstleister</div>
+        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Handwerk</div>
+        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Gesundheitswesen</div>
+        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Handel</div>
+        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Gastronomie</div>
+        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Agenturen</div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="bg-blue-600 text-white py-16">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <h2 class="text-3xl font-bold mb-4">Bereit, loszulegen?</h2>
-      <p class="text-blue-100 mb-8 max-w-lg mx-auto">15 Minuten reichen, um zu sehen, ob wir zusammenpassen. Kein Druck, kein Verkaufsgespräch.</p>
-      <a href="/kontakt" data-track="hero_cta_clicked" data-track-label="final-section" class="bg-white text-blue-600 font-medium px-8 py-3 rounded-lg hover:bg-blue-50 transition-colors">
-        Kostenloses Erstgespräch (15 Min)
-      </a>
+  <section class="mx-auto w-full max-w-6xl px-6 py-20">
+    <h2 class="text-center text-3xl font-bold md:text-4xl">Warum Unternehmen mit uns arbeiten</h2>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
+        <h3 class="text-xl font-semibold text-slate-900">Pragmatisch</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">Kein KI-Hype. Wir zeigen, was heute funktioniert und morgen skaliert.</p>
+      </div>
+
+      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
+        <h3 class="text-xl font-semibold text-slate-900">DSGVO-konform</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">Alle Daten in Deutschland/EU. Keine Kompromisse bei Datenschutz.</p>
+      </div>
+
+      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
+        <h3 class="text-xl font-semibold text-slate-900">Messbar</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">Jeder Workflow hat KPIs. Ihr seht transparent, was er euch spart.</p>
+      </div>
+
+      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
+        <h3 class="text-xl font-semibold text-slate-900">Persoenlich</h3>
+        <p class="mt-2 text-sm leading-relaxed text-slate-600">Ein Ansprechpartner, kurze Wege und echte Partnerschaft.</p>
+      </div>
     </div>
   </section>
 
+  <section class="bg-gradient-to-r from-cyan-500 to-blue-600 py-20 text-white">
+    <div class="mx-auto w-full max-w-6xl px-6 text-center">
+      <h2 class="text-3xl font-bold md:text-4xl">Bereit, eure Prozesse zu automatisieren?</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-cyan-50">
+        15 Minuten reichen fuer eine erste Einschaetzung. Kostenlos und unverbindlich.
+      </p>
+      <a
+        href="/kontakt"
+        data-track="hero_cta_clicked"
+        data-track-label="final-section"
+        class="mt-8 inline-block rounded-lg bg-white px-8 py-3 text-sm font-semibold text-blue-700 transition-colors hover:bg-cyan-50"
+      >
+        Erstgespraech buchen
+      </a>
+    </div>
+  </section>
 </Layout>
