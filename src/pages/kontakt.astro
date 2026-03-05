@@ -3,13 +3,13 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-  title="Kontakt & Erstgespraech | Contentfluss"
-  description="Kostenloses 15-Minuten-Erstgespraech buchen. Wir beraten deutschlandweit - remote oder vor Ort."
+  title="Kontakt & Erstgespräch | Contentfluss"
+  description="Kostenloses 15-Minuten-Erstgespräch buchen. Wir beraten deutschlandweit - remote oder vor Ort."
 >
   <section class="mx-auto w-full max-w-6xl px-6 pb-20 pt-16">
     <div class="mb-16">
-      <h1 class="text-4xl font-extrabold tracking-tight text-slate-900">Erstgespraech buchen</h1>
-      <p class="mb-8 mt-3 text-slate-600">Waehle einfach einen freien Slot - 15 Minuten, kostenlos und unverbindlich.</p>
+      <h1 class="text-4xl font-extrabold tracking-tight text-slate-900">Erstgespräch buchen</h1>
+      <p class="mb-8 mt-3 text-slate-600">Wähle einfach einen freien Slot - 15 Minuten, kostenlos und unverbindlich.</p>
       <div class="calendly-inline-widget overflow-hidden rounded-xl border border-slate-200" data-url="https://calendly.com/maikel-hannen/kostenloses-erstgesprach" style="min-width:320px;height:700px;"></div>
       <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async is:inline></script>
     </div>
@@ -22,9 +22,9 @@ import Layout from '../layouts/Layout.astro';
 
     <div class="grid gap-16 md:grid-cols-2">
       <div>
-        <h2 class="text-2xl font-bold text-slate-900">Gespaech anfragen</h2>
+        <h2 class="text-2xl font-bold text-slate-900">Gespräch anfragen</h2>
         <p class="mb-8 mt-4 leading-relaxed text-slate-600">
-          Wir arbeiten deutschlandweit - remote oder vor Ort. In 15 Minuten sehen wir, welche KI-Loesung fuer euren Betrieb sinnvoll ist.
+          Wir arbeiten deutschlandweit - remote oder vor Ort. In 15 Minuten sehen wir, welche KI-Lösung für euren Betrieb sinnvoll ist.
         </p>
 
         <div class="space-y-4 text-sm">
@@ -113,7 +113,7 @@ import Layout from '../layouts/Layout.astro';
 
           <p class="text-xs leading-relaxed text-slate-500">
             Mit dem Absenden stimmst du der Verarbeitung deiner Daten zur Bearbeitung der Anfrage zu.
-            Details in der <a href="/datenschutz" class="underline hover:text-slate-700">Datenschutzerklaerung</a>.
+            Details in der <a href="/datenschutz" class="underline hover:text-slate-700">Datenschutzerklärung</a>.
           </p>
         </form>
 
@@ -162,11 +162,11 @@ import Layout from '../layouts/Layout.astro';
 
   function mapApiError(code: string, fallback: string): string {
     if (code === 'NAME_REQUIRED') return 'Bitte gib deinen Namen ein.';
-    if (code === 'EMAIL_INVALID') return 'Bitte gib eine gueltige E-Mail-Adresse ein.';
+    if (code === 'EMAIL_INVALID') return 'Bitte gib eine gültige E-Mail-Adresse ein.';
     if (code === 'MESSAGE_TOO_SHORT') return 'Bitte beschreibe dein Anliegen in mindestens 20 Zeichen.';
     if (code === 'BOT_DETECTED') return 'Anfrage konnte nicht verarbeitet werden.';
     if (code === 'RATE_LIMITED') return 'Zu viele Anfragen. Bitte versuche es in einigen Minuten erneut.';
-    if (code === 'CONTACT_UNAVAILABLE') return 'Der Service ist aktuell nicht verfuegbar. Bitte schreibe direkt an hallo@contentfluss.de.';
+    if (code === 'CONTACT_UNAVAILABLE') return 'Der Service ist aktuell nicht verfügbar. Bitte schreibe direkt an hallo@contentfluss.de.';
     if (code === 'MAIL_SEND_FAILED') return 'E-Mail konnte nicht gesendet werden. Bitte versuche es erneut oder nutze hallo@contentfluss.de.';
     return fallback;
   }
@@ -183,7 +183,7 @@ import Layout from '../layouts/Layout.astro';
 
     if (website) return 'Anfrage konnte nicht verarbeitet werden.';
     if (!name) return 'Bitte gib deinen Namen ein.';
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Bitte gib eine gueltige E-Mail-Adresse ein.';
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Bitte gib eine gültige E-Mail-Adresse ein.';
     if (!nachricht || nachricht.length < 20) return 'Bitte beschreibe dein Anliegen in mindestens 20 Zeichen.';
 
     return null;
