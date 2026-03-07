@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { handwerkWorkflows } from '../lib/workflows';
+import { breadcrumbSchema, faqSchema, professionalServiceSchema } from '../lib/seo';
+
+const description =
+  'KI für Handwerksbetriebe: Contentfluss baut AI-Workflows für Anfrageautomatisierung, Angebotsnachverfolgung und Büroprozesse im Handwerk.';
+
+const faqItems = [
+  {
+    question: 'Brauchen wir neue Software?',
+    answer:
+      'Nicht zwingend. Wir prüfen zuerst euer bestehendes Setup und bauen darauf auf, bevor neue Tools ins Spiel kommen.',
+  },
+  {
+    question: 'Passt das zu unserem bestehenden Setup?',
+    answer:
+      'Ja, in den meisten Fällen. Wir binden vorhandene Systeme und Kommunikationskanäle an, statt alles neu aufzusetzen.',
+  },
+  {
+    question: 'Wie schnell ist ein erster Workflow live?',
+    answer:
+      'Ein erster klar abgegrenzter Workflow kann häufig in 2 bis 4 Wochen produktiv gehen, abhängig von Komplexität und Freigaben.',
+  },
+  {
+    question: 'Funktioniert das auch mit kleinem Team?',
+    answer:
+      'Ja. Gerade kleine Teams profitieren, weil wiederkehrende Kommunikation und Follow-ups nicht mehr manuell gebunden sind.',
+  },
+  {
+    question: 'Was können wir realistisch automatisieren?',
+    answer:
+      'Vor allem wiederkehrende, regelbasierte Abläufe wie Vorqualifikation, Follow-ups, Recall-Kommunikation und Terminabstimmungen.',
+  },
+];
+
+const simulatedSnapshots = [
+  {
+    title: 'Anfrageannahme',
+    situation: 'Hohe Zahl unvollständiger Erstkontakte über mehrere Kanäle.',
+    impact: 'Simulierter Zielkorridor: 25-40 % weniger Rückfragen in der Erstaufnahme.',
+  },
+  {
+    title: 'Angebots-Follow-up',
+    situation: 'Nachfassen erfolgt unregelmäßig, offene Angebote bleiben liegen.',
+    impact: 'Simulierter Zielkorridor: 20-35 % höhere Follow-up-Quote.',
+  },
+  {
+    title: 'Wartungs-Recall',
+    situation: 'Bestandskunden werden zu selten aktiv an Serviceintervalle erinnert.',
+    impact: 'Simulierter Zielkorridor: 15-30 % mehr aktivierte Recall-Kontakte.',
+  },
+];
+
+const structuredData = [
+  professionalServiceSchema('/handwerk', description),
+  breadcrumbSchema([
+    { name: 'Startseite', path: '/' },
+    { name: 'Handwerk', path: '/handwerk' },
+  ]),
+  faqSchema(faqItems),
+];
+---
+
+<Layout
+  title="KI für Handwerksbetriebe | AI Workflows Handwerk"
+  description={description}
+  canonicalPath="/handwerk"
+  structuredData={structuredData}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">AI-Workflows für Handwerksbetriebe</p>
+        <h1>Weniger Büroaufwand. Schnellere Reaktion. Mehr aus euren Anfragen und Angeboten.</h1>
+        <p class="lead">
+          Contentfluss baut AI-gestützte Workflows für Handwerksbetriebe, damit Anfrageannahme,
+          Angebotsnachverfolgung, Service-Kommunikation und Büroprozesse sauberer laufen.
+        </p>
+        <div class="button-row">
+          <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="handwerk_hero_erstgespraech">
+            Erstgespräch buchen
+          </a>
+          <a href="/workflows" class="btn btn-secondary" data-track="cta_clicked" data-track-label="handwerk_hero_workflows">
+            Workflows ansehen
+          </a>
+        </div>
+      </div>
+
+      <aside class="workflow-visual" data-reveal>
+        <header>
+          <strong>Typische Hebel im Handwerk</strong>
+          <span>Büro + Außendienst</span>
+        </header>
+        <ul class="metric-list">
+          <li>Anfragen vollständig statt Rückrufschleifen</li>
+          <li>Folgetermine und Recall aktiv statt zufällig</li>
+          <li>Angebotsstatus mit klaren Wiedervorlagen</li>
+          <li>Weniger Abstimmung zwischen Büro und Team</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2>Typische Engpässe im Handwerk</h2>
+      </div>
+      <div class="card surface" data-reveal style="padding: 1.3rem;">
+        <ul class="list">
+          <li>Anfragen kommen unvollständig rein</li>
+          <li>Angebote werden nicht konsequent nachverfolgt</li>
+          <li>Wartungen werden nicht aktiv reaktiviert</li>
+          <li>Rechnungen und Zahlungserinnerungen kosten Zeit</li>
+          <li>Büro und Außendienst kommunizieren zu viel manuell</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2>Unsere 5 Workflow-Lösungen für Handwerk</h2>
+        <p>Jeder Workflow ist auf wiederkehrende Engpässe im operativen Alltag ausgerichtet.</p>
+      </div>
+
+      <div class="card-grid two">
+        {handwerkWorkflows.map((workflow) => (
+          <article class="card" data-reveal>
+            <h3>{workflow.name}</h3>
+            <p>{workflow.short}</p>
+            <p style="margin-top: 0.8rem;"><strong>Für wen:</strong> {workflow.who}</p>
+            <p style="margin-top: 0.55rem;"><strong>Typischer Effekt:</strong> {workflow.effect}</p>
+            <div class="button-row">
+              <a
+                href={`/kontakt?workflow=${workflow.slug}`}
+                class="btn btn-ghost"
+                data-track="workflow_cta_clicked"
+                data-track-label={`handwerk_${workflow.slug}`}
+              >
+                Workflow besprechen
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2>So sieht die Zusammenarbeit aus</h2>
+      </div>
+
+      <div class="card-grid three">
+        <article class="card" data-reveal>
+          <span class="kicker-number">1</span>
+          <h3 style="margin-top: 0.8rem;">Audit</h3>
+          <p>Wir analysieren den Ist-Prozess und priorisieren den größten Hebel.</p>
+        </article>
+        <article class="card" data-reveal>
+          <span class="kicker-number">2</span>
+          <h3 style="margin-top: 0.8rem;">Build</h3>
+          <p>Wir setzen den Workflow um, testen mit eurem Team und gehen live.</p>
+        </article>
+        <article class="card" data-reveal>
+          <span class="kicker-number">3</span>
+          <h3 style="margin-top: 0.8rem;">Betrieb</h3>
+          <p>Wir optimieren weiter, monitoren Stabilität und dokumentieren sauber.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2>Preislogik</h2>
+        <p>Projektbezogene Orientierung, keine starren Billigpakete.</p>
+      </div>
+
+      <div class="card-grid three">
+        <article class="card card-accent" data-reveal>
+          <h3>Workflow-Audit</h3>
+          <p class="price-badge">ab 590 € einmalig</p>
+          <p>Diagnose, Prozessanalyse und klare Priorisierung. Bei Projektstart anrechenbar.</p>
+        </article>
+
+        <article class="card card-accent" data-reveal>
+          <h3>Build / Umsetzung</h3>
+          <p class="price-badge">ab 2.900 €</p>
+          <p>Konkreter Workflow live, inkl. Tests, Übergabe und sauberer Dokumentation.</p>
+        </article>
+
+        <article class="card card-accent" data-reveal>
+          <h3>Betrieb / Optimierung</h3>
+          <p class="price-badge">ab 490 €/Monat</p>
+          <p>Monitoring, Anpassungen und Weiterentwicklung nach Bedarf.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2>Beispielhafte Wirkungsbilder</h2>
+        <p>Transparente Simulationen zur Einordnung, keine veröffentlichten Kunden-Referenzen.</p>
+      </div>
+
+      <div class="card-grid three">
+        {simulatedSnapshots.map((item) => (
+          <article class="card card-muted" data-reveal>
+            <span class="chip">Simulation</span>
+            <h3>{item.title}</h3>
+            <p style="margin-top: 0.6rem;"><strong>Ausgangslage:</strong> {item.situation}</p>
+            <p style="margin-top: 0.55rem;"><strong>Orientierung:</strong> {item.impact}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2>FAQ Handwerk</h2>
+      </div>
+
+      <div class="faq-list">
+        {faqItems.map((faq) => (
+          <details data-reveal>
+            <summary>{faq.question}</summary>
+            <p>{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+
+      <div class="button-row" data-reveal>
+        <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="handwerk_final_cta">
+          Jetzt Handwerks-Workflow besprechen
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

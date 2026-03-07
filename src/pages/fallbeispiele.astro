@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
+
+const description =
+  'Beispiel-Workflows von Contentfluss: transparente Vorher/Nachher-Setups für Handwerk und Immobilienverwaltung ohne erfundene Referenzen.';
+
+const useCases = [
+  {
+    title: 'Handwerk: Anfrageannahme mit Vorqualifikation',
+    before:
+      'Neue Anfragen kommen über mehrere Kanäle rein. Pflichtinformationen fehlen häufig und Rückfragen verzögern den Start.',
+    setup:
+      'Eingänge werden in ein strukturiertes Intake überführt, automatisch kategorisiert und mit Priorität an das Büro übergeben.',
+    possibleResult:
+      'Schnellere Erstreaktion, weniger manuelle Rückfragen und klarere Bearbeitung je Anfrage.',
+    simulatedImpact: 'Simulierte Orientierung: 25-40 % weniger Rückfragen in der Erstaufnahme.',
+  },
+  {
+    title: 'Handwerk: Angebots-Follow-up mit Wiedervorlage',
+    before:
+      'Angebote werden einzeln manuell nachgehalten. Follow-ups erfolgen unregelmäßig und Chancen gehen verloren.',
+    setup:
+      'Angebote erhalten statusabhängige Follow-up-Strecken inklusive Erinnerung und Eskalation bei Inaktivität.',
+    possibleResult:
+      'Mehr Rückläufe auf Angebote und weniger Verwaltungsaufwand pro offenem Vorgang.',
+    simulatedImpact: 'Simulierte Orientierung: 20-35 % höhere Follow-up-Quote.',
+  },
+  {
+    title: 'Immobilienverwaltung: Schadenmeldung & Triage',
+    before:
+      'Schadenmeldungen enthalten oft unvollständige Informationen und verursachen lange Klärungsschleifen.',
+    setup:
+      'Meldungen werden auf Vollständigkeit geprüft, priorisiert und mit relevanten Daten in den Bearbeitungsprozess überführt.',
+    possibleResult:
+      'Schnellere Bearbeitung und entlastete Sachbearbeitung bei parallelen Fällen.',
+    simulatedImpact: 'Simulierte Orientierung: 30-50 % weniger Nachforderungen je Schadenfall.',
+  },
+  {
+    title: 'Immobilienverwaltung: Inbox-Triage',
+    before:
+      'Postfächer sind überlastet. Wichtige Vorgänge werden zu spät erkannt und Zuständigkeiten sind unklar.',
+    setup:
+      'E-Mails werden automatisch nach Anliegen, Dringlichkeit und Objektbezug geordnet und zuständig verteilt.',
+    possibleResult:
+      'Weniger Kommunikationschaos und verlässlichere Reaktionszeiten im Tagesgeschäft.',
+    simulatedImpact: 'Simulierte Orientierung: 20-35 % kürzere Erstreaktionszeit in der Inbox.',
+  },
+];
+
+const structuredData = [
+  professionalServiceSchema('/fallbeispiele', description),
+  breadcrumbSchema([
+    { name: 'Startseite', path: '/' },
+    { name: 'Fallbeispiele', path: '/fallbeispiele' },
+  ]),
+];
+---
+
+<Layout
+  title="Fallbeispiele | Beispiel-Workflows"
+  description={description}
+  canonicalPath="/fallbeispiele"
+  structuredData={structuredData}
+>
+  <section class="hero">
+    <div class="container" data-reveal>
+      <p class="eyebrow">Beispiel-Setups</p>
+      <h1>Typische Einsatzfelder aus der Praxis</h1>
+      <p class="lead">
+        Diese Beispiele sind bewusst als mögliche Setups formuliert. Sie zeigen typische Abläufe,
+        nicht erfundene Kundenreferenzen.
+      </p>
+      <p style="margin-top: 0.7rem; color: var(--color-muted);">
+        Alle KPI-Angaben auf dieser Seite sind klar gekennzeichnete Simulationen zur Einordnung.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container card-grid two">
+      {useCases.map((caseItem) => (
+        <article class="card" data-reveal>
+          <h2 style="font-size: 1.4rem;">{caseItem.title}</h2>
+          <p style="margin-top: 0.75rem;"><strong>Ausgangslage:</strong> {caseItem.before}</p>
+          <p style="margin-top: 0.55rem;"><strong>Beispiel-Setup:</strong> {caseItem.setup}</p>
+          <p style="margin-top: 0.55rem;"><strong>Mögliche Wirkung:</strong> {caseItem.possibleResult}</p>
+          <p style="margin-top: 0.55rem;"><strong>Simulierte KPI-Orientierung:</strong> {caseItem.simulatedImpact}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
+      <h2>Euer konkreter Ablauf ist anders?</h2>
+      <p class="lead">
+        Im Erstgespräch prüfen wir euren tatsächlichen Prozess und leiten daraus ein passendes Setup ab.
+      </p>
+      <div class="button-row">
+        <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="cases_final_cta">
+          Workflow besprechen
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

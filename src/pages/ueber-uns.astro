@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
+
+const description =
+  'Über Contentfluss: Maikel Hannen verbindet operative Prozessklarheit mit moderner AI-Umsetzung für Handwerk und Immobilienverwaltung.';
+
+const structuredData = [
+  professionalServiceSchema('/ueber-uns', description),
+  breadcrumbSchema([
+    { name: 'Startseite', path: '/' },
+    { name: 'Über uns', path: '/ueber-uns' },
+  ]),
+];
+---
+
+<Layout
+  title="Über uns | Contentfluss"
+  description={description}
+  canonicalPath="/ueber-uns"
+  structuredData={structuredData}
+>
+  <section class="hero">
+    <div class="container" data-reveal>
+      <p class="eyebrow">Über Contentfluss</p>
+      <h1>Contentfluss verbindet operative Klarheit mit moderner AI-Umsetzung</h1>
+      <p class="lead">
+        Wir bauen keine Showcases, sondern Workflows, die Unternehmen im Alltag wirklich entlasten.
+      </p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container split two">
+      <article class="card" data-reveal>
+        <h2>Wer dahintersteht</h2>
+        <p class="lead" style="margin-top: 0.7rem;">
+          Ich bin Maikel Hannen.
+        </p>
+        <p style="margin-top: 0.65rem; color: var(--color-muted);">
+          Ich helfe Unternehmen dabei, sinnvolle AI-Workflows in reale Prozesse zu bringen – pragmatisch,
+          verständlich und ohne unnötigen Tech-Overload. Mich interessiert nicht, welche Tool-Demo gerade am lautesten ist,
+          sondern was im Alltag wirklich Zeit spart, Klarheit bringt und sauber läuft.
+        </p>
+        <p style="margin-top: 0.65rem; color: var(--color-muted);">
+          Contentfluss arbeitet fokussiert für Handwerk und Immobilienverwaltung, deutschlandweit remote oder vor Ort.
+        </p>
+      </article>
+
+      <article class="card card-muted" data-reveal>
+        <h2>Wie wir arbeiten</h2>
+        <ul class="list list-check" style="margin-top: 0.8rem;">
+          <li>Vom Prozess aus denken</li>
+          <li>Klein starten, sauber live bringen</li>
+          <li>Nicht überautomatisieren</li>
+          <li>Offen kommunizieren</li>
+          <li>Dokumentieren und übergeben</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2>Wofür Contentfluss steht</h2>
+      </div>
+
+      <div class="card-grid four">
+        <article class="card" data-reveal>
+          <h3>Klarheit</h3>
+          <p>Eindeutige Prioritäten statt vager Roadmaps.</p>
+        </article>
+        <article class="card" data-reveal>
+          <h3>Pragmatismus</h3>
+          <p>Nur das bauen, was im Betrieb wirklich hilft.</p>
+        </article>
+        <article class="card" data-reveal>
+          <h3>Qualität</h3>
+          <p>Saubere Umsetzung, dokumentierte Übergabe, verlässliche Standards.</p>
+        </article>
+        <article class="card" data-reveal>
+          <h3>Verlässlichkeit</h3>
+          <p>Kurze Wege, realistische Aussagen, belastbare Zusammenarbeit.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container" data-reveal>
+      <article class="card card-accent">
+        <h2>So könnte ein erstes Projekt aussehen</h2>
+        <p class="lead" style="margin-top: 0.6rem;">
+          Beispielhafter Ablauf ohne Fake-Case:
+        </p>
+        <ul class="list" style="margin-top: 0.9rem;">
+          <li><strong>Woche 1:</strong> Audit-Gespräch, Prozessaufnahme, Priorisierung.</li>
+          <li><strong>Woche 2-3:</strong> Workflow-Design, technische Umsetzung, Abstimmung mit dem Team.</li>
+          <li><strong>Woche 4:</strong> Livegang, Monitoring, Feinschliff und Übergabe.</li>
+        </ul>
+      </article>
+
+      <div class="button-row">
+        <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="about_final_cta">
+          Erstgespräch buchen
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

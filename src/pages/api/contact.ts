@@ -5,9 +5,14 @@ export const prerender = false;
 
 type ContactBody = {
   name?: unknown;
+  company?: unknown;
   email?: unknown;
-  betrieb?: unknown;
-  nachricht?: unknown;
+  branche?: unknown;
+  teamgroesse?: unknown;
+  engpass?: unknown;
+  ziel?: unknown;
+  audit?: unknown;
+  consent?: unknown;
   website?: unknown;
 };
 
@@ -16,8 +21,10 @@ type ApiError = { success: false; error: string; code: string };
 
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
-const MIN_MESSAGE_LENGTH = 20;
-const MAX_MESSAGE_LENGTH = 4000;
+const MIN_ENGPASS_LENGTH = 15;
+const MIN_ZIEL_LENGTH = 20;
+const MAX_TEXT_LENGTH = 4000;
+const ALLOWED_BRANCHES = new Set(['handwerk', 'immobilienverwaltung', 'sonstiges']);
 const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
 
 function json(status: number, payload: ApiSuccess | ApiError) {
@@ -34,6 +41,12 @@ function normalizeText(value: unknown, maxLength: number): string {
     .replace(/\r/g, '')
     .replace(/\u0000/g, '')
     .slice(0, maxLength);
+}
+
+function normalizeBoolean(value: unknown): boolean {
+  if (typeof value !== 'string') return false;
+  const normalized = value.trim().toLowerCase();
+  return normalized === 'true' || normalized === '1' || normalized === 'on' || normalized === 'yes';
 }
 
 function escapeHtml(value: string): string {
@@ -72,6 +85,12 @@ function isRateLimited(key: string): boolean {
   record.count += 1;
   rateLimitStore.set(key, record);
   return false;
+}
+
+function branchLabel(branche: string): string {
+  if (branche === 'handwerk') return 'Handwerk';
+  if (branche === 'immobilienverwaltung') return 'Immobilienverwaltung';
+  return 'Sonstiges';
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -115,15 +134,28 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const name = normalizeText(body.name, 120);
+  const company = normalizeText(body.company, 160);
   const email = normalizeText(body.email, 254);
-  const betrieb = normalizeText(body.betrieb, 160);
-  const nachricht = normalizeText(body.nachricht, MAX_MESSAGE_LENGTH);
+  const branche = normalizeText(body.branche, 60).toLowerCase();
+  const teamgroesse = normalizeText(body.teamgroesse, 120);
+  const engpass = normalizeText(body.engpass, MAX_TEXT_LENGTH);
+  const ziel = normalizeText(body.ziel, MAX_TEXT_LENGTH);
+  const auditWanted = normalizeBoolean(body.audit);
+  const consent = normalizeBoolean(body.consent);
 
   if (!name) {
     return json(400, {
       success: false,
       error: 'Bitte gib deinen Namen ein.',
       code: 'NAME_REQUIRED',
+    });
+  }
+
+  if (!company) {
+    return json(400, {
+      success: false,
+      error: 'Bitte gib dein Unternehmen ein.',
+      code: 'COMPANY_REQUIRED',
     });
   }
 
@@ -135,27 +167,50 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  if (!nachricht || nachricht.length < MIN_MESSAGE_LENGTH) {
+  if (!ALLOWED_BRANCHES.has(branche)) {
     return json(400, {
       success: false,
-      error: 'Bitte beschreibe dein Anliegen in mindestens 20 Zeichen.',
+      error: 'Bitte wähle eine gültige Branche aus.',
+      code: 'BRANCH_INVALID',
+    });
+  }
+
+  if (!engpass || engpass.length < MIN_ENGPASS_LENGTH || !ziel || ziel.length < MIN_ZIEL_LENGTH) {
+    return json(400, {
+      success: false,
+      error: 'Bitte beschreibe Engpass und Ziel ausführlicher.',
       code: 'MESSAGE_TOO_SHORT',
     });
   }
 
+  if (!consent) {
+    return json(400, {
+      success: false,
+      error: 'Bitte bestätige die Datenschutzeinwilligung.',
+      code: 'CONSENT_REQUIRED',
+    });
+  }
+
   const resend = new Resend(apiKey);
-  const escapedNachricht = escapeHtml(nachricht).replace(/\n/g, '<br>');
+  const escapedEngpass = escapeHtml(engpass).replace(/\n/g, '<br>');
+  const escapedZiel = escapeHtml(ziel).replace(/\n/g, '<br>');
+
   const { error } = await resend.emails.send({
     from: 'Contentfluss Kontaktformular <hallo@contentfluss.de>',
     to: ['hallo@contentfluss.de'],
     replyTo: email,
-    subject: `Neue Anfrage von ${name}${betrieb ? ` (${betrieb})` : ''}`,
+    subject: `Neue Anfrage (${branchLabel(branche)}) - ${company}`,
     html: `
       <h2>Neue Kontaktanfrage über contentfluss.de</h2>
       <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+      <p><strong>Unternehmen:</strong> ${escapeHtml(company)}</p>
       <p><strong>E-Mail:</strong> ${escapeHtml(email)}</p>
-      ${betrieb ? `<p><strong>Betrieb:</strong> ${escapeHtml(betrieb)}</p>` : ''}
-      <p><strong>Nachricht:</strong><br>${escapedNachricht}</p>
+      <p><strong>Branche:</strong> ${escapeHtml(branchLabel(branche))}</p>
+      ${teamgroesse ? `<p><strong>Teamgröße:</strong> ${escapeHtml(teamgroesse)}</p>` : ''}
+      <p><strong>Aktueller Engpass:</strong><br>${escapedEngpass}</p>
+      <p><strong>Ziel / gewünschte Verbesserung:</strong><br>${escapedZiel}</p>
+      <p><strong>Workflow-Audit gewünscht:</strong> ${auditWanted ? 'Ja' : 'Nein'}</p>
+      <p><strong>Datenschutzeinwilligung:</strong> ${consent ? 'Ja' : 'Nein'}</p>
     `,
   });
 

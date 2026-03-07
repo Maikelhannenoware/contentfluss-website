@@ -1,196 +1,390 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import {
+  handwerkWorkflows,
+  immobilienverwaltungWorkflows,
+  featuredWorkflowIds,
+  type WorkflowDefinition,
+} from '../lib/workflows';
+import { professionalServiceSchema } from '../lib/seo';
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: 'Contentfluss',
-  description: 'KI-Automatisierung und Beratung für KMU in Deutschland',
-  url: 'https://contentfluss.de',
-  email: 'hallo@contentfluss.de',
-  areaServed: 'Deutschland',
-  serviceType: ['KI-Workflow-Automatisierung', 'KI-Beratung', 'Content-Marketing'],
-};
+const description =
+  'Contentfluss ist AI-Operations-Partner für Handwerk und Immobilienverwaltung. Wir bauen Workflows, die Bürochaos reduzieren, Abläufe beschleunigen und messbar entlasten.';
+
+const workflowMap = new Map(
+  [...handwerkWorkflows, ...immobilienverwaltungWorkflows].map((workflow) => [workflow.slug, workflow])
+);
+
+const featuredWorkflows = featuredWorkflowIds
+  .map((slug) => workflowMap.get(slug))
+  .filter((workflow): workflow is WorkflowDefinition => workflow !== undefined)
+  .map((workflow) => ({
+    ...workflow,
+    vertical: handwerkWorkflows.some((entry) => entry.slug === workflow.slug)
+      ? 'Handwerk'
+      : 'Immobilienverwaltung',
+  }));
+
+const proofExamples = [
+  {
+    before: 'Anfragen kommen per Mail, Telefon und Messenger unsortiert rein.',
+    after: 'Der Eingang wird automatisch kategorisiert, priorisiert und als sauberer Task vorbereitet.',
+  },
+  {
+    before: 'Offene Angebote werden manuell nachgehalten und geraten aus dem Blick.',
+    after: 'Follow-ups laufen strukturiert nach Zeitplan mit klaren Wiedervorlagen.',
+  },
+  {
+    before: 'Schadenmeldungen sind unvollständig und führen zu langen Rückfragen.',
+    after: 'Pflichtinfos werden vorqualifiziert, damit Vorgänge schneller bearbeitet werden können.',
+  },
+];
+
+const simulatedProofCases = [
+  {
+    title: 'Handwerk: Anfrageannahme',
+    input: 'Bei rund 90 Anfragen pro Monat fehlen in der Ausgangslage oft Pflichtinfos.',
+    effect: 'Mit strukturiertem Intake sinkt der Rückfrageaufwand deutlich und Anfragen werden schneller verteilt.',
+    corridor: 'Simulierter Zielkorridor: 25-40 % weniger Rückfragen in der Erstbearbeitung.',
+  },
+  {
+    title: 'Handwerk: Angebots-Follow-up',
+    input: 'Bei vielen offenen Angeboten gehen Nachfassungen im Tagesgeschäft unter.',
+    effect: 'Mit klarer Follow-up-Logik steigen Kontaktquote und Verbindlichkeit in der Nachverfolgung.',
+    corridor: 'Simulierter Zielkorridor: 20-35 % höhere Follow-up-Quote.',
+  },
+  {
+    title: 'Immobilienverwaltung: Schaden-Triage',
+    input: 'Unvollständige Meldungen erzeugen lange Schleifen mit Mietern und Dienstleistern.',
+    effect: 'Vorqualifizierte Eingänge machen die Erstbearbeitung und Priorisierung deutlich robuster.',
+    corridor: 'Simulierter Zielkorridor: 30-50 % weniger Nachforderungen je Vorgang.',
+  },
+];
+
+const structuredData = [professionalServiceSchema('/', description)];
 ---
 
 <Layout
-  title="Contentfluss - KI-Automatisierung für Unternehmen"
-  description="Wir automatisieren Geschäftsprozesse mit KI - pragmatisch, messbar und DSGVO-konform. Kostenloses Erstgespräch in 15 Minuten."
+  title="Contentfluss | AI-Operations für Handwerk & Immobilienverwaltung"
+  description={description}
+  canonicalPath="/"
+  structuredData={structuredData}
 >
-  <Fragment slot="head">
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)}></script>
-  </Fragment>
-
-  <section class="bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white">
-    <div class="mx-auto w-full max-w-6xl px-6 pb-24 pt-24 md:pb-28 md:pt-28">
-      <div class="max-w-3xl">
-        <span class="hero-shimmer relative mb-5 inline-flex items-center gap-2 rounded-full border border-cyan-300/35 bg-cyan-400/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-cyan-200">
-          KI-Automatisierung für KMU
-        </span>
-        <h1 class="text-4xl font-extrabold leading-tight tracking-tight md:text-6xl">Weniger Routine. Mehr Wachstum.</h1>
-        <p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-200 md:text-xl">
-          Wir helfen Unternehmen, zeitfressende Prozesse mit KI zu automatisieren - pragmatisch, messbar und DSGVO-konform.
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">AI-Operations für Handwerk & Immobilienverwaltung</p>
+        <h1>Weniger Bürochaos. Schnellere Abläufe. Mehr erledigt.</h1>
+        <p class="lead">
+          Contentfluss baut AI-gestützte Workflows für Handwerksbetriebe und Immobilienverwaltungen,
+          damit Anfragen, Angebote, Meldungen und Kommunikation nicht mehr im Alltag stecken bleiben.
         </p>
-        <div class="mt-10 flex flex-wrap gap-4">
+        <div class="button-row">
           <a
             href="/kontakt"
-            data-track="hero_cta_clicked"
-            data-track-label="hero-primary"
-            class="btn-primary rounded-lg px-7 py-3.5 text-sm font-semibold text-white"
+            class="btn btn-primary"
+            data-track="cta_clicked"
+            data-track-label="home_hero_erstgespraech"
           >
-            Kostenloses Erstgespräch buchen
+            Erstgespräch buchen
           </a>
           <a
-            href="#prozess"
-            data-track="hero_cta_clicked"
-            data-track-label="hero-secondary"
-            class="rounded-lg border border-slate-400/40 px-7 py-3.5 text-sm font-semibold text-slate-100 transition-colors hover:border-cyan-300/70 hover:text-white"
+            href="/workflows"
+            class="btn btn-secondary"
+            data-track="cta_clicked"
+            data-track-label="home_hero_loesungen"
           >
-            So funktioniert's
+            Lösungen ansehen
           </a>
         </div>
+        <p class="trustline">Pragmatisch. DSGVO-orientiert. Ohne unnötigen Tool-Zirkus.</p>
+      </div>
+
+      <aside class="workflow-visual" aria-label="Beispiel eines Workflow-Dashboards" data-reveal>
+        <header>
+          <strong>Operatives Dashboard</strong>
+          <span>Demo-Ansicht</span>
+        </header>
+        <div class="metric-grid">
+          <div class="metric">
+            <span>Neue Anfragen</span>
+            <strong>18</strong>
+          </div>
+          <div class="metric">
+            <span>Angebote offen</span>
+            <strong>7</strong>
+          </div>
+          <div class="metric">
+            <span>Tickets priorisiert</span>
+            <strong>24</strong>
+          </div>
+          <div class="metric">
+            <span>Follow-ups heute</span>
+            <strong>11</strong>
+          </div>
+        </div>
+        <ul class="metric-list">
+          <li>Schadenmeldungen automatisch vorqualifiziert</li>
+          <li>Dispo-Updates in Echtzeit ans Team gesendet</li>
+          <li>Heute automatisiert erledigt: Demo-Zähler</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container value-bar">
+      <div class="value-pill" data-reveal>Fokus auf Handwerk & Immobilienverwaltung</div>
+      <div class="value-pill" data-reveal>Messbare Entlastung statt KI-Spielerei</div>
+      <div class="value-pill" data-reveal>Offene Lösungen ohne unnötigen Vendor Lock-in</div>
+      <div class="value-pill" data-reveal>Deutschlandweit, remote oder vor Ort</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split two">
+      <article class="card card-muted" data-reveal>
+        <p class="eyebrow">Wo Prozesse heute hängen bleiben</p>
+        <h2>Viele operative Teams verlieren Zeit an Wiederholung</h2>
+        <p class="lead">
+          Viele Betriebe und Verwaltungen verlieren täglich Zeit in wiederkehrender Kommunikation,
+          manuellen Rückfragen und unstrukturierten Abläufen.
+        </p>
+        <ul class="list">
+          <li>Anfragen bleiben liegen</li>
+          <li>Angebote werden nicht nachverfolgt</li>
+          <li>Schadenmeldungen sind unvollständig</li>
+          <li>E-Mails und Telefonate reißen das Team auseinander</li>
+          <li>Rückfragen und Abstimmungen kosten zu viel Zeit</li>
+        </ul>
+      </article>
+
+      <article class="card card-accent" data-reveal>
+        <p class="eyebrow">Was Contentfluss daraus macht</p>
+        <h2>Struktur statt Kommunikationschaos</h2>
+        <p class="lead">Genau dort setzen wir an: in den Engpässen, die jeden Tag wirklich Zeit kosten.</p>
+        <ul class="list list-check">
+          <li>Strukturierte Eingänge</li>
+          <li>Automatische Vorqualifikation</li>
+          <li>Intelligentes Nachfassen</li>
+          <li>Klare Zuständigkeiten</li>
+          <li>Saubere Follow-ups</li>
+          <li>Messbare Entlastung im Alltag</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Spezialisiert auf zwei operative Umfelder</p>
+        <h2>Klare Branchenfokussierung statt Bauchladen</h2>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card" data-reveal>
+          <h3>Handwerk</h3>
+          <p>
+            Für Betriebe, die Anfragen schneller bearbeiten, Angebote besser nachverfolgen und
+            Büroprozesse sauberer organisieren wollen.
+          </p>
+          <div class="button-row">
+            <a
+              href="/handwerk"
+              class="btn btn-secondary"
+              data-track="vertical_page_clicked"
+              data-track-label="home_handwerk"
+            >
+              Für Handwerksbetriebe
+            </a>
+          </div>
+        </article>
+
+        <article class="card" data-reveal>
+          <h3>Immobilienverwaltung</h3>
+          <p>
+            Für Verwaltungen, die E-Mail-Chaos reduzieren, Schadenmeldungen strukturieren und
+            Kommunikation spürbar entlasten wollen.
+          </p>
+          <div class="button-row">
+            <a
+              href="/immobilienverwaltung"
+              class="btn btn-secondary"
+              data-track="vertical_page_clicked"
+              data-track-label="home_immobilienverwaltung"
+            >
+              Für Immobilienverwaltungen
+            </a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <section class="mx-auto w-full max-w-6xl px-6 py-20">
-    <div class="grid gap-6 md:grid-cols-3">
-      <div class="fade-in rounded-xl border border-slate-200 bg-white p-6 card-hover">
-        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-500">Antwort in 24h</p>
-        <p class="text-sm leading-relaxed text-slate-600">Schnelle Kommunikation, keine Warteschleifen.</p>
-      </div>
-      <div class="fade-in rounded-xl border border-slate-200 bg-white p-6 card-hover">
-        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-500">DSGVO-konform</p>
-        <p class="text-sm leading-relaxed text-slate-600">Alle Lösungen auf deutschen/EU-Servern.</p>
-      </div>
-      <div class="fade-in rounded-xl border border-slate-200 bg-white p-6 card-hover">
-        <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-500">Kein Vendor Lock-in</p>
-        <p class="text-sm leading-relaxed text-slate-600">Offene Lösungen, die euch gehören.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="prozess" class="mx-auto w-full max-w-6xl px-6 py-20">
-    <h2 class="text-center text-3xl font-bold md:text-4xl">In 3 Schritten zur KI-Automatisierung</h2>
-    <p class="mx-auto mt-3 max-w-2xl text-center text-slate-600">
-      Von der Analyse bis zum fertigen Workflow - strukturiert und transparent.
-    </p>
-
-    <div class="mt-12 grid gap-6 md:grid-cols-3">
-      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
-        <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-cyan-700">Schritt 1</p>
-        <h3 class="text-xl font-semibold text-slate-900">Analyse</h3>
-        <p class="mt-3 text-sm leading-relaxed text-slate-600">
-          Wir schauen gemeinsam auf eure Prozesse und identifizieren, wo KI den größten Hebel hat.
-        </p>
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Beispiele für Workflows mit echtem Hebel</p>
+        <h2>Kuratiert für Handwerk und Immobilienverwaltung</h2>
       </div>
 
-      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
-        <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-cyan-700">Schritt 2</p>
-        <h3 class="text-xl font-semibold text-slate-900">Aufbau</h3>
-        <p class="mt-3 text-sm leading-relaxed text-slate-600">
-          Wir bauen den KI-Workflow, testen ihn mit eurem Team und optimieren ihn, bis er sitzt.
-        </p>
-      </div>
-
-      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
-        <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-cyan-700">Schritt 3</p>
-        <h3 class="text-xl font-semibold text-slate-900">Betrieb</h3>
-        <p class="mt-3 text-sm leading-relaxed text-slate-600">
-          Euer automatisierter Prozess läuft - mit Support und Monitoring, solange ihr wollt.
-        </p>
+      <div class="card-grid three">
+        {featuredWorkflows.map((workflow) => (
+          <article class="card" data-reveal>
+            <span class="chip">{workflow.vertical}</span>
+            <h3>{workflow.name}</h3>
+            <p>{workflow.short}</p>
+            <ul class="list list-check" style="margin-top: 0.9rem;">
+              {workflow.benefits.map((benefit) => (
+                <li>{benefit}</li>
+              ))}
+            </ul>
+            <div class="button-row">
+              <a
+                href={`/kontakt?workflow=${workflow.slug}`}
+                class="btn btn-ghost"
+                data-track="workflow_cta_clicked"
+                data-track-label={`home_${workflow.slug}`}
+              >
+                Workflow besprechen
+              </a>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="mx-auto w-full max-w-6xl px-6 py-20">
-    <h2 class="text-3xl font-bold md:text-4xl">Was wir für euch tun</h2>
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">So läuft ein Projekt mit uns ab</p>
+        <h2>Audit. Build. Betrieb.</h2>
+      </div>
 
-    <div class="mt-10 grid gap-6 md:grid-cols-3">
-      <a href="/leistungen#automatisierung" class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
-        <p class="text-sm font-semibold uppercase tracking-widest text-cyan-700">01</p>
-        <h3 class="mt-2 text-xl font-semibold text-slate-900">KI-Workflow-Automatisierung</h3>
-        <p class="mt-3 text-sm leading-relaxed text-slate-600">
-          Wiederkehrende Aufgaben identifizieren und mit KI-Agenten automatisieren - von Angeboten bis Kundensupport.
-        </p>
-      </a>
-
-      <a href="/leistungen#beratung" class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
-        <p class="text-sm font-semibold uppercase tracking-widest text-cyan-700">02</p>
-        <h3 class="mt-2 text-xl font-semibold text-slate-900">KI-Beratung & Strategie</h3>
-        <p class="mt-3 text-sm leading-relaxed text-slate-600">
-          Verstehen, wo KI in eurem Unternehmen Sinn macht: Tool-Auswahl, Roadmap und Team-Schulung.
-        </p>
-      </a>
-
-      <a href="/leistungen#content" class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
-        <p class="text-sm font-semibold uppercase tracking-widest text-cyan-700">03</p>
-        <h3 class="mt-2 text-xl font-semibold text-slate-900">Content-Marketing</h3>
-        <p class="mt-3 text-sm leading-relaxed text-slate-600">
-          Regelmäßiger Text-Content für Social Media, Newsletter und Website - strategisch und konsistent.
-        </p>
-      </a>
+      <div class="card-grid three">
+        <article class="card" data-reveal>
+          <span class="kicker-number">1</span>
+          <h3 style="margin-top: 0.8rem;">Audit</h3>
+          <p>Wir schauen auf euren Prozess, die Engpässe und den größten Hebel.</p>
+        </article>
+        <article class="card" data-reveal>
+          <span class="kicker-number">2</span>
+          <h3 style="margin-top: 0.8rem;">Build</h3>
+          <p>Wir bauen den Workflow, testen ihn mit euch und bringen ihn produktiv.</p>
+        </article>
+        <article class="card" data-reveal>
+          <span class="kicker-number">3</span>
+          <h3 style="margin-top: 0.8rem;">Betrieb</h3>
+          <p>Wir betreuen, optimieren und entwickeln weiter – nur wenn sinnvoll.</p>
+        </article>
+      </div>
     </div>
   </section>
 
-  <section class="bg-white py-20">
-    <div class="mx-auto w-full max-w-6xl px-6">
-      <h2 class="text-center text-3xl font-bold md:text-4xl">Branchen, die wir kennen</h2>
-      <p class="mx-auto mt-3 max-w-3xl text-center text-slate-600">
-        KI-Automatisierung funktioniert in fast jedem Unternehmen. Hier haben wir besondere Erfahrung.
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Warum Unternehmen mit Contentfluss arbeiten</p>
+        <h2>Klare Arbeitsweise, belastbare Umsetzung</h2>
+      </div>
+
+      <div class="card-grid four">
+        <article class="card" data-reveal>
+          <h3>Klar statt kompliziert</h3>
+          <p>Keine Tool-Show. Nur Lösungen, die im Alltag funktionieren.</p>
+        </article>
+        <article class="card" data-reveal>
+          <h3>Operativ statt theoretisch</h3>
+          <p>Wir denken vom Prozess, nicht vom Trend.</p>
+        </article>
+        <article class="card" data-reveal>
+          <h3>Hochwertig statt gebastelt</h3>
+          <p>Saubere Umsetzung, strukturierte Übergabe, professionelle Standards.</p>
+        </article>
+        <article class="card" data-reveal>
+          <h3>Partnerschaft statt Projekt-Abwurf</h3>
+          <p>Kurze Wege, ehrliche Empfehlungen, langfristig nutzbare Lösungen.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Wie das in der Praxis aussehen kann</p>
+        <h2>Beispielhafte Vorher/Nachher-Situationen</h2>
+      </div>
+
+      <div class="card-grid three">
+        {proofExamples.map((example) => (
+          <article class="card" data-reveal>
+            <p style="font-weight: 700; margin-bottom: 0.45rem;">Vorher</p>
+            <p>{example.before}</p>
+            <p style="font-weight: 700; margin-top: 1rem; margin-bottom: 0.45rem;">Nachher</p>
+            <p>{example.after}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="button-row" data-reveal>
+        <a
+          href="/fallbeispiele"
+          class="btn btn-secondary"
+          data-track="cta_clicked"
+          data-track-label="home_fallbeispiele"
+        >
+          Mehr erfahren
+        </a>
+      </div>
+      <p style="margin-top: 0.7rem; color: var(--color-muted);" data-reveal>
+        Hinweis: Ohne veröffentlichte Kundenreferenzen arbeiten wir mit transparent gekennzeichneten Beispiel-Setups.
       </p>
+    </div>
+  </section>
 
-      <div class="mt-10 grid grid-cols-2 gap-4 md:grid-cols-6">
-        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Dienstleister</div>
-        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Handwerk</div>
-        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Gesundheitswesen</div>
-        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Handel</div>
-        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Gastronomie</div>
-        <div class="fade-in rounded-xl border border-slate-200 bg-slate-50 p-4 text-center text-sm font-medium text-slate-700">Agenturen</div>
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Proof ohne Fake-Referenzen</p>
+        <h2>Simulierte Wirkungskorridore zur Einordnung</h2>
+        <p>Diese Werte sind Beispielrechnungen auf Basis typischer Prozessvolumina, keine Leistungszusage.</p>
+      </div>
+
+      <div class="card-grid three">
+        {simulatedProofCases.map((item) => (
+          <article class="card card-muted" data-reveal>
+            <span class="chip">Simulation</span>
+            <h3>{item.title}</h3>
+            <p style="margin-top: 0.6rem;"><strong>Ausgangslage:</strong> {item.input}</p>
+            <p style="margin-top: 0.5rem;"><strong>Wirkungslogik:</strong> {item.effect}</p>
+            <p style="margin-top: 0.5rem;"><strong>Orientierung:</strong> {item.corridor}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="mx-auto w-full max-w-6xl px-6 py-20">
-    <h2 class="text-center text-3xl font-bold md:text-4xl">Warum Unternehmen mit uns arbeiten</h2>
-
-    <div class="mt-12 grid gap-6 md:grid-cols-2">
-      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
-        <h3 class="text-xl font-semibold text-slate-900">Pragmatisch</h3>
-        <p class="mt-2 text-sm leading-relaxed text-slate-600">Kein KI-Hype. Wir zeigen, was heute funktioniert und morgen skaliert.</p>
-      </div>
-
-      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
-        <h3 class="text-xl font-semibold text-slate-900">DSGVO-konform</h3>
-        <p class="mt-2 text-sm leading-relaxed text-slate-600">Alle Daten in Deutschland/EU. Keine Kompromisse bei Datenschutz.</p>
-      </div>
-
-      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
-        <h3 class="text-xl font-semibold text-slate-900">Messbar</h3>
-        <p class="mt-2 text-sm leading-relaxed text-slate-600">Jeder Workflow hat KPIs. Ihr seht transparent, was er euch spart.</p>
-      </div>
-
-      <div class="fade-in rounded-xl border border-slate-200 bg-white p-7 card-hover">
-        <h3 class="text-xl font-semibold text-slate-900">Persönlich</h3>
-        <p class="mt-2 text-sm leading-relaxed text-slate-600">Ein Ansprechpartner, kurze Wege und echte Partnerschaft.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-gradient-to-r from-cyan-500 to-blue-600 py-20 text-white">
-    <div class="mx-auto w-full max-w-6xl px-6 text-center">
-      <h2 class="text-3xl font-bold md:text-4xl">Bereit, eure Prozesse zu automatisieren?</h2>
-      <p class="mx-auto mt-4 max-w-2xl text-cyan-50">
-        15 Minuten reichen für eine erste Einschätzung. Kostenlos und unverbindlich.
+  <section class="section-tight">
+    <div class="container surface" style="padding: clamp(1.5rem, 4vw, 2.3rem);" data-reveal>
+      <p class="eyebrow">Nächster Schritt</p>
+      <h2>Lasst uns prüfen, welcher Workflow bei euch den größten Hebel hat</h2>
+      <p class="lead">
+        In einem kurzen Erstgespräch schauen wir auf euren Prozess und sagen euch offen, ob sich
+        eine Umsetzung wirtschaftlich lohnt.
       </p>
-      <a
-        href="/kontakt"
-        data-track="hero_cta_clicked"
-        data-track-label="final-section"
-        class="mt-8 inline-block rounded-lg bg-white px-8 py-3 text-sm font-semibold text-blue-700 transition-colors hover:bg-cyan-50"
-      >
-        Erstgespräch buchen
-      </a>
+      <div class="button-row">
+        <a
+          href="/kontakt"
+          class="btn btn-primary"
+          data-track="cta_clicked"
+          data-track-label="home_final_erstgespraech"
+        >
+          Erstgespräch buchen
+        </a>
+      </div>
     </div>
   </section>
 </Layout>

@@ -1,137 +1,113 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { handwerkWorkflows, immobilienverwaltungWorkflows } from '../lib/workflows';
+import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
 
-const workflows = [
-  {
-    slug: 'angebots-automatisierung',
-    icon: '📋',
-    title: 'Automatische Angebotserstellung',
-    description: 'Eingehende Anfragen per E-Mail oder Formular werden automatisch ausgewertet. Der KI-Workflow zieht die relevanten Infos heraus und erstellt ein fertig formatiertes Angebot — zur finalen Freigabe durch euch. Spart 30–60 Minuten pro Anfrage.',
-    savings: '~2h/Woche',
-    branches: 'Handwerk, Dienstleister, Beratung',
-  },
-  {
-    slug: 'email-triage',
-    icon: '📧',
-    title: 'Intelligente E-Mail-Verwaltung',
-    description: 'KI liest eingehende E-Mails, kategorisiert sie (Anfrage, Beschwerde, Bestellung, Intern) und leitet sie an die richtige Person oder Queue weiter. Dringendes wird sofort markiert. Kein wichtiges Mail geht mehr unter.',
-    savings: '~3h/Woche',
-    branches: 'Alle',
-  },
-  {
-    slug: 'reporting-automatisierung',
-    icon: '📊',
-    title: 'Automatisierte Berichte & Auswertungen',
-    description: 'Wöchentliche oder monatliche Reports werden automatisch aus euren Datenquellen (Excel, Google Sheets, ERP) zusammengestellt und per E-Mail verschickt. Ohne manuelle Arbeit, immer aktuell.',
-    savings: '~4h/Monat',
-    branches: 'Handel, Gastronomie, Agenturen',
-  },
-  {
-    slug: 'termin-followup',
-    icon: '📅',
-    title: 'Terminplanung & Follow-up-Kommunikation',
-    description: 'Nach Terminen oder Beratungsgesprächen erstellt der Workflow automatisch Follow-up-E-Mails, Zusammenfassungen oder Angebote — basierend auf euren Notizen. Nichts fällt mehr durchs Raster.',
-    savings: '~1h/Termin',
-    branches: 'Beratung, Gesundheit, Dienstleister',
-  },
-  {
-    slug: 'dokument-verarbeitung',
-    icon: '📄',
-    title: 'Automatische Datenextraktion aus Dokumenten',
-    description: 'Rechnungen, Lieferscheine, Bewerbungen oder ausgefüllte Formulare werden automatisch eingelesen, relevante Daten extrahiert und in eure Systeme übertragen. Schluss mit manuellem Abtippen.',
-    savings: '~5h/Woche',
-    branches: 'Handel, Handwerk, Gesundheit',
-  },
-  {
-    slug: 'support-bot',
-    icon: '🤖',
-    title: 'KI-Assistent für Kundenanfragen',
-    description: 'Ein trainierter KI-Assistent beantwortet häufige Kundenfragen rund um die Uhr — auf eurer Website, per WhatsApp oder E-Mail. Komplexe Anfragen werden direkt an euch weitergeleitet.',
-    savings: '~6h/Woche',
-    branches: 'Alle mit hohem Anfrage-Volumen',
-  },
-  {
-    slug: 'social-media',
-    icon: '📱',
-    title: 'Geplante Social-Media-Inhalte',
-    description: 'KI erstellt aus euren Infos (Angebote, Öffnungszeiten, Aktionen) regelmäßig fertige Social-Media-Posts für Instagram, Facebook oder LinkedIn — ihr gebt nur frei.',
-    savings: '~3h/Woche',
-    branches: 'Gastronomie, Handel, Dienstleister',
-  },
-  {
-    slug: 'onboarding',
-    icon: '🚀',
-    title: 'Automatisiertes Kunden-Onboarding',
-    description: 'Neukunden erhalten automatisch Willkommens-E-Mails, Zugangsdaten, Anleitungen und Terminvorschläge — alles ohne manuelle Arbeit. Professioneller Ersteindruck, jedes Mal.',
-    savings: '~2h/Neukunde',
-    branches: 'Alle',
-  },
+const description =
+  'Ausgewählte AI-Workflows für operative Teams in Handwerk und Immobilienverwaltung: konkret, branchenspezifisch und auf reale Engpässe ausgerichtet.';
+
+const structuredData = [
+  professionalServiceSchema('/workflows', description),
+  breadcrumbSchema([
+    { name: 'Startseite', path: '/' },
+    { name: 'Workflows', path: '/workflows' },
+  ]),
 ];
 ---
 
 <Layout
-  title="KI-Workflow-Beispiele für Unternehmen – Contentfluss"
-  description="8 konkrete KI-Automatisierungs-Workflows für KMU: Angebotserstellung, E-Mail-Triage, Reporting, Support-Bot und mehr. Praxiserprobte Lösungen von Contentfluss."
+  title="Workflows | Ausgewählte AI-Workflows für operative Teams"
+  description={description}
+  canonicalPath="/workflows"
+  structuredData={structuredData}
 >
-  <!-- Hero -->
-  <section class="mx-auto w-full max-w-6xl px-6 pb-10 pt-20 fade-in">
-    <span class="inline-block rounded-full border border-cyan-200 bg-cyan-50 px-3 py-1 text-xs font-semibold text-cyan-700">
-      ✦ Praxiserprobte KI-Workflows
-    </span>
-    <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">
-      Was KI für euch automatisieren kann
-    </h1>
-    <p class="mt-4 max-w-3xl text-lg text-slate-600">
-      Konkrete Beispiele aus der Praxis — was wir für Unternehmen wie eures bereits umgesetzt haben.
-    </p>
-  </section>
-
-  <!-- Workflow Grid -->
-  <section class="mx-auto w-full max-w-6xl px-6 pb-20">
-    <div class="grid gap-6 md:grid-cols-2">
-      {workflows.map((wf) => (
-        <div class="fade-in flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-          <div class="flex items-start justify-between gap-4">
-            <span class="text-3xl" aria-hidden="true">{wf.icon}</span>
-            <span class="shrink-0 rounded-full bg-cyan-50 px-2 py-0.5 text-xs font-semibold text-cyan-700">
-              {wf.savings}
-            </span>
-          </div>
-
-          <h2 class="mt-4 text-xl font-bold text-slate-900">{wf.title}</h2>
-          <p class="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{wf.description}</p>
-
-          <p class="mt-4 text-xs text-slate-400">
-            Branchen: {wf.branches}
-          </p>
-
-          <a
-            href={`/kontakt?workflow=${wf.slug}`}
-            data-track="workflow_cta_clicked"
-            data-track-label={wf.slug}
-            class="btn-primary mt-5 inline-block rounded-lg px-5 py-2.5 text-center text-sm font-semibold text-white"
-          >
-            Diesen Workflow anfragen
-          </a>
-        </div>
-      ))}
+  <section class="hero">
+    <div class="container" data-reveal>
+      <p class="eyebrow">Kuratiert statt generisch</p>
+      <h1>Ausgewählte AI-Workflows für operative Teams</h1>
+      <p class="lead">
+        Wir bauen keine generischen Demos, sondern Workflows für reale Engpässe in Handwerk und Immobilienverwaltung.
+      </p>
     </div>
   </section>
 
-  <!-- CTA Banner -->
-  <section class="mx-auto w-full max-w-6xl px-6 pb-24 fade-in">
-    <div class="rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-12 text-center text-white md:px-16">
-      <h2 class="text-3xl font-bold">Euer Prozess ist nicht dabei?</h2>
-      <p class="mt-3 text-lg opacity-90">
-        Wir entwickeln individuelle Workflows — kostenlose Ersteinschätzung in 15 Minuten.
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2>Für Handwerk</h2>
+      </div>
+
+      <div class="card-grid two">
+        {handwerkWorkflows.map((workflow) => (
+          <article class="card" data-reveal>
+            <h3>{workflow.name}</h3>
+            <p><strong>Problem:</strong> {workflow.problem}</p>
+            <p style="margin-top: 0.55rem;"><strong>Lösung:</strong> {workflow.solution}</p>
+            <ul class="list list-check" style="margin-top: 0.85rem;">
+              {workflow.benefits.map((benefit) => (
+                <li>{benefit}</li>
+              ))}
+            </ul>
+            <div class="button-row">
+              <a
+                href={`/kontakt?workflow=${workflow.slug}`}
+                class="btn btn-ghost"
+                data-track="workflow_cta_clicked"
+                data-track-label={`wf_handwerk_${workflow.slug}`}
+              >
+                Workflow besprechen
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2>Für Immobilienverwaltung</h2>
+      </div>
+
+      <div class="card-grid two">
+        {immobilienverwaltungWorkflows.map((workflow) => (
+          <article class="card" data-reveal>
+            <h3>{workflow.name}</h3>
+            <p><strong>Problem:</strong> {workflow.problem}</p>
+            <p style="margin-top: 0.55rem;"><strong>Lösung:</strong> {workflow.solution}</p>
+            <ul class="list list-check" style="margin-top: 0.85rem;">
+              {workflow.benefits.map((benefit) => (
+                <li>{benefit}</li>
+              ))}
+            </ul>
+            <div class="button-row">
+              <a
+                href={`/kontakt?workflow=${workflow.slug}`}
+                class="btn btn-ghost"
+                data-track="workflow_cta_clicked"
+                data-track-label={`wf_immo_${workflow.slug}`}
+              >
+                Workflow besprechen
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
+      <h2>Noch kein passender Workflow dabei?</h2>
+      <p class="lead">
+        Im Erstgespräch klären wir, welcher Engpass in eurem operativen Ablauf den größten Hebel hat.
       </p>
-      <a
-        href="/kontakt"
-        data-track="workflow_banner_cta_clicked"
-        class="mt-8 inline-block rounded-lg bg-white px-8 py-3 text-sm font-bold text-cyan-600 transition-opacity hover:opacity-90"
-      >
-        Jetzt anfragen
-      </a>
+      <div class="button-row">
+        <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="workflows_final_cta">
+          Erstgespräch buchen
+        </a>
+      </div>
     </div>
   </section>
 </Layout>

@@ -1,252 +1,351 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
+
+const description =
+  'Erstgespräch zur KI-Automatisierung für Handwerk und Immobilienverwaltung: strukturiertes Lead-Intake und klare Einschätzung zum Workflow-Hebel.';
+
+const structuredData = [
+  professionalServiceSchema('/kontakt', description),
+  breadcrumbSchema([
+    { name: 'Startseite', path: '/' },
+    { name: 'Kontakt', path: '/kontakt' },
+  ]),
+];
 ---
 
 <Layout
-  title="Kontakt & Erstgespräch | Contentfluss"
-  description="Kostenloses 15-Minuten-Erstgespräch buchen. Wir beraten deutschlandweit - remote oder vor Ort."
+  title="Kontakt | Erstgespräch für AI-Workflows"
+  description={description}
+  canonicalPath="/kontakt"
+  structuredData={structuredData}
 >
-  <section class="mx-auto w-full max-w-6xl px-6 pb-20 pt-16">
-    <div class="mb-16">
-      <h1 class="text-4xl font-extrabold tracking-tight text-slate-900">Erstgespräch buchen</h1>
-      <p class="mb-8 mt-3 text-slate-600">Wähle einfach einen freien Slot - 15 Minuten, kostenlos und unverbindlich.</p>
-      <div class="calendly-inline-widget overflow-hidden rounded-xl border border-slate-200" data-url="https://calendly.com/maikel-hannen/kostenloses-erstgesprach" style="min-width:320px;height:700px;"></div>
-      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async is:inline></script>
+  <section class="hero">
+    <div class="container" data-reveal>
+      <p class="eyebrow">Kontakt</p>
+      <h1>Lasst uns euren größten Workflow-Hebel finden</h1>
+      <p class="lead">
+        Im Erstgespräch schauen wir gemeinsam auf euren Prozess und prüfen, wo sich eine AI-Umsetzung wirklich lohnt.
+      </p>
     </div>
+  </section>
 
-    <div class="mb-16 flex items-center gap-4">
-      <div class="flex-1 border-t border-slate-200"></div>
-      <span class="text-sm text-slate-400">oder Formular nutzen</span>
-      <div class="flex-1 border-t border-slate-200"></div>
+  <section class="section-tight">
+    <div class="container split two">
+      <article class="card card-muted" data-reveal>
+        <h2>Im Gespräch klären wir</h2>
+        <ul class="list list-check" style="margin-top: 0.85rem;">
+          <li>Wo heute Zeit verloren geht</li>
+          <li>Welcher Workflow zuerst Sinn macht</li>
+          <li>Wie eine sinnvolle Umsetzung aussehen könnte</li>
+          <li>Ob sich der Aufwand wirtschaftlich lohnt</li>
+        </ul>
+        <p style="margin-top: 1rem; color: var(--color-muted);">Antwort in der Regel innerhalb von 24 Stunden.</p>
+      </article>
+
+      <article class="card" data-reveal>
+        <h2>Zwei Wege zum Start</h2>
+        <div class="button-row" style="margin-top: 1rem;">
+          <a
+            href="https://calendly.com/maikel-hannen/kostenloses-erstgesprach"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+            data-track="cta_clicked"
+            data-track-label="kontakt_calendly"
+          >
+            Erstgespräch buchen
+          </a>
+          <a href="#anfrage" class="btn btn-secondary" data-track="cta_clicked" data-track-label="kontakt_form_jump">
+            Anfrage senden
+          </a>
+        </div>
+      </article>
     </div>
+  </section>
 
-    <div class="grid gap-16 md:grid-cols-2">
-      <div>
-        <h2 class="text-2xl font-bold text-slate-900">Gespräch anfragen</h2>
-        <p class="mb-8 mt-4 leading-relaxed text-slate-600">
-          Wir arbeiten deutschlandweit - remote oder vor Ort. In 15 Minuten sehen wir, welche KI-Lösung für euren Betrieb sinnvoll ist.
+  <section id="anfrage" class="section-tight">
+    <div class="container split two">
+      <article class="card" data-reveal>
+        <h2>Anfrage senden</h2>
+        <p class="lead" style="margin-top: 0.6rem; font-size: 1rem;">
+          Beschreibt kurz euren Engpass. Wir geben euch eine klare Ersteinschätzung ohne Sales-Floskeln.
         </p>
 
-        <div class="space-y-4 text-sm">
-          <div>
-            <p class="font-semibold text-slate-900">E-Mail</p>
-            <a href="mailto:hallo@contentfluss.de" class="text-slate-600 transition-colors hover:text-slate-900">hallo@contentfluss.de</a>
-          </div>
-          <div>
-            <p class="font-semibold text-slate-900">Zusammenarbeit</p>
-            <p class="text-slate-600">Deutschlandweit - remote oder vor Ort</p>
-          </div>
-          <div>
-            <p class="font-semibold text-slate-900">Reaktionszeit</p>
-            <p class="text-slate-600">In der Regel innerhalb von 24 Stunden</p>
-          </div>
+        <div class="chip-list">
+          <span class="chip">Handwerk</span>
+          <span class="chip">Immobilienverwaltung</span>
+          <span class="chip">Deutschlandweit</span>
+          <span class="chip">DSGVO-orientiert</span>
         </div>
-      </div>
+      </article>
 
-      <div>
-        <form id="kontaktform" class="space-y-4">
-          <div class="hidden" aria-hidden="true">
-            <label for="website">Website</label>
-            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+      <form id="contact-form" class="form-shell" data-reveal>
+        <div class="hidden" aria-hidden="true">
+          <label for="website">Website</label>
+          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="name">Name</label>
+            <input class="input" id="name" name="name" type="text" required placeholder="Vor- und Nachname" />
           </div>
 
-          <div>
-            <label for="name" class="mb-1 block text-sm font-medium text-slate-900">Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-slate-400 focus:outline-none"
-              placeholder="Max Mustermann"
-            />
+          <div class="field">
+            <label for="company">Unternehmen</label>
+            <input class="input" id="company" name="company" type="text" required placeholder="Unternehmensname" />
           </div>
 
-          <div>
-            <label for="email" class="mb-1 block text-sm font-medium text-slate-900">E-Mail</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-slate-400 focus:outline-none"
-              placeholder="max@unternehmen.de"
-            />
+          <div class="field">
+            <label for="email">E-Mail</label>
+            <input class="input" id="email" name="email" type="email" required placeholder="name@unternehmen.de" />
           </div>
 
-          <div>
-            <label for="betrieb" class="mb-1 block text-sm font-medium text-slate-900">Unternehmen</label>
-            <input
-              type="text"
-              id="betrieb"
-              name="betrieb"
-              class="w-full rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-slate-400 focus:outline-none"
-              placeholder="z.B. Muster GmbH"
-            />
+          <div class="field">
+            <label for="branche">Branche</label>
+            <select class="select" id="branche" name="branche" required>
+              <option value="">Bitte auswählen</option>
+              <option value="handwerk">Handwerk</option>
+              <option value="immobilienverwaltung">Immobilienverwaltung</option>
+              <option value="sonstiges">Sonstiges</option>
+            </select>
           </div>
 
-          <div>
-            <label for="nachricht" class="mb-1 block text-sm font-medium text-slate-900">Was soll automatisiert werden?</label>
+          <div class="field">
+            <label for="teamgroesse">Teamgröße (optional)</label>
+            <input class="input" id="teamgroesse" name="teamgroesse" type="text" placeholder="z. B. 8 Mitarbeitende" />
+          </div>
+
+          <div class="field">
+            <label for="engpass">Aktueller Engpass</label>
             <textarea
-              id="nachricht"
-              name="nachricht"
-              rows="4"
+              class="textarea"
+              id="engpass"
+              name="engpass"
+              required
+              minlength="15"
+              placeholder="Wo hakt es im Alltag am stärksten?"
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="ziel">Was soll automatisiert oder verbessert werden?</label>
+            <textarea
+              class="textarea"
+              id="ziel"
+              name="ziel"
               required
               minlength="20"
-              maxlength="4000"
-              class="w-full resize-none rounded-lg border border-slate-200 px-4 py-2.5 text-sm focus:border-slate-400 focus:outline-none"
-              placeholder="Beschreibt kurz eure aktuelle Situation und wo ihr Entlastung braucht..."
+              placeholder="Welche Ergebnisse wollt ihr konkret erreichen?"
             ></textarea>
-            <p class="mt-1 text-xs text-slate-500">Mindestens 20 Zeichen.</p>
           </div>
 
-          <div id="form-error" role="alert" class="hidden rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600"></div>
+          <label class="checkbox-row" for="audit">
+            <input id="audit" name="audit" type="checkbox" value="true" />
+            <span>Ich möchte zuerst ein Workflow-Audit.</span>
+          </label>
+
+          <label class="checkbox-row" for="consent">
+            <input id="consent" name="consent" type="checkbox" value="true" required />
+            <span>Ich stimme der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage zu.</span>
+          </label>
+
+          <div id="form-error" class="status-message status-error hidden" role="alert"></div>
 
           <button
-            type="submit"
             id="submit-btn"
-            data-track="contact_submit_clicked"
-            class="btn-primary w-full rounded-lg px-6 py-3 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
+            type="submit"
+            class="btn btn-primary"
+            data-track="cta_clicked"
+            data-track-label="kontakt_form_submit"
           >
             Anfrage senden
           </button>
 
-          <p class="text-xs leading-relaxed text-slate-500">
-            Mit dem Absenden stimmst du der Verarbeitung deiner Daten zur Bearbeitung der Anfrage zu.
-            Details in der <a href="/datenschutz" class="underline hover:text-slate-700">Datenschutzerklärung</a>.
+          <p style="font-size: 0.84rem; color: var(--color-muted);">
+            Mit dem Absenden akzeptiert ihr unsere <a href="/datenschutz" style="text-decoration: underline;">Datenschutzhinweise</a>.
+            Antwort in der Regel innerhalb von 24 Stunden.
           </p>
-        </form>
-
-        <div id="form-success" class="hidden py-8 text-center">
-          <p class="mb-2 text-2xl">✓</p>
-          <p class="mb-1 font-medium text-slate-900">Nachricht angekommen!</p>
-          <p class="text-sm text-slate-600">Wir melden uns innerhalb von 24 Stunden bei dir.</p>
         </div>
-      </div>
+
+        <div id="form-success" class="status-message status-success hidden" role="status">
+          Danke, eure Anfrage ist eingegangen. Wir melden uns zeitnah mit einem konkreten Vorschlag.
+        </div>
+      </form>
     </div>
   </section>
 </Layout>
 
 <script>
-  type TrackFn = (eventName: string, data?: Record<string, string>) => void;
-  type TrackWindow = Window & typeof globalThis & { contentflussTrack?: TrackFn };
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const errorBox = document.getElementById('form-error') as HTMLDivElement | null;
+  const successBox = document.getElementById('form-success') as HTMLDivElement | null;
 
-  const form = document.getElementById('kontaktform') as HTMLFormElement;
-  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
-  const errorDiv = document.getElementById('form-error') as HTMLDivElement;
-  const successDiv = document.getElementById('form-success') as HTMLDivElement;
-  const nachrichtField = document.getElementById('nachricht') as HTMLTextAreaElement;
+  if (form && submitBtn && errorBox && successBox) {
+    const formEl = form;
+    const submitButton = submitBtn;
+    const errorElement = errorBox;
+    const successElement = successBox;
 
-  let formStartedTracked = false;
-  let isSubmitting = false;
+    type ContactApiResponse = {
+      success?: boolean;
+      code?: string;
+    };
 
-  function track(eventName: string, data?: Record<string, string>) {
-    (window as TrackWindow).contentflussTrack?.(eventName, data);
-  }
+    let formStartedTracked = false;
+    let submitting = false;
 
-  function setError(message: string) {
-    errorDiv.textContent = message;
-    errorDiv.classList.remove('hidden');
-  }
-
-  function clearError() {
-    errorDiv.textContent = '';
-    errorDiv.classList.add('hidden');
-  }
-
-  function setSubmitting(submitting: boolean) {
-    isSubmitting = submitting;
-    submitBtn.disabled = submitting;
-    submitBtn.textContent = submitting ? 'Wird gesendet…' : 'Anfrage senden';
-  }
-
-  function mapApiError(code: string, fallback: string): string {
-    if (code === 'NAME_REQUIRED') return 'Bitte gib deinen Namen ein.';
-    if (code === 'EMAIL_INVALID') return 'Bitte gib eine gültige E-Mail-Adresse ein.';
-    if (code === 'MESSAGE_TOO_SHORT') return 'Bitte beschreibe dein Anliegen in mindestens 20 Zeichen.';
-    if (code === 'BOT_DETECTED') return 'Anfrage konnte nicht verarbeitet werden.';
-    if (code === 'RATE_LIMITED') return 'Zu viele Anfragen. Bitte versuche es in einigen Minuten erneut.';
-    if (code === 'CONTACT_UNAVAILABLE') return 'Der Service ist aktuell nicht verfügbar. Bitte schreibe direkt an hallo@contentfluss.de.';
-    if (code === 'MAIL_SEND_FAILED') return 'E-Mail konnte nicht gesendet werden. Bitte versuche es erneut oder nutze hallo@contentfluss.de.';
-    return fallback;
-  }
-
-  function getTrimmedValue(formData: FormData, field: string) {
-    return String(formData.get(field) ?? '').trim();
-  }
-
-  function validateFormData(formData: FormData): string | null {
-    const name = getTrimmedValue(formData, 'name');
-    const email = getTrimmedValue(formData, 'email');
-    const nachricht = getTrimmedValue(formData, 'nachricht');
-    const website = getTrimmedValue(formData, 'website');
-
-    if (website) return 'Anfrage konnte nicht verarbeitet werden.';
-    if (!name) return 'Bitte gib deinen Namen ein.';
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Bitte gib eine gültige E-Mail-Adresse ein.';
-    if (!nachricht || nachricht.length < 20) return 'Bitte beschreibe dein Anliegen in mindestens 20 Zeichen.';
-
-    return null;
-  }
-
-  form.addEventListener('input', () => {
-    if (!formStartedTracked) {
-      formStartedTracked = true;
-      track('contact_form_started');
-    }
-  });
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (isSubmitting) return;
-
-    clearError();
-
-    const formData = new FormData(form);
-    const validationError = validateFormData(formData);
-    if (validationError) {
-      setError(validationError);
-      return;
-    }
-
-    setSubmitting(true);
-    track('contact_form_submit_attempted');
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: getTrimmedValue(formData, 'name'),
-          email: getTrimmedValue(formData, 'email'),
-          betrieb: getTrimmedValue(formData, 'betrieb'),
-          nachricht: getTrimmedValue(formData, 'nachricht'),
-          website: getTrimmedValue(formData, 'website'),
-        }),
-      });
-
-      const json = (await res.json().catch(() => ({}))) as { success?: boolean; error?: string; code?: string };
-      if (res.ok && json.success) {
-        form.classList.add('hidden');
-        successDiv.classList.remove('hidden');
-        track('contact_form_submitted');
-      } else {
-        const code = typeof json.code === 'string' ? json.code : `HTTP_${res.status}`;
-        const fallback = typeof json.error === 'string' ? json.error : `Fehler ${res.status}`;
-        setError(mapApiError(code, fallback));
-        track('contact_form_submit_failed', { code });
+    function track(eventName: string, data: Record<string, string> = {}) {
+      if (typeof window.contentflussTrack === 'function') {
+        window.contentflussTrack(eventName, data);
       }
-    } catch (err) {
-      setError(`Netzwerkfehler: ${err instanceof Error ? err.message : String(err)}`);
-      track('contact_form_submit_failed', { code: 'NETWORK_ERROR' });
-    } finally {
-      setSubmitting(false);
     }
-  });
 
-  nachrichtField.addEventListener('blur', () => {
-    const message = nachrichtField.value.trim();
-    if (!message || message.length >= 20) return;
-    setError('Bitte beschreibe dein Anliegen in mindestens 20 Zeichen.');
-  });
+    function setError(message: string) {
+      errorElement.textContent = message;
+      errorElement.classList.remove('hidden');
+    }
+
+    function clearError() {
+      errorElement.textContent = '';
+      errorElement.classList.add('hidden');
+    }
+
+    function setSubmitting(state: boolean) {
+      submitting = state;
+      submitButton.disabled = state;
+      submitButton.textContent = state ? 'Wird gesendet…' : 'Anfrage senden';
+    }
+
+    function valueOf(formData: FormData, field: string): string {
+      return String(formData.get(field) || '').trim();
+    }
+
+    function mapApiError(code: string): string {
+      switch (code) {
+        case 'NAME_REQUIRED':
+          return 'Bitte tragt euren Namen ein.';
+        case 'COMPANY_REQUIRED':
+          return 'Bitte tragt euer Unternehmen ein.';
+        case 'EMAIL_INVALID':
+          return 'Bitte gebt eine gültige E-Mail-Adresse ein.';
+        case 'BRANCH_INVALID':
+          return 'Bitte wählt eine Branche aus.';
+        case 'BOT_DETECTED':
+          return 'Anfrage konnte nicht verarbeitet werden.';
+        case 'CONSENT_REQUIRED':
+          return 'Bitte bestätigt die Datenschutzeinwilligung.';
+        case 'BOT_OR_INVALID_INPUT':
+          return 'Anfrage konnte nicht verarbeitet werden.';
+        case 'MESSAGE_TOO_SHORT':
+          return 'Bitte beschreibt den Engpass und das Ziel etwas genauer.';
+        case 'RATE_LIMITED':
+          return 'Zu viele Anfragen. Bitte versucht es in einigen Minuten erneut.';
+        case 'CONTACT_UNAVAILABLE':
+          return 'Der Service ist aktuell nicht verfügbar. Bitte schreibt an hallo@contentfluss.de.';
+        case 'MAIL_SEND_FAILED':
+          return 'E-Mail konnte nicht gesendet werden. Bitte versucht es erneut.';
+        default:
+          return 'Es gab ein Problem beim Senden. Bitte versucht es erneut.';
+      }
+    }
+
+    function validate(formData: FormData): string | null {
+      const name = valueOf(formData, 'name');
+      const company = valueOf(formData, 'company');
+      const email = valueOf(formData, 'email');
+      const branche = valueOf(formData, 'branche');
+      const engpass = valueOf(formData, 'engpass');
+      const ziel = valueOf(formData, 'ziel');
+      const consent = formData.get('consent');
+
+      if (!name) return 'Bitte tragt euren Namen ein.';
+      if (!company) return 'Bitte tragt euer Unternehmen ein.';
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'Bitte gebt eine gültige E-Mail-Adresse ein.';
+      if (!branche) return 'Bitte wählt eine Branche aus.';
+      if (!engpass || engpass.length < 15) return 'Bitte beschreibt den aktuellen Engpass mit mindestens 15 Zeichen.';
+      if (!ziel || ziel.length < 20) return 'Bitte beschreibt das gewünschte Ziel mit mindestens 20 Zeichen.';
+      if (!consent) return 'Bitte bestätigt die Datenschutzeinwilligung.';
+      return null;
+    }
+
+    formEl.addEventListener('input', () => {
+      if (!formStartedTracked) {
+        formStartedTracked = true;
+        track('contact_form_started');
+      }
+    });
+
+    formEl.addEventListener('submit', async (event: SubmitEvent) => {
+      event.preventDefault();
+      if (submitting) return;
+
+      clearError();
+      const formData = new FormData(formEl);
+      const validationError = validate(formData);
+      if (validationError) {
+        setError(validationError);
+        return;
+      }
+
+      setSubmitting(true);
+      track('contact_form_submit_attempted');
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: valueOf(formData, 'name'),
+            company: valueOf(formData, 'company'),
+            email: valueOf(formData, 'email'),
+            branche: valueOf(formData, 'branche'),
+            teamgroesse: valueOf(formData, 'teamgroesse'),
+            engpass: valueOf(formData, 'engpass'),
+            ziel: valueOf(formData, 'ziel'),
+            audit: formData.get('audit') ? 'true' : 'false',
+            consent: formData.get('consent') ? 'true' : 'false',
+            website: valueOf(formData, 'website'),
+          }),
+        });
+
+        const payload = (await response.json().catch(() => ({}))) as ContactApiResponse;
+        if (response.ok && payload.success) {
+          formEl.classList.add('hidden');
+          successElement.classList.remove('hidden');
+          track('contact_form_submitted');
+        } else {
+          const code = typeof payload.code === 'string' ? payload.code : `HTTP_${response.status}`;
+          setError(mapApiError(code));
+          track('contact_form_submit_failed', { code });
+        }
+      } catch (error) {
+        setError(`Netzwerkfehler: ${error instanceof Error ? error.message : String(error)}`);
+        track('contact_form_submit_failed', { code: 'NETWORK_ERROR' });
+      } finally {
+        setSubmitting(false);
+      }
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    const workflowParam = params.get('workflow');
+    const auditParam = params.get('audit');
+
+    if (workflowParam) {
+      const normalized = workflowParam.replace(/-/g, ' ');
+      const zielField = document.getElementById('ziel') as HTMLTextAreaElement | null;
+      if (zielField) {
+        zielField.value = `Wir möchten vor allem diesen Workflow besprechen: ${normalized}.`;
+      }
+    }
+
+    if (auditParam === '1') {
+      const auditField = document.getElementById('audit') as HTMLInputElement | null;
+      if (auditField) {
+        auditField.checked = true;
+      }
+    }
+  }
 </script>

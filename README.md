@@ -1,43 +1,114 @@
-# Astro Starter Kit: Minimal
+# Contentfluss Website
 
-```sh
-npm create astro@latest -- --template minimal
+Premium-Website für **Contentfluss** mit Fokus auf zwei Verticals:
+- Handwerk
+- Immobilienverwaltung
+
+Stack:
+- Astro 5
+- Tailwind CSS 4 (inkl. eigenem CSS-Designsystem)
+- Vercel Adapter
+- `@astrojs/sitemap`
+
+## Informationsarchitektur
+
+- `/` Startseite
+- `/handwerk`
+- `/immobilienverwaltung`
+- `/leistungen`
+- `/workflows`
+- `/ueber-uns`
+- `/kontakt`
+- `/fallbeispiele`
+- `/impressum`
+- `/datenschutz`
+- `/ueber-mich` (Redirect auf `/ueber-uns`)
+
+## Design-System
+
+Zentrale Tokens in `src/styles/global.css`:
+- Farben (Ink, Accent, Surface, Line)
+- Typografie (`Manrope` für Headlines, `IBM Plex Sans` für Body)
+- Radius, Shadows, Spacing
+- Buttons, Cards, Form-Styles, Header/Footer
+
+Wiederverwendbare UI-Klassen:
+- `.container`, `.section`, `.section-tight`
+- `.btn`, `.btn-primary`, `.btn-secondary`, `.btn-ghost`
+- `.card`, `.card-muted`, `.card-accent`
+- `.hero-grid`, `.workflow-visual`, `.faq-list`, `.form-shell`
+
+## SEO & strukturierte Daten
+
+Layout-basiert:
+- Canonical
+- Meta Description
+- Open Graph / Twitter
+- Organization + WebSite Schema auf allen Seiten
+
+Seitenbasiert:
+- ProfessionalService Schema
+- BreadcrumbList Schema
+- FAQPage Schema (wo FAQ vorhanden)
+
+Helfer:
+- `src/lib/seo.ts`
+
+## Workflows / Content-Daten
+
+Zentrale Workflow-Daten:
+- `src/lib/workflows.ts`
+
+Nutzung in:
+- Startseite (Featured Workflows)
+- `/handwerk`
+- `/immobilienverwaltung`
+- `/workflows`
+
+## Tracking
+
+Clientseitige Event-Erfassung über `/api/event`:
+- CTA-Klicks über `data-track`
+- Formular-Events (`contact_form_*`)
+- Scrolltiefe (`scroll_depth_reached` bei 25/50/75/100)
+- Vertical-Klicks und Workflow-CTAs
+
+Hinweis:
+- Kein Third-Party-Marketing-Tracking eingebaut
+- Pseudonyme Session-ID via LocalStorage
+
+## Kontaktformular
+
+Seite: `/kontakt`
+
+API: `src/pages/api/contact.ts`
+
+Felder:
+- Name
+- Unternehmen
+- E-Mail
+- Branche
+- Teamgröße (optional)
+- Aktueller Engpass
+- Ziel / Verbesserung
+- Audit-Wunsch
+- DSGVO-Consent
+- Honeypot-Feld (`website`)
+
+Sicherheits-/Qualitätsmaßnahmen:
+- Rate-Limiting pro IP
+- Input-Normalisierung + Validierung
+- HTML-Escaping im E-Mail-Body
+- Fehlercodes für Frontend-Mapping
+
+Benötigte ENV Variable:
+- `RESEND_API_KEY`
+
+## Entwicklung
+
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
