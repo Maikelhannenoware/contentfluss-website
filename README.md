@@ -24,6 +24,13 @@ Stack:
 - `/datenschutz`
 - `/ueber-mich` (Redirect auf `/ueber-uns`)
 
+## Dokumentation (Handover)
+
+- `docs/PROJECT-CLOSEOUT-2026-03-07.md`
+- `docs/SEO-METADATA-MAP.md`
+- `docs/TRACKING-PLAN.md`
+- `docs/LAUNCH-AND-OPERATIONS-RUNBOOK.md`
+
 ## Design-System
 
 Zentrale Tokens in `src/styles/global.css`:
@@ -108,7 +115,8 @@ Benötigte ENV Variable:
 
 ```bash
 npm install
-npm run dev
+npm run astro -- check
 npm run build
+npm run dev
 npm run preview
 ```
