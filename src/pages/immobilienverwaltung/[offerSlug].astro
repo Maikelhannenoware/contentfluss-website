@@ -1,0 +1,159 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import type { OfferDefinition } from '../../lib/offers';
+import { immobilienverwaltungOffers } from '../../lib/offers';
+import { breadcrumbSchema, professionalServiceSchema } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return immobilienverwaltungOffers.map((offer) => ({
+    params: { offerSlug: offer.slug },
+    props: { offer },
+  }));
+}
+
+interface Props {
+  offer: OfferDefinition;
+}
+
+const { offer } = Astro.props as Props;
+
+const description = `${offer.code} ${offer.name}: ${offer.shortDescription}`;
+
+const structuredData = [
+  professionalServiceSchema(`/immobilienverwaltung/${offer.slug}`, description),
+  breadcrumbSchema([
+    { name: 'Startseite', path: '/' },
+    { name: 'Immobilienverwaltung', path: '/immobilienverwaltung' },
+    { name: `${offer.code} ${offer.name}`, path: `/immobilienverwaltung/${offer.slug}` },
+  ]),
+];
+---
+
+<Layout
+  title={`${offer.code} ${offer.name} | Immobilienverwaltung Offer`}
+  description={description}
+  canonicalPath={`/immobilienverwaltung/${offer.slug}`}
+  structuredData={structuredData}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">{offer.code} · Immobilienverwaltung Offer</p>
+        <h1>{offer.name}</h1>
+        <p class="lead">{offer.shortDescription}</p>
+        <p class="trustline"><strong>Zielgruppe:</strong> {offer.targetGroup}</p>
+        <div class="button-row">
+          <a
+            href={`/kontakt?workflow=${offer.slug}`}
+            class="btn btn-primary"
+            data-track="cta_clicked"
+            data-track-label={`offer_immo_contact_${offer.slug}`}
+          >
+            Offer besprechen
+          </a>
+          <a
+            href="/immobilienverwaltung"
+            class="btn btn-secondary"
+            data-track="cta_clicked"
+            data-track-label="offer_immo_back"
+          >
+            Zurueck zu Immobilienverwaltung
+          </a>
+        </div>
+      </div>
+
+      <aside class="workflow-visual" data-reveal>
+        <header>
+          <strong>Preisrahmen</strong>
+          <span>{offer.code}</span>
+        </header>
+        <ul class="metric-list">
+          <li><strong>Setup:</strong> {offer.setupPrice}</li>
+          <li><strong>Retainer:</strong> {offer.retainerPrice}</li>
+          <li><strong>Implementierung:</strong> {offer.implementationTime}</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container card-grid two">
+      <article class="card" data-reveal>
+        <h2 style="font-size: 1.5rem;">Problem</h2>
+        <p>{offer.problem}</p>
+      </article>
+      <article class="card card-accent" data-reveal>
+        <h2 style="font-size: 1.5rem;">Loesung</h2>
+        <p>{offer.solution}</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <h2>Deliverables</h2>
+      </div>
+      <div class="card" data-reveal>
+        <ul class="list list-check">
+          {offer.deliverables.map((deliverable) => (
+            <li>{deliverable}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container split two">
+      <article class="card" data-reveal>
+        <h2 style="font-size: 1.5rem;">Tech-Stack</h2>
+        <ul class="list" style="margin-top: 0.75rem;">
+          {offer.techStack.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </article>
+
+      <article class="card" data-reveal>
+        <h2 style="font-size: 1.5rem;">Onboarding-Ablauf</h2>
+        <ul class="list" style="margin-top: 0.75rem;">
+          {offer.onboarding.map((step) => (
+            <li>{step}</li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  {offer.caution && (
+    <section class="section-tight">
+      <div class="container" data-reveal>
+        <article class="card card-muted">
+          <h2 style="font-size: 1.35rem;">Hinweis</h2>
+          <p>{offer.caution}</p>
+        </article>
+      </div>
+    </section>
+  )}
+
+  <section class="section-tight">
+    <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
+      <h2>Naechster Schritt</h2>
+      <p class="lead">
+        Im Erstgespraech klaeren wir Prozesslast, Teamrouting und den schnellsten MVP-Pfad fuer
+        {` ${offer.code}`}. Danach folgt ein klarer Implementierungsplan.
+      </p>
+      <div class="button-row">
+        <a
+          href={`/kontakt?workflow=${offer.slug}`}
+          class="btn btn-primary"
+          data-track="cta_clicked"
+          data-track-label={`offer_immo_final_${offer.slug}`}
+        >
+          Erstgespraech zu {offer.code}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

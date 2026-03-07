@@ -1,54 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { immobilienverwaltungWorkflows } from '../lib/workflows';
-import { breadcrumbSchema, faqSchema, professionalServiceSchema } from '../lib/seo';
+import { immobilienverwaltungOffers } from '../lib/offers';
+import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
 
 const description =
-  'KI Immobilienverwaltung und KI Hausverwaltung: Contentfluss automatisiert Schadenmeldungen, E-Mail-Triage und Koordination für verwaltende Teams.';
+  'Contentfluss baut AI-Operations fuer Immobilienverwaltungen: Schadenmeldung, Inbox-Triage, Koordination, Serienkommunikation und Rueckstandsprozesse.';
 
-const faqItems = [
-  {
-    question: 'Ersetzt das unser Portal oder ERP?',
-    answer:
-      'Nein. Der Workflow ergänzt euer bestehendes System und übernimmt wiederkehrende Kommunikation sowie Vorqualifikation.',
-  },
-  {
-    question: 'Was passiert mit bestehenden E-Mails und Formularen?',
-    answer:
-      'Bestehende Kanäle bleiben erhalten. Wir strukturieren Eingänge und führen sie in einen klaren Bearbeitungsprozess.',
-  },
-  {
-    question: 'Können wir mit mehreren Bearbeitern arbeiten?',
-    answer:
-      'Ja. Zuständigkeiten, Prioritäten und Übergaben werden so aufgebaut, dass mehrere Sachbearbeiter sauber zusammenarbeiten können.',
-  },
-  {
-    question: 'Wie sieht Datenschutz aus?',
-    answer:
-      'Datenschutzanforderungen werden von Anfang an berücksichtigt. Wir arbeiten DSGVO-orientiert und dokumentieren den Prozess transparent.',
-  },
-  {
-    question: 'Lohnt sich das auch für kleinere Verwaltungen?',
-    answer:
-      'Gerade bei kleinen bis mittleren Teams lohnt sich die Entlastung, wenn viele Vorgänge parallel bearbeitet werden müssen.',
-  },
+const painpoints = [
+  'Schadenmeldungen kommen unvollstaendig an und brauchen viele Rueckfragen.',
+  'Inbox-Triage kostet Zeit, Prioritaeten bleiben unklar.',
+  'Koordination mit Mietern, Eigentuemern und Dienstleistern ist stark manuell.',
+  'Dokumentenanforderungen laufen ohne klare Frist- und Ruecklaufsteuerung.',
+  'Rueckstands- und Mahnkommunikation ist uneinheitlich und sensibel.',
 ];
 
-const simulatedSnapshots = [
+const processSteps = [
   {
-    title: 'Schadenmeldung',
-    situation: 'Viele Meldungen starten ohne vollständige Pflichtinformationen.',
-    impact: 'Simulierter Zielkorridor: 30-50 % weniger Nachforderungen je Vorgang.',
+    title: 'Workflow-Audit',
+    text: 'Vorgangsarten, Mail-Volumen und Engpaesse analysieren. Danach den groessten operativen Hebel priorisieren.',
   },
   {
-    title: 'Inbox-Triage',
-    situation: 'Hohe Maillast führt zu Verzögerung und unklaren Prioritäten.',
-    impact: 'Simulierter Zielkorridor: 20-35 % kürzere Erstreaktionszeit.',
+    title: 'Build / Umsetzung',
+    text: 'Workflow mit klaren Kategorien, Priorisierung und Teamrouting aufsetzen und mit realen Faellen testen.',
   },
   {
-    title: 'Dienstleister-Koordination',
-    situation: 'Statusstände werden über mehrere Kanäle manuell nachgehalten.',
-    impact: 'Simulierter Zielkorridor: 20-30 % weniger manuelle Abstimmungszeit.',
+    title: 'Betrieb / Optimierung',
+    text: 'Regeln, Vorlagen und Routing im Live-Betrieb nachschleifen. Fokus auf Durchlaufzeit und Bearbeitungsqualitaet.',
   },
 ];
 
@@ -58,12 +35,11 @@ const structuredData = [
     { name: 'Startseite', path: '/' },
     { name: 'Immobilienverwaltung', path: '/immobilienverwaltung' },
   ]),
-  faqSchema(faqItems),
 ];
 ---
 
 <Layout
-  title="KI Immobilienverwaltung | Automatisierung für Hausverwaltungen"
+  title="AI-Operations fuer Immobilienverwaltung | Contentfluss"
   description={description}
   canonicalPath="/immobilienverwaltung"
   structuredData={structuredData}
@@ -71,85 +47,89 @@ const structuredData = [
   <section class="hero">
     <div class="container hero-grid">
       <div class="hero-copy" data-reveal>
-        <p class="eyebrow">AI-Workflows für Immobilienverwaltungen</p>
-        <h1>Weniger Kommunikationschaos. Sauberere Vorgänge. Mehr Entlastung im Tagesgeschäft.</h1>
+        <p class="eyebrow">AI-Operations fuer Immobilienverwaltungen</p>
+        <h1>Weniger Kommunikationschaos. Schnellere Bearbeitung. Strukturierte Vorgaenge statt Inbox-Feuerwehr.</h1>
         <p class="lead">
-          Contentfluss unterstützt Immobilienverwaltungen mit AI-gestützten Workflows für
-          Schadenmeldungen, E-Mail-Triage, Dokumentenanforderungen und Koordination.
+          Contentfluss baut einen AI-Layer ueber bestehende Verwaltungsprozesse. Fokus: Schadenmeldung,
+          Triage, Routing, Koordination und wiederkehrende Kommunikationsablaeufe.
         </p>
+        <p class="trustline">Struktur: Workflow-Audit -> Build -> Betrieb.</p>
         <div class="button-row">
-          <a
-            href="/kontakt"
-            class="btn btn-primary"
-            data-track="cta_clicked"
-            data-track-label="immo_hero_erstgespraech"
-          >
-            Erstgespräch buchen
+          <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="immo_hero_cta">
+            Erstgespraech buchen
           </a>
-          <a
-            href="/workflows"
-            class="btn btn-secondary"
-            data-track="cta_clicked"
-            data-track-label="immo_hero_workflows"
-          >
-            Lösungen ansehen
+          <a href="#offers" class="btn btn-secondary" data-track="cta_clicked" data-track-label="immo_hero_offers">
+            5 Immo-Offers ansehen
           </a>
         </div>
       </div>
 
       <aside class="workflow-visual" data-reveal>
         <header>
-          <strong>Operative Entlastung</strong>
-          <span>Verwaltungsteams</span>
+          <strong>Typische Hebel in der Verwaltung</strong>
+          <span>Schaden, Inbox, Koordination</span>
         </header>
         <ul class="metric-list">
-          <li>Schadenmeldungen mit Pflichtinfos statt Nachfassen</li>
-          <li>E-Mail-Triage nach Priorität und Zuständigkeit</li>
-          <li>Statusupdates für Eigentümer, Mieter, Dienstleister</li>
-          <li>Weniger Liegenbleiber in wiederkehrenden Vorgängen</li>
+          <li>Vollstaendigere Schadenmeldungen ab Erstkontakt</li>
+          <li>Schnellere Inbox-Sortierung und Priorisierung</li>
+          <li>Weniger manuelle Abstimmung mit Dienstleistern</li>
+          <li>Klare Fristen und Ruecklaufsteuerung fuer Dokumente</li>
         </ul>
       </aside>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section-tight">
     <div class="container">
       <div class="section-head" data-reveal>
-        <h2>Typische Engpässe</h2>
+        <h2>Typische Painpoints in der Immobilienverwaltung</h2>
       </div>
       <div class="card surface" data-reveal style="padding: 1.3rem;">
         <ul class="list">
-          <li>Unvollständige Schadenmeldungen</li>
-          <li>Zu viele E-Mails in zu wenig Zeit</li>
-          <li>Ständiges Nachfassen bei Beteiligten</li>
-          <li>Fehlende Informationen in Vorgängen</li>
-          <li>Hoher Kommunikationsaufwand mit Mietern, Eigentümern und Dienstleistern</li>
+          {painpoints.map((painpoint) => (
+            <li>{painpoint}</li>
+          ))}
         </ul>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section id="offers" class="section">
     <div class="container">
       <div class="section-head" data-reveal>
-        <h2>Unsere 5 Workflow-Lösungen</h2>
+        <h2>Die 5 Offers fuer Immobilienverwaltung</h2>
+        <p>Alle Angebote sind auf wiederholbare Ops-Workflows statt Einzelfallprojekte ausgerichtet.</p>
       </div>
 
       <div class="card-grid two">
-        {immobilienverwaltungWorkflows.map((workflow) => (
+        {immobilienverwaltungOffers.map((offer) => (
           <article class="card" data-reveal>
-            <h3>{workflow.name}</h3>
-            <p>{workflow.short}</p>
-            <p style="margin-top: 0.8rem;"><strong>Für wen:</strong> {workflow.who}</p>
-            <p style="margin-top: 0.55rem;"><strong>Typischer Effekt:</strong> {workflow.effect}</p>
+            <span class="chip">{offer.code}</span>
+            <h3 style="margin-top: 0.65rem;">{offer.name}</h3>
+            <p>{offer.shortDescription}</p>
+            <p style="margin-top: 0.75rem;"><strong>Setup:</strong> {offer.setupPrice}</p>
+            <p style="margin-top: 0.35rem;"><strong>Betrieb:</strong> {offer.retainerPrice}</p>
+            <ul class="list list-check" style="margin-top: 0.85rem;">
+              {offer.deliverables.slice(0, 3).map((deliverable) => (
+                <li>{deliverable}</li>
+              ))}
+            </ul>
             <div class="button-row">
               <a
-                href={`/kontakt?workflow=${workflow.slug}`}
+                href={`/immobilienverwaltung/${offer.slug}`}
+                class="btn btn-secondary"
+                data-track="cta_clicked"
+                data-track-label={`immo_offer_detail_${offer.slug}`}
+              >
+                Details ansehen
+              </a>
+              <a
+                href={`/kontakt?workflow=${offer.slug}`}
                 class="btn btn-ghost"
                 data-track="workflow_cta_clicked"
-                data-track-label={`immo_${workflow.slug}`}
+                data-track-label={`immo_offer_contact_${offer.slug}`}
               >
-                Workflow besprechen
+                Offer besprechen
               </a>
             </div>
           </article>
@@ -161,86 +141,31 @@ const structuredData = [
   <section class="section-tight">
     <div class="container">
       <div class="section-head" data-reveal>
-        <h2>Wirkung im Alltag</h2>
-      </div>
-
-      <div class="card-grid five" style="display: grid; gap: 0.85rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-        <article class="card" data-reveal><p>Vollständigere Eingänge</p></article>
-        <article class="card" data-reveal><p>Schnellere Bearbeitung</p></article>
-        <article class="card" data-reveal><p>Weniger Rückfragen</p></article>
-        <article class="card" data-reveal><p>Strukturiertere Kommunikation</p></article>
-        <article class="card" data-reveal><p>Entlastete Sachbearbeitung</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-tight">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <h2>Preislogik</h2>
-        <p>Projektbezogene Orientierung für Verwaltungsprozesse mit höherer Prozesskomplexität.</p>
+        <h2>Prozessmodell fuer jedes Projekt</h2>
       </div>
 
       <div class="card-grid three">
-        <article class="card card-accent" data-reveal>
-          <h3>Workflow-Audit</h3>
-          <p class="price-badge">ab 590 € einmalig</p>
-          <p>Diagnose, Prozessanalyse und Priorisierung. Bei Projektstart anrechenbar.</p>
-        </article>
-
-        <article class="card card-accent" data-reveal>
-          <h3>Build / Umsetzung</h3>
-          <p class="price-badge">ab 3.900 €</p>
-          <p>Umsetzung mit klaren Statusflüssen, Übergaben und operativer Testphase.</p>
-        </article>
-
-        <article class="card card-accent" data-reveal>
-          <h3>Betrieb / Optimierung</h3>
-          <p class="price-badge">ab 590 €/Monat</p>
-          <p>Laufende Betreuung, Monitoring und strukturiertes Finetuning im Betrieb.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-tight">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <h2>Beispielhafte Wirkungsbilder</h2>
-        <p>Transparente Simulationen zur Einordnung, keine veröffentlichten Kunden-Referenzen.</p>
-      </div>
-
-      <div class="card-grid three">
-        {simulatedSnapshots.map((item) => (
-          <article class="card card-muted" data-reveal>
-            <span class="chip">Simulation</span>
-            <h3>{item.title}</h3>
-            <p style="margin-top: 0.6rem;"><strong>Ausgangslage:</strong> {item.situation}</p>
-            <p style="margin-top: 0.55rem;"><strong>Orientierung:</strong> {item.impact}</p>
+        {processSteps.map((step, index) => (
+          <article class="card" data-reveal>
+            <span class="kicker-number">{index + 1}</span>
+            <h3 style="margin-top: 0.8rem;">{step.title}</h3>
+            <p>{step.text}</p>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <h2>FAQ Immobilienverwaltung</h2>
-      </div>
-
-      <div class="faq-list">
-        {faqItems.map((faq) => (
-          <details data-reveal>
-            <summary>{faq.question}</summary>
-            <p>{faq.answer}</p>
-          </details>
-        ))}
-      </div>
-
-      <div class="button-row" data-reveal>
+  <section class="section-tight">
+    <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
+      <h2>Immo-Pivot operativ umsetzen</h2>
+      <p class="lead">
+        Einstieg ueber die priorisierten Kernoffers IM-01 und IM-02. Danach folgt der Ausbau Richtung
+        Koordination, Serienkommunikation und Rueckstandsprozesse.
+      </p>
+      <div class="button-row">
         <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="immo_final_cta">
-          Jetzt Verwaltungs-Workflow besprechen
+          Erstes Offer priorisieren
         </a>
       </div>
     </div>
