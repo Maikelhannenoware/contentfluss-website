@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { organizationSchema, websiteSchema, absoluteUrl } from '../lib/seo';
+import Logo from '../components/Logo.astro';
 
 interface Props {
   title: string;
@@ -85,8 +86,7 @@ function isActive(href: string) {
     <header class="site-header" data-reveal>
       <div class="container header-shell">
         <a href="/" class="brand" aria-label="Contentfluss Startseite">
-          <span class="brand-mark">Contentfluss</span>
-          <span class="brand-sub">AI-Operations</span>
+          <Logo size="md" />
         </a>
 
         <nav class="site-nav" aria-label="Hauptnavigation">
@@ -146,7 +146,9 @@ function isActive(href: string) {
     <footer class="site-footer">
       <div class="container footer-grid">
         <div class="footer-brand">
-          <p class="footer-logo">Contentfluss</p>
+          <a href="/" aria-label="Contentfluss Startseite" style="display:inline-block; margin-bottom: 0.75rem;">
+            <Logo size="sm" showSub={false} />
+          </a>
           <p class="footer-text">AI-Operations für Handwerk und Immobilienverwaltung.</p>
           <p class="footer-meta">Deutschlandweit, remote oder vor Ort.</p>
         </div>
