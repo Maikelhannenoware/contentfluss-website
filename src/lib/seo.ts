@@ -18,16 +18,32 @@ export function absoluteUrl(path: string): string {
 export function organizationSchema() {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': ['Organization', 'LocalBusiness'],
     name: 'Contentfluss',
     url: SITE_URL,
     email: 'hallo@contentfluss.de',
-    areaServed: 'DE',
+    telephone: '+4915125273382',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Hesemannstraße 17a',
+      addressLocality: 'Neuss',
+      postalCode: '41460',
+      addressCountry: 'DE',
+    },
+    areaServed: [
+      { '@type': 'City', name: 'Neuss' },
+      { '@type': 'City', name: 'Düsseldorf' },
+      { '@type': 'AdministrativeArea', name: 'Nordrhein-Westfalen' },
+    ],
     knowsAbout: [
       'KI Automatisierung Handwerk',
+      'KI-Agentur Handwerk',
       'KI Immobilienverwaltung',
       'AI Workflows Unternehmen',
-      'Prozessautomatisierung Deutschland',
+      'Prozessautomatisierung Handwerk',
+      'Workflow-Audit',
+      'Büroautomatisierung Handwerk',
+      'Automatisierung Hausverwaltung',
     ],
   };
 }

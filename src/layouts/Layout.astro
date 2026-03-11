@@ -25,12 +25,11 @@ const canonicalUrl = absoluteUrl(canonicalPath ?? pathname);
 const ogImageUrl = absoluteUrl('/og-image.svg');
 
 const navItems = [
-  { href: '/handwerk', label: 'Handwerk' },
-  { href: '/immobilienverwaltung', label: 'Immobilienverwaltung' },
   { href: '/leistungen', label: 'Leistungen' },
+  { href: '/handwerk', label: 'Handwerk' },
+  { href: '/immobilienverwaltung', label: 'Immobilien' },
   { href: '/workflows', label: 'Workflows' },
   { href: '/ueber-uns', label: 'Über uns' },
-  { href: '/kontakt', label: 'Kontakt' },
 ];
 
 const extraSchemas = Array.isArray(structuredData)
@@ -67,11 +66,12 @@ function isActive(href: string) {
     <meta name="twitter:title" content={computedTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="theme-color" content="#101e2d" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
     {allSchemas.map((schema) => (
@@ -83,7 +83,7 @@ function isActive(href: string) {
   <body>
     <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
 
-    <header class="site-header" data-reveal>
+    <header class="site-header">
       <div class="container header-shell">
         <a href="/" class="brand" aria-label="Contentfluss Startseite">
           <Logo size="md" />

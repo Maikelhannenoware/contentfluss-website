@@ -15,8 +15,8 @@ export type OfferDefinition = {
   deliverables: string[];
   techStack: string[];
   implementationTime: string;
-  setupPrice: string;
-  retainerPrice: string;
+  pilotFromPrice: string;
+  careFromPrice: string;
   onboarding: string[];
   priority: OfferPriority;
   caution?: string;
@@ -61,8 +61,8 @@ const offers: OfferDefinition[] = [
       'PostHog Funnel Tracking',
     ],
     implementationTime: 'MVP 3-4 Wochen, Vollausbau 4-6 Wochen',
-    setupPrice: '2.900-4.900 EUR',
-    retainerPrice: '590-890 EUR/Monat',
+    pilotFromPrice: 'ab 1.900 EUR',
+    careFromPrice: 'ab 249 EUR/Monat',
     onboarding: [
       'Leistungskategorien, PLZ-Radius, Bürozeiten und Eskalationsregeln festlegen',
       'Kanäle und Pflichtfelder für Intake definieren',
@@ -106,8 +106,8 @@ const offers: OfferDefinition[] = [
       'PostHog oder internes KPI-Dashboard',
     ],
     implementationTime: 'MVP 3-4 Wochen, Vollausbau 4-6 Wochen',
-    setupPrice: '3.900-5.900 EUR',
-    retainerPrice: '790-1.190 EUR/Monat',
+    pilotFromPrice: 'ab 2.400 EUR',
+    careFromPrice: 'ab 299 EUR/Monat',
     onboarding: [
       'Angebotsquellen, Angebotsarten und Statusstufen mappen',
       'Kanalpräferenzen und Freigaberegeln für Follow-ups definieren',
@@ -148,8 +148,8 @@ const offers: OfferDefinition[] = [
       'OpenAI für Freitext-Antwortklassifikation',
     ],
     implementationTime: 'MVP 2-3 Wochen, Vollausbau 3-5 Wochen',
-    setupPrice: '2.500-4.500 EUR',
-    retainerPrice: '490-790 EUR/Monat',
+    pilotFromPrice: 'ab 1.500 EUR',
+    careFromPrice: 'ab 199 EUR/Monat',
     onboarding: [
       'Serviceintervalle und Recall-Zeitfenster definieren',
       'Kontaktpräferenzen inkl. Opt-in und Ruhezeiten abstimmen',
@@ -189,8 +189,8 @@ const offers: OfferDefinition[] = [
       'OpenAI für Antwortkategorisierung',
     ],
     implementationTime: '3-5 Wochen je nach Integrationsgrad',
-    setupPrice: '2.000-3.900 EUR',
-    retainerPrice: '390-690 EUR/Monat',
+    pilotFromPrice: 'ab 1.500 EUR',
+    careFromPrice: 'ab 199 EUR/Monat',
     onboarding: [
       'Rechnungs- und Statusdatenquellen abstimmen',
       'Mahnstufen und Fristen pro Falltyp definieren',
@@ -231,8 +231,8 @@ const offers: OfferDefinition[] = [
       'OpenAI Structured Outputs für freie Antworten',
     ],
     implementationTime: '4-7 Wochen (delivery-lastig)',
-    setupPrice: '4.900-8.900 EUR',
-    retainerPrice: '990-1.490 EUR/Monat',
+    pilotFromPrice: 'ab 3.500 EUR',
+    careFromPrice: 'ab 490 EUR/Monat',
     onboarding: [
       'Termin- und Dispo-Prozess aufnehmen',
       'Statusstufen und Eskalationen definieren',
@@ -277,8 +277,8 @@ const offers: OfferDefinition[] = [
       'BullMQ für Nachforderung und Wiedervorlage',
     ],
     implementationTime: 'MVP 4-5 Wochen, Vollausbau 5-7 Wochen',
-    setupPrice: '4.900-7.900 EUR',
-    retainerPrice: '890-1.490 EUR/Monat',
+    pilotFromPrice: 'ab 3.500 EUR',
+    careFromPrice: 'ab 490 EUR/Monat',
     onboarding: [
       'Objektstruktur, Vorgangskategorien und Dringlichkeitsregeln definieren',
       'Pflichtfragen, Dateianforderungen und Eskalationen abstimmen',
@@ -321,8 +321,8 @@ const offers: OfferDefinition[] = [
       'Optionale DMS-/Ticket-Weitergabe',
     ],
     implementationTime: 'MVP 3-4 Wochen, Vollausbau 4-6 Wochen',
-    setupPrice: '3.900-6.500 EUR',
-    retainerPrice: '690-1.190 EUR/Monat',
+    pilotFromPrice: 'ab 2.900 EUR',
+    careFromPrice: 'ab 349 EUR/Monat',
     onboarding: [
       'Postfächer, Kategorien und Priorisierungsregeln erfassen',
       'Absenderrollen und Objektbezug-Logik mappen',
@@ -362,8 +362,8 @@ const offers: OfferDefinition[] = [
       'OpenAI für freie Antwortklassifikation',
     ],
     implementationTime: '4-6 Wochen',
-    setupPrice: '4.900-7.500 EUR',
-    retainerPrice: '790-1.290 EUR/Monat',
+    pilotFromPrice: 'ab 3.500 EUR',
+    careFromPrice: 'ab 490 EUR/Monat',
     onboarding: [
       'Beteiligte Rollen und Statusstufen pro Fall definieren',
       'Kommunikationskanäle je Stakeholder festlegen',
@@ -404,8 +404,8 @@ const offers: OfferDefinition[] = [
       'BullMQ',
     ],
     implementationTime: '3-5 Wochen',
-    setupPrice: '2.900-4.900 EUR',
-    retainerPrice: '490-890 EUR/Monat',
+    pilotFromPrice: 'ab 2.000 EUR',
+    careFromPrice: 'ab 249 EUR/Monat',
     onboarding: [
       'Dokumentenarten und Fristregeln definieren',
       'Kontaktsegmente und Kommunikationszeitpunkte abstimmen',
@@ -444,8 +444,8 @@ const offers: OfferDefinition[] = [
       'Optional OpenAI für Antwortklassifikation',
     ],
     implementationTime: '3-5 Wochen',
-    setupPrice: '3.500-5.900 EUR',
-    retainerPrice: '590-990 EUR/Monat',
+    pilotFromPrice: 'ab 2.500 EUR',
+    careFromPrice: 'ab 299 EUR/Monat',
     onboarding: [
       'Rückstandsfälle und Fristlogik mappen',
       'Kommunikationsstufen und Eskalationskriterien freigeben',

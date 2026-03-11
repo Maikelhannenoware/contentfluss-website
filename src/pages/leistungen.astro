@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
 
 const description =
-  'AI Operations Agentur für Prozessautomatisierung: Contentfluss arbeitet strukturiert über Workflow-Audit, Umsetzung und laufende Optimierung.';
+  'Workflow-Audit ab 590 €, Build ab 2.900 €, Betrieb ab 490 €/Monat. Transparente Preise, strukturierter Prozess, kein Vendor-Lock-in.';
 
 const structuredData = [
   professionalServiceSchema('/leistungen', description),
@@ -12,59 +12,141 @@ const structuredData = [
     { name: 'Leistungen', path: '/leistungen' },
   ]),
 ];
+
+const pricingTiers = [
+  {
+    step: '1',
+    name: 'Workflow-Audit',
+    tag: 'Einstieg ohne Risiko',
+    price: 'ab 590 €',
+    priceMeta: 'einmalig',
+    featured: false,
+    positioning: 'Bevor ihr investiert – wisst ihr genau, ob es sich lohnt.',
+    features: [
+      'Prozessaufnahme und Ist-Analyse',
+      'Engpassanalyse und Hebel-Priorisierung',
+      'Klare Umsetzungsempfehlung',
+      'Priorisierter Plan mit realistischem Aufwand',
+      'Ja/Nein-Empfehlung – keine leeren Versprechen',
+    ],
+    when: 'Wenn unklar ist, welcher Workflow zuerst wirtschaftlich wirkt.',
+    cta: 'Audit anfragen',
+    ctaHref: '/kontakt?audit=1',
+    ctaTrack: 'leistungen_audit',
+    ctaVariant: 'btn-primary',
+  },
+  {
+    step: '2',
+    name: 'Build / Umsetzung',
+    tag: 'Pilot-Projekt',
+    price: 'ab 2.900 €',
+    priceMeta: 'bis 7.900 €+, je nach Umfang',
+    featured: true,
+    positioning: 'Ein abgegrenzter Pilot mit klarem Enddatum – kein Jahresprojekt.',
+    features: [
+      'Workflow-Design und technische Umsetzung',
+      'Testphase mit realen Fällen',
+      'Livegang und Team-Onboarding',
+      'Dokumentierte Übergabe',
+      'Anbindung bestehender Tools',
+    ],
+    when: 'Wenn ein klarer Engpass definiert ist und operativ gelöst werden soll.',
+    cta: 'Erstgespräch buchen',
+    ctaHref: '/kontakt',
+    ctaTrack: 'leistungen_erstgespraech',
+    ctaVariant: 'btn-secondary',
+  },
+  {
+    step: '3',
+    name: 'Betrieb / Optimierung',
+    tag: 'Laufende Begleitung',
+    price: 'ab 490 €',
+    priceMeta: 'bis 1.490 €+/Monat',
+    featured: false,
+    positioning: 'Kontinuierlich belastbar – nicht einmal eingerichtet und vergessen.',
+    features: [
+      'Monitoring und Fehleranalyse',
+      'KPI-Review im laufenden Betrieb',
+      'Tuning von Regeln und Vorlagen',
+      'Gezielte Weiterentwicklung',
+      'Klare Ansprechpartner, kurze Wege',
+    ],
+    when: 'Wenn der Workflow dauerhaft stabil laufen und mitwachsen soll.',
+    cta: 'Erstgespräch buchen',
+    ctaHref: '/kontakt',
+    ctaTrack: 'leistungen_erstgespraech',
+    ctaVariant: 'btn-secondary',
+  },
+];
 ---
 
 <Layout
-  title="Leistungen | KI Workflow Umsetzung für Unternehmen"
+  title="Leistungen & Preise – Contentfluss"
   description={description}
   canonicalPath="/leistungen"
   structuredData={structuredData}
 >
+  <!-- HERO -->
   <section class="hero">
     <div class="container" data-reveal>
-      <p class="eyebrow">Leistungen</p>
-      <h1>So arbeiten wir an euren Workflows</h1>
+      <p class="eyebrow">Leistungen & Preise</p>
+      <h1>Workflow-Audit, Umsetzung und Betrieb – transparent und ohne Paketboxen</h1>
       <p class="lead">
-        Kein Bauchladen. Kein blindes Tool-Setup. Sondern ein strukturierter Weg von der
-        Prozessanalyse bis zur stabilen Umsetzung.
+        Kein Bauchladen, kein blindes Tool-Setup. Drei klar abgegrenzte Leistungsstufen –
+        ihr steigt ein wo es für euch Sinn macht.
       </p>
     </div>
   </section>
 
+  <!-- PRICING CARDS -->
   <section class="section-tight">
-    <div class="container card-grid three">
-      <article class="card card-accent" data-reveal>
-        <h2 style="font-size: 1.45rem;">1. Workflow-Audit</h2>
-        <p class="price-badge">ab 590 € einmalig</p>
-        <p style="margin-top: 0.6rem;"><strong>Was enthalten ist:</strong> Prozessaufnahme, Engpassanalyse, Hebel-Priorisierung, klare Empfehlung.</p>
-        <p style="margin-top: 0.5rem;"><strong>Wann sinnvoll:</strong> Wenn unklar ist, welcher Workflow zuerst wirtschaftlich wirkt.</p>
-        <p style="margin-top: 0.5rem;"><strong>Ergebnis:</strong> Priorisierter Umsetzungsplan mit realistischem Aufwand.</p>
-      </article>
-
-      <article class="card card-accent" data-reveal>
-        <h2 style="font-size: 1.45rem;">2. Build / Umsetzung</h2>
-        <p class="price-badge">ab 2.900 € bis 7.900 €+</p>
-        <p style="margin-top: 0.6rem;"><strong>Was enthalten ist:</strong> Workflow-Design, technische Umsetzung, Testphase, Livegang, Übergabe.</p>
-        <p style="margin-top: 0.5rem;"><strong>Wann sinnvoll:</strong> Wenn ein klarer Engpass definiert ist und operativ gelöst werden soll.</p>
-        <p style="margin-top: 0.5rem;"><strong>Ergebnis:</strong> Produktiver Workflow, der im Team nutzbar und dokumentiert ist.</p>
-      </article>
-
-      <article class="card card-accent" data-reveal>
-        <h2 style="font-size: 1.45rem;">3. Betrieb / Optimierung</h2>
-        <p class="price-badge">ab 490 € bis 1.490 €+/Monat</p>
-        <p style="margin-top: 0.6rem;"><strong>Was enthalten ist:</strong> Monitoring, Fehlerbehebung, KPI-Review, gezielte Weiterentwicklung.</p>
-        <p style="margin-top: 0.5rem;"><strong>Wann sinnvoll:</strong> Wenn der Workflow dauerhaft stabil laufen und mitwachsen soll.</p>
-        <p style="margin-top: 0.5rem;"><strong>Ergebnis:</strong> Kontinuierlich belastbare Automatisierung statt Einmal-Projekt.</p>
-      </article>
+    <div class="container">
+      <div class="pricing-grid">
+        {pricingTiers.map((tier) => (
+          <div class={`pricing-card${tier.featured ? ' pricing-featured' : ''}`} data-reveal>
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.15rem;">
+              <span class="pricing-tag">{tier.tag}</span>
+              <span class="mono-label">Schritt {tier.step}</span>
+            </div>
+            <h2 style="font-size: clamp(1.2rem, 2.5vw, 1.5rem); margin-bottom: 0.15rem;">{tier.name}</h2>
+            <p class="pricing-price">{tier.price}</p>
+            <p class="pricing-meta">{tier.priceMeta}</p>
+            <p style="font-size: 0.89rem; color: var(--color-muted); margin-bottom: 0.75rem; font-style: italic;">{tier.positioning}</p>
+            <hr class="pricing-divider" />
+            <ul class="pricing-feature-list">
+              {tier.features.map((feature) => (
+                <li>{feature}</li>
+              ))}
+            </ul>
+            <p style="margin-top: 0.85rem; font-size: 0.83rem; color: #7a8f9e;">
+              <strong>Wann sinnvoll:</strong> {tier.when}
+            </p>
+            <div class="button-row">
+              <a
+                href={tier.ctaHref}
+                class={`btn ${tier.ctaVariant}`}
+                data-track="cta_clicked"
+                data-track-label={tier.ctaTrack}
+              >
+                {tier.cta}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.82rem; color: var(--color-muted);" data-reveal>
+        * Finale Kalkulation erfolgt nach Workflow-Audit. Preise abhängig von Prozesskomplexität, Teamgröße und Integrationsgrad.
+      </p>
     </div>
   </section>
 
+  <!-- TECHNISCHE INTEGRATION -->
   <section class="section-tight">
     <div class="container">
       <article class="card" data-reveal>
-        <h2>Technische Integration</h2>
+        <h2>Eure bestehenden Tools bleiben im Mittelpunkt</h2>
         <p class="lead" style="margin-top: 0.6rem;">
-          Wir binden eure bestehende Infrastruktur an, damit Workflows nicht isoliert neben dem Alltag laufen.
+          Wir binden an, was ihr bereits nutzt. Kein Ersatz, kein Parallelsystem.
         </p>
         <div class="chip-list" style="margin-top: 1rem;">
           <span class="chip">Bestehende Tools anbinden</span>
@@ -79,37 +161,50 @@ const structuredData = [
     </div>
   </section>
 
+  <!-- TRANSPARENTE ANGEBOTSLOGIK -->
   <section class="section-tight">
     <div class="container" data-reveal>
       <article class="card">
-        <h2>Transparente Angebotslogik</h2>
+        <h2>Was wir nicht tun</h2>
         <p class="lead" style="margin-top: 0.6rem;">
-          Wir verkaufen keine überladenen Paketboxen. Der Umfang richtet sich nach Prozesskomplexität,
-          Teamgröße und Integrationsgrad.
+          Wir verkaufen keine überladenen Pakete mit Leistungen, die ihr nicht braucht.
+          Der Umfang richtet sich nach eurer Prozesskomplexität – nicht nach einer Preisliste.
         </p>
         <ul class="list list-check" style="margin-top: 1rem;">
-          <li>Klare Leistungsabgrenzung vor Start</li>
-          <li>Sauber dokumentierte Übergabe</li>
-          <li>Keine Lock-in-Architektur ohne Not</li>
+          <li>Klare Leistungsabgrenzung vor Projektstart</li>
+          <li>Sauber dokumentierte Übergabe an euer Team</li>
+          <li>Keine Lock-in-Architektur ohne triftigen Grund</li>
         </ul>
-        <p style="margin-top: 1rem; color: var(--color-muted);">
+        <p style="margin-top: 1rem; color: var(--color-muted); font-size: 0.9rem;">
           Content-Marketing kann auf Anfrage ergänzend unterstützt werden, steht aber nicht im Zentrum unseres Angebots.
         </p>
       </article>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container surface" style="padding: clamp(1.45rem, 4vw, 2.1rem);" data-reveal>
-      <h2>Lasst uns den passenden Einstieg definieren</h2>
+  <!-- FINAL CTA -->
+  <section class="section-dark-cta">
+    <div class="container" data-reveal>
+      <p class="eyebrow eyebrow-light">Nächster Schritt</p>
+      <h2>Noch unsicher wo ihr einsteigen sollt?</h2>
       <p class="lead">
-        Im Erstgespräch klären wir, ob ein Audit direkt sinnvoll ist oder ob bereits eine konkrete Umsetzung starten kann.
+        Im Erstgespräch klären wir das gemeinsam – in 20 Minuten. Kostenlos und unverbindlich.
       </p>
       <div class="button-row">
-        <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="leistungen_erstgespraech">
+        <a
+          href="/kontakt"
+          class="btn btn-primary"
+          data-track="cta_clicked"
+          data-track-label="leistungen_erstgespraech"
+        >
           Erstgespräch buchen
         </a>
-        <a href="/kontakt?audit=1" class="btn btn-secondary" data-track="cta_clicked" data-track-label="leistungen_audit">
+        <a
+          href="/kontakt?audit=1"
+          class="btn btn-ghost-light"
+          data-track="cta_clicked"
+          data-track-label="leistungen_audit"
+        >
           Audit anfragen
         </a>
       </div>
