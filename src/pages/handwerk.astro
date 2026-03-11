@@ -48,13 +48,13 @@ const structuredData = [
     <div class="container hero-grid">
       <div class="hero-copy" data-reveal>
         <p class="eyebrow">AI-Operations für Handwerksbetriebe</p>
-        <h1>Weniger Bürochaos. Mehr Abschlüsse. Klare Prozesse vom Erstkontakt bis zum Folgeauftrag.</h1>
+        <h1>Automatisierte Abläufe für Handwerksbetriebe – von der Anfrage bis zum Folgeauftrag</h1>
         <p class="lead">
-          Contentfluss legt einen AI-Layer über eure bestehenden Abläufe. Kein Software-Ersatz,
-          sondern produktisierte Workflows für Intake, Follow-up, Recall und operative
-          Kommunikation.
+          Contentfluss legt einen AI-Layer über eure bestehenden Abläufe: Anfrageannahme,
+          Angebots-Follow-up, Service-Recall, Mahnkommunikation. Kein Software-Wechsel –
+          nur strukturiertere Prozesse.
         </p>
-        <p class="trustline">Struktur: Workflow-Audit -> Build -> Betrieb.</p>
+        <p class="trustline">Struktur: Workflow-Audit → Pilot → Ausbau.</p>
         <div class="button-row">
           <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="handwerk_hero_cta">
             Erstgespräch buchen
@@ -99,7 +99,7 @@ const structuredData = [
     <div class="container">
       <div class="section-head" data-reveal>
         <h2>Die 5 Offers für Handwerk</h2>
-        <p>Jedes Offer ist als wiederholbarer Workflow mit klarer Preis- und Delivery-Logik produktisiert.</p>
+        <p>Jedes Offer startet mit einem klar begrenzten Pilot statt mit einem unscharfen Vollausbau.</p>
       </div>
 
       <div class="card-grid two">
@@ -108,8 +108,9 @@ const structuredData = [
             <span class="chip">{offer.code}</span>
             <h3 style="margin-top: 0.65rem;">{offer.name}</h3>
             <p>{offer.shortDescription}</p>
-            <p style="margin-top: 0.75rem;"><strong>Setup:</strong> {offer.setupPrice}</p>
-            <p style="margin-top: 0.35rem;"><strong>Betrieb:</strong> {offer.retainerPrice}</p>
+            <p style="margin-top: 0.75rem;"><strong>Pilot:</strong> {offer.pilotFromPrice}</p>
+            <p style="margin-top: 0.35rem;"><strong>Care optional:</strong> {offer.careFromPrice}</p>
+            <p style="margin-top: 0.35rem;"><strong>Hinweis:</strong> Finale Kalkulation nach Workflow-Audit.</p>
             <ul class="list list-check" style="margin-top: 0.85rem;">
               {offer.deliverables.slice(0, 3).map((deliverable) => (
                 <li>{deliverable}</li>
@@ -159,14 +160,14 @@ const structuredData = [
 
   <section class="section-tight">
     <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
-      <h2>Handwerk-Pivot jetzt im Betrieb umsetzen</h2>
+      <h2>Welcher Workflow wirkt bei euch am schnellsten?</h2>
       <p class="lead">
-        Startpunkt sind die drei priorisierten Kernoffers HW-02, HW-01 und HW-03. Danach wird die
-        Offer-Bibliothek schrittweise ausgebaut.
+        Im Erstgespräch schauen wir auf euren Betrieb und priorisieren gemeinsam den ersten
+        Schritt – kostenlos und unverbindlich.
       </p>
       <div class="button-row">
         <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="handwerk_final_cta">
-          Erstes Offer priorisieren
+          Erstgespräch buchen
         </a>
       </div>
     </div>

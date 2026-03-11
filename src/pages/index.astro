@@ -6,10 +6,10 @@ import {
   featuredWorkflowIds,
   type WorkflowDefinition,
 } from '../lib/workflows';
-import { professionalServiceSchema } from '../lib/seo';
+import { professionalServiceSchema, faqSchema, type FaqItem } from '../lib/seo';
 
 const description =
-  'Contentfluss ist AI-Operations-Partner für Handwerk und Immobilienverwaltung. Wir bauen Workflows, die Bürochaos reduzieren, Abläufe beschleunigen und messbar entlasten.';
+  'Contentfluss automatisiert Büroprozesse für Handwerksbetriebe und Immobilienverwaltungen. Weniger Rückfragen, schnellere Vorgänge, klare Abläufe. Erstgespräch kostenlos.';
 
 const workflowMap = new Map(
   [...handwerkWorkflows, ...immobilienverwaltungWorkflows].map((workflow) => [workflow.slug, workflow])
@@ -42,42 +42,74 @@ const proofExamples = [
 
 const simulatedProofCases = [
   {
+    value: '25–40 %',
+    label: 'weniger Rückfragen',
     title: 'Handwerk: Anfrageannahme',
-    input: 'Bei rund 90 Anfragen pro Monat fehlen in der Ausgangslage oft Pflichtinfos.',
-    effect: 'Mit strukturiertem Intake sinkt der Rückfrageaufwand deutlich und Anfragen werden schneller verteilt.',
-    corridor: 'Simulierter Zielkorridor: 25-40 % weniger Rückfragen in der Erstbearbeitung.',
+    note: 'Simulierter Zielkorridor bei ~90 Anfragen/Monat',
   },
   {
+    value: '20–35 %',
+    label: 'höhere Follow-up-Quote',
     title: 'Handwerk: Angebots-Follow-up',
-    input: 'Bei vielen offenen Angeboten gehen Nachfassungen im Tagesgeschäft unter.',
-    effect: 'Mit klarer Follow-up-Logik steigen Kontaktquote und Verbindlichkeit in der Nachverfolgung.',
-    corridor: 'Simulierter Zielkorridor: 20-35 % höhere Follow-up-Quote.',
+    note: 'Simulierter Zielkorridor mit strukturierten Sequenzen',
   },
   {
-    title: 'Immobilienverwaltung: Schaden-Triage',
-    input: 'Unvollständige Meldungen erzeugen lange Schleifen mit Mietern und Dienstleistern.',
-    effect: 'Vorqualifizierte Eingänge machen die Erstbearbeitung und Priorisierung deutlich robuster.',
-    corridor: 'Simulierter Zielkorridor: 30-50 % weniger Nachforderungen je Vorgang.',
+    value: '30–50 %',
+    label: 'weniger Nachforderungen',
+    title: 'Immobilienverwaltung: Schadens-Triage',
+    note: 'Simulierter Zielkorridor je Schadenfall',
   },
 ];
 
-const structuredData = [professionalServiceSchema('/', description)];
+const faqItems: FaqItem[] = [
+  {
+    question: 'Was kostet ein Erstgespräch?',
+    answer: 'Das Erstgespräch ist kostenlos und unverbindlich. Wir klären darin, ob und welcher Workflow bei euch den größten Hebel hat. Erst danach entscheiden wir gemeinsam, ob ein bezahlter Audit sinnvoll ist.',
+  },
+  {
+    question: 'Wie hoch ist das Risiko für uns?',
+    answer: 'Der Einstieg über den Workflow-Audit (590 €) ist bewusst so gebaut, dass ihr eine klare Entscheidungsgrundlage habt, bevor eine teurere Umsetzung beginnt. Es gibt keine Mindestvertragslaufzeit für den Audit.',
+  },
+  {
+    question: 'Müssen wir bestehende Software ersetzen?',
+    answer: 'Nein. Contentfluss arbeitet als AI-Layer über eurem bestehenden Setup. Wir binden an, was ihr bereits nutzt – kein System-Wechsel, kein Parallelbetrieb zweier Welten.',
+  },
+  {
+    question: 'Ist das auch etwas für kleinere Betriebe?',
+    answer: 'Ja. Unsere Klientel sind Betriebe mit 3 bis 30 Mitarbeitern. Gerade dort summiert sich der manuelle Aufwand am schnellsten und der Entlastungseffekt ist am deutlichsten spürbar.',
+  },
+  {
+    question: 'Wie lange dauert die Umsetzung eines Workflows?',
+    answer: 'Ein erster Pilot ist in der Regel innerhalb von 4–8 Wochen produktiv – abhängig von Komplexität und Integrationstiefe. Wir liefern kein Jahresprojekt, sondern abgegrenzte Umsetzungen mit klarem Enddatum.',
+  },
+  {
+    question: 'Wie ist das mit Datenschutz und DSGVO?',
+    answer: 'Wir legen Wert auf DSGVO-orientierte Umsetzung. Personenbezogene Daten werden nur dort eingesetzt, wo es notwendig und rechtlich abgesichert ist. Details klären wir im Audit.',
+  },
+];
+
+const structuredData = [
+  professionalServiceSchema('/', description),
+  faqSchema(faqItems),
+];
 ---
 
 <Layout
-  title="Contentfluss | AI-Operations für Handwerk & Immobilienverwaltung"
+  title="Contentfluss – AI-Workflows für Handwerk & Immobilien"
   description={description}
   canonicalPath="/"
   structuredData={structuredData}
 >
-  <section class="hero">
+  <!-- ── 1. HERO DARK ─────────────────────────────────────────────── -->
+  <section class="hero hero-dark">
     <div class="container hero-grid">
       <div class="hero-copy" data-reveal>
-        <p class="eyebrow">AI-Operations für Handwerk & Immobilienverwaltung</p>
-        <h1>Weniger Bürochaos. Schnellere Abläufe. Mehr erledigt.</h1>
+        <p class="eyebrow eyebrow-light">AI-Workflows für Handwerk & Immobilienverwaltung</p>
+        <h1 class="hero-h1">Büroprozesse <span class="text-gradient">automatisieren</span> – für Handwerk & Immobilien</h1>
         <p class="lead">
-          Contentfluss baut AI-gestützte Workflows für Handwerksbetriebe und Immobilienverwaltungen,
-          damit Anfragen, Angebote, Meldungen und Kommunikation nicht mehr im Alltag stecken bleiben.
+          Contentfluss legt einen AI-Layer über eure bestehenden Abläufe. Keine neue Software,
+          kein Systemwechsel – sondern Workflows, die Anfragen, Angebote, Meldungen und
+          Kommunikation automatisieren.
         </p>
         <div class="button-row">
           <a
@@ -90,7 +122,7 @@ const structuredData = [professionalServiceSchema('/', description)];
           </a>
           <a
             href="/workflows"
-            class="btn btn-secondary"
+            class="btn btn-ghost-light"
             data-track="cta_clicked"
             data-track-label="home_hero_loesungen"
           >
@@ -100,10 +132,10 @@ const structuredData = [professionalServiceSchema('/', description)];
         <p class="trustline">Pragmatisch. DSGVO-orientiert. Ohne unnötigen Tool-Zirkus.</p>
       </div>
 
-      <aside class="workflow-visual" aria-label="Beispiel eines Workflow-Dashboards" data-reveal>
+      <aside class="workflow-visual workflow-visual-dark" aria-label="Beispiel eines Workflow-Dashboards" data-reveal>
         <header>
           <strong>Operatives Dashboard</strong>
-          <span>Demo-Ansicht</span>
+          <span><span class="status-dot" aria-hidden="true"></span>Demo-Ansicht</span>
         </header>
         <div class="metric-grid">
           <div class="metric">
@@ -132,62 +164,68 @@ const structuredData = [professionalServiceSchema('/', description)];
     </div>
   </section>
 
+  <!-- ── 2. VALUE PILLS ─────────────────────────────────────────────── -->
   <section class="section-tight">
     <div class="container value-bar">
-      <div class="value-pill" data-reveal>Fokus auf Handwerk & Immobilienverwaltung</div>
-      <div class="value-pill" data-reveal>Messbare Entlastung statt KI-Spielerei</div>
-      <div class="value-pill" data-reveal>Offene Lösungen ohne unnötigen Vendor Lock-in</div>
-      <div class="value-pill" data-reveal>Deutschlandweit, remote oder vor Ort</div>
+      <div class="value-pill value-pill-check" data-reveal>Spezialisiert auf Handwerk & Immobilienverwaltung</div>
+      <div class="value-pill value-pill-check" data-reveal>Messbare Entlastung, keine leeren Versprechen</div>
+      <div class="value-pill value-pill-check" data-reveal>Offene Lösungen – kein Vendor Lock-in</div>
+      <div class="value-pill value-pill-check" data-reveal>Raum Neuss/Düsseldorf – remote oder vor Ort</div>
     </div>
   </section>
 
+  <!-- ── 3. PROBLEM / SOLUTION ─────────────────────────────────────── -->
   <section class="section">
     <div class="container split two">
       <article class="card card-muted" data-reveal>
-        <p class="eyebrow">Wo Prozesse heute hängen bleiben</p>
-        <h2>Viele operative Teams verlieren Zeit an Wiederholung</h2>
+        <p class="eyebrow">Was täglich wirklich Zeit kostet</p>
+        <h2>Viele operative Teams verlieren Stunden an Aufgaben, die sich täglich wiederholen</h2>
         <p class="lead">
-          Viele Betriebe und Verwaltungen verlieren täglich Zeit in wiederkehrender Kommunikation,
-          manuellen Rückfragen und unstrukturierten Abläufen.
+          Rückfragen, Nachfassen, unstrukturierte Eingänge. Was sich nach kleinem Aufwand
+          anfühlt, summiert sich im Monat auf Dutzende Stunden – unsichtbar, aber teuer.
         </p>
-        <ul class="list">
-          <li>Anfragen bleiben liegen</li>
-          <li>Angebote werden nicht nachverfolgt</li>
-          <li>Schadenmeldungen sind unvollständig</li>
-          <li>E-Mails und Telefonate reißen das Team auseinander</li>
-          <li>Rückfragen und Abstimmungen kosten zu viel Zeit</li>
+        <ul class="list" style="margin-top: 1rem;">
+          <li>Anfragen kommen unvollständig über mehrere Kanäle rein</li>
+          <li>Angebote werden nicht nachgefasst, Chancen gehen verloren</li>
+          <li>Schadenmeldungen brauchen mehrere Klärungsrunden</li>
+          <li>E-Mails und Anrufe reißen den Tagesablauf auseinander</li>
+          <li>Abstimmungen und Rückfragen binden zu viel Bürozeit</li>
         </ul>
       </article>
 
       <article class="card card-accent" data-reveal>
-        <p class="eyebrow">Was Contentfluss daraus macht</p>
-        <h2>Struktur statt Kommunikationschaos</h2>
-        <p class="lead">Genau dort setzen wir an: in den Engpässen, die jeden Tag wirklich Zeit kosten.</p>
-        <ul class="list list-check">
-          <li>Strukturierte Eingänge</li>
-          <li>Automatische Vorqualifikation</li>
-          <li>Intelligentes Nachfassen</li>
-          <li>Klare Zuständigkeiten</li>
-          <li>Saubere Follow-ups</li>
-          <li>Messbare Entlastung im Alltag</li>
+        <p class="eyebrow">Contentfluss automatisiert genau diese Abläufe</p>
+        <h2>Nicht als Generalüberholung, sondern gezielt am Engpass</h2>
+        <p class="lead">
+          Ein strukturierter Workflow ersetzt fünf manuelle Schritte – und läuft neben eurem
+          Betrieb, ohne ihn zu unterbrechen.
+        </p>
+        <ul class="list list-check" style="margin-top: 1rem;">
+          <li>Strukturierte Eingänge mit automatischer Vorqualifikation</li>
+          <li>Angebots-Follow-up mit Wiedervorlage und Eskalation</li>
+          <li>Vorqualifizierte Schadenmeldungen ab Erstkontakt</li>
+          <li>Klare Zuständigkeiten und automatisches Routing</li>
+          <li>Messbare Entlastung – sichtbar im Alltag</li>
         </ul>
       </article>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ── 4. BRANCHENVERTICALS ──────────────────────────────────────── -->
+  <section class="section" style="background: var(--color-panel); padding-block: clamp(3rem, 6vw, 5.5rem);">
     <div class="container">
       <div class="section-head" data-reveal>
-        <p class="eyebrow">Spezialisiert auf zwei operative Umfelder</p>
-        <h2>Klare Branchenfokussierung statt Bauchladen</h2>
+        <p class="eyebrow">Spezialisiert, nicht verallgemeinert</p>
+        <h2>Wir kennen nur zwei operative Umfelder – und die kennen wir gut</h2>
       </div>
 
       <div class="card-grid two">
         <article class="card" data-reveal>
-          <h3>Handwerk</h3>
-          <p>
-            Für Betriebe, die Anfragen schneller bearbeiten, Angebote besser nachverfolgen und
-            Büroprozesse sauberer organisieren wollen.
+          <p class="eyebrow" style="margin-bottom: 0.8rem;">Handwerksbetriebe</p>
+          <h3>Anfragen strukturieren, Angebote nachfassen, Auslastung stabilisieren</h3>
+          <p style="margin-top: 0.6rem;">
+            Für Betriebe, die Bürozeit reduzieren und vom Erstkontakt bis zum Folgeauftrag
+            klare Prozesse wollen – ohne ihren Werkzeugkasten zu ersetzen.
           </p>
           <div class="button-row">
             <a
@@ -202,10 +240,11 @@ const structuredData = [professionalServiceSchema('/', description)];
         </article>
 
         <article class="card" data-reveal>
-          <h3>Immobilienverwaltung</h3>
-          <p>
-            Für Verwaltungen, die E-Mail-Chaos reduzieren, Schadenmeldungen strukturieren und
-            Kommunikation spürbar entlasten wollen.
+          <p class="eyebrow" style="margin-bottom: 0.8rem;">Immobilienverwaltungen</p>
+          <h3>Schadenmeldungen triagieren, Inbox entlasten, Koordination automatisieren</h3>
+          <p style="margin-top: 0.6rem;">
+            Für Verwaltungen, die Reaktionszeiten verkürzen und Sachbearbeitung entlasten
+            wollen – ohne ein weiteres Tool zu kaufen.
           </p>
           <div class="button-row">
             <a
@@ -222,18 +261,19 @@ const structuredData = [professionalServiceSchema('/', description)];
     </div>
   </section>
 
+  <!-- ── 5. FEATURED WORKFLOWS ─────────────────────────────────────── -->
   <section class="section">
     <div class="container">
       <div class="section-head" data-reveal>
         <p class="eyebrow">Beispiele für Workflows mit echtem Hebel</p>
-        <h2>Kuratiert für Handwerk und Immobilienverwaltung</h2>
+        <h2>Drei Einsatzfelder, die sofort wirken können</h2>
       </div>
 
       <div class="card-grid three">
         {featuredWorkflows.map((workflow) => (
           <article class="card" data-reveal>
             <span class="chip">{workflow.vertical}</span>
-            <h3>{workflow.name}</h3>
+            <h3 style="margin-top: 0.6rem;">{workflow.name}</h3>
             <p>{workflow.short}</p>
             <ul class="list list-check" style="margin-top: 0.9rem;">
               {workflow.benefits.map((benefit) => (
@@ -256,75 +296,91 @@ const structuredData = [professionalServiceSchema('/', description)];
     </div>
   </section>
 
-  <section class="section">
+  <!-- ── 6. PROCESS TIMELINE ──────────────────────────────────────── -->
+  <section class="section" style="background: var(--color-panel); padding-block: clamp(3rem, 6vw, 5.5rem);">
     <div class="container">
       <div class="section-head" data-reveal>
         <p class="eyebrow">So läuft ein Projekt mit uns ab</p>
-        <h2>Audit. Build. Betrieb.</h2>
+        <h2>Audit. Pilot. Betrieb. – In drei Schritten zur stabilen Automatisierung.</h2>
       </div>
 
-      <div class="card-grid three">
-        <article class="card" data-reveal>
-          <span class="kicker-number">1</span>
-          <h3 style="margin-top: 0.8rem;">Audit</h3>
-          <p>Wir schauen auf euren Prozess, die Engpässe und den größten Hebel.</p>
+      <div class="process-timeline">
+        <article class="process-step" data-reveal>
+          <div class="process-step-badge" aria-hidden="true">1</div>
+          <h3>Audit</h3>
+          <p style="margin-top: 0.5rem;">
+            Wir schauen auf euren Prozess, identifizieren den größten operativen Hebel und
+            liefern einen priorisierten Plan. Ihr wisst danach genau, was sich wirtschaftlich lohnt.
+          </p>
         </article>
-        <article class="card" data-reveal>
-          <span class="kicker-number">2</span>
-          <h3 style="margin-top: 0.8rem;">Build</h3>
-          <p>Wir bauen den Workflow, testen ihn mit euch und bringen ihn produktiv.</p>
+        <article class="process-step" data-reveal>
+          <div class="process-step-badge" aria-hidden="true">2</div>
+          <h3>Build / Pilot</h3>
+          <p style="margin-top: 0.5rem;">
+            Wir bauen den ersten Workflow, testen ihn mit echten Fällen und bringen ihn produktiv.
+            Kein Big-Bang-Projekt – ein begrenzter Pilot mit klarem Ergebnis.
+          </p>
         </article>
-        <article class="card" data-reveal>
-          <span class="kicker-number">3</span>
-          <h3 style="margin-top: 0.8rem;">Betrieb</h3>
-          <p>Wir betreuen, optimieren und entwickeln weiter – nur wenn sinnvoll.</p>
+        <article class="process-step" data-reveal>
+          <div class="process-step-badge" aria-hidden="true">3</div>
+          <h3>Betrieb</h3>
+          <p style="margin-top: 0.5rem;">
+            Wir begleiten, optimieren und entwickeln weiter – aber nur wo es sinnvoll ist.
+            Keine Dauerverträge ohne Mehrwert.
+          </p>
         </article>
       </div>
     </div>
   </section>
 
+  <!-- ── 7. WHY US ─────────────────────────────────────────────────── -->
   <section class="section">
     <div class="container">
       <div class="section-head" data-reveal>
         <p class="eyebrow">Warum Unternehmen mit Contentfluss arbeiten</p>
-        <h2>Klare Arbeitsweise, belastbare Umsetzung</h2>
+        <h2>Klare Arbeitsweise. Belastbare Umsetzung. Ehrliche Empfehlungen.</h2>
       </div>
 
       <div class="card-grid four">
         <article class="card" data-reveal>
           <h3>Klar statt kompliziert</h3>
-          <p>Keine Tool-Show. Nur Lösungen, die im Alltag funktionieren.</p>
+          <p>Keine Tool-Show. Nur Lösungen, die im Alltag funktionieren und verständlich erklärt sind.</p>
         </article>
         <article class="card" data-reveal>
           <h3>Operativ statt theoretisch</h3>
-          <p>Wir denken vom Prozess, nicht vom Trend.</p>
+          <p>Wir denken vom Engpass, nicht vom Trend. Was nichts bringt, bauen wir nicht.</p>
         </article>
         <article class="card" data-reveal>
           <h3>Hochwertig statt gebastelt</h3>
-          <p>Saubere Umsetzung, strukturierte Übergabe, professionelle Standards.</p>
+          <p>Saubere Umsetzung, strukturierte Übergabe, dokumentierte Prozesse.</p>
         </article>
         <article class="card" data-reveal>
-          <h3>Partnerschaft statt Projekt-Abwurf</h3>
-          <p>Kurze Wege, ehrliche Empfehlungen, langfristig nutzbare Lösungen.</p>
+          <h3>Partnerschaft statt Projektabwurf</h3>
+          <p>Kurze Wege, direkte Kommunikation, Empfehlungen die auch mal gegen uns sprechen.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ── 8. BEFORE / AFTER ─────────────────────────────────────────── -->
+  <section class="section-tight">
     <div class="container">
       <div class="section-head" data-reveal>
         <p class="eyebrow">Wie das in der Praxis aussehen kann</p>
-        <h2>Beispielhafte Vorher/Nachher-Situationen</h2>
+        <h2>Typische Situationen, die wir strukturieren</h2>
       </div>
 
       <div class="card-grid three">
         {proofExamples.map((example) => (
-          <article class="card" data-reveal>
-            <p style="font-weight: 700; margin-bottom: 0.45rem;">Vorher</p>
-            <p>{example.before}</p>
-            <p style="font-weight: 700; margin-top: 1rem; margin-bottom: 0.45rem;">Nachher</p>
-            <p>{example.after}</p>
+          <article class="card before-after-card" data-reveal>
+            <div class="ba-pane">
+              <p class="ba-label ba-label-before">Vorher</p>
+              <p>{example.before}</p>
+            </div>
+            <div class="ba-pane">
+              <p class="ba-label ba-label-after">Nachher</p>
+              <p>{example.after}</p>
+            </div>
           </article>
         ))}
       </div>
@@ -336,44 +392,74 @@ const structuredData = [professionalServiceSchema('/', description)];
           data-track="cta_clicked"
           data-track-label="home_fallbeispiele"
         >
-          Mehr erfahren
+          Mehr Beispiele ansehen
         </a>
       </div>
-      <p style="margin-top: 0.7rem; color: var(--color-muted);" data-reveal>
-        Hinweis: Ohne veröffentlichte Kundenreferenzen arbeiten wir mit transparent gekennzeichneten Beispiel-Setups.
+      <p style="margin-top: 0.65rem; color: var(--color-muted); font-size: 0.86rem;" data-reveal>
+        Diese Beispiele zeigen typische Abläufe, keine verifizierten Kundendaten.
       </p>
     </div>
   </section>
 
+  <!-- ── 9. SIMULATED PROOF ─────────────────────────────────────────── -->
   <section class="section-tight">
     <div class="container">
       <div class="section-head" data-reveal>
-        <p class="eyebrow">Proof ohne Fake-Referenzen</p>
-        <h2>Simulierte Wirkungskorridore zur Einordnung</h2>
-        <p>Diese Werte sind Beispielrechnungen auf Basis typischer Prozessvolumina, keine Leistungszusage.</p>
+        <p class="eyebrow">Zahlen ohne Fake-Referenzen</p>
+        <h2>Simulierte Orientierungskorridore – transparent gekennzeichnet</h2>
+        <p>
+          Wir haben noch keine veröffentlichten Kundenreferenzen. Stattdessen zeigen wir, was
+          auf Basis typischer Prozessvolumina realistisch erreichbar ist.
+        </p>
       </div>
 
-      <div class="card-grid three">
+      <div class="stat-grid">
         {simulatedProofCases.map((item) => (
-          <article class="card card-muted" data-reveal>
-            <span class="chip">Simulation</span>
-            <h3>{item.title}</h3>
-            <p style="margin-top: 0.6rem;"><strong>Ausgangslage:</strong> {item.input}</p>
-            <p style="margin-top: 0.5rem;"><strong>Wirkungslogik:</strong> {item.effect}</p>
-            <p style="margin-top: 0.5rem;"><strong>Orientierung:</strong> {item.corridor}</p>
-          </article>
+          <div class="stat-card" data-reveal>
+            <div class="stat-value">{item.value}</div>
+            <div class="stat-label">{item.label}</div>
+            <p class="mono-label" style="margin-top: 0.55rem;">{item.title}</p>
+            <p class="stat-note">{item.note}</p>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container surface" style="padding: clamp(1.5rem, 4vw, 2.3rem);" data-reveal>
-      <p class="eyebrow">Nächster Schritt</p>
-      <h2>Lasst uns prüfen, welcher Workflow bei euch den größten Hebel hat</h2>
+  <!-- ── 10. FAQ ────────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2>Was Betriebe uns vor dem Erstgespräch fragen</h2>
+      </div>
+
+      <div class="faq-accordion" data-reveal>
+        {faqItems.map((item) => (
+          <details>
+            <summary>
+              <span>{item.question}</span>
+              <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </summary>
+            <div class="faq-body">
+              <p>{item.answer}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 11. FINAL CTA (DARK) ──────────────────────────────────────── -->
+  <section class="section-dark-cta">
+    <div class="container" data-reveal>
+      <p class="eyebrow eyebrow-light">Nächster Schritt</p>
+      <h2>Prüft in 20 Minuten, ob sich Automatisierung bei euch wirtschaftlich lohnt</h2>
       <p class="lead">
-        In einem kurzen Erstgespräch schauen wir auf euren Prozess und sagen euch offen, ob sich
-        eine Umsetzung wirtschaftlich lohnt.
+        Im kostenlosen Erstgespräch schauen wir auf euren Prozess und sagen euch offen,
+        ob eine Umsetzung Sinn macht – und wenn ja, wo wir anfangen würden.
       </p>
       <div class="button-row">
         <a

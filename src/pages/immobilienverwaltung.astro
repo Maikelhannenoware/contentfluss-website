@@ -48,12 +48,13 @@ const structuredData = [
     <div class="container hero-grid">
       <div class="hero-copy" data-reveal>
         <p class="eyebrow">AI-Operations für Immobilienverwaltungen</p>
-        <h1>Weniger Kommunikationschaos. Schnellere Bearbeitung. Strukturierte Vorgänge statt Inbox-Feuerwehr.</h1>
+        <h1>Weniger Kommunikationschaos in der Immobilienverwaltung – strukturierte Abläufe statt Inbox-Feuerwehr</h1>
         <p class="lead">
-          Contentfluss baut einen AI-Layer über bestehende Verwaltungsprozesse. Fokus: Schadenmeldung,
-          Triage, Routing, Koordination und wiederkehrende Kommunikationsabläufe.
+          Contentfluss automatisiert operative Abläufe in Verwaltungen: Schadenmeldung, Inbox-Triage,
+          Koordination mit Mietern und Dienstleistern. Kein CRM-Ersatz – sondern ein AI-Layer,
+          der bestehende Prozesse strukturiert.
         </p>
-        <p class="trustline">Struktur: Workflow-Audit -> Build -> Betrieb.</p>
+        <p class="trustline">Struktur: Workflow-Audit → Pilot → Ausbau.</p>
         <div class="button-row">
           <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="immo_hero_cta">
             Erstgespräch buchen
@@ -107,8 +108,9 @@ const structuredData = [
             <span class="chip">{offer.code}</span>
             <h3 style="margin-top: 0.65rem;">{offer.name}</h3>
             <p>{offer.shortDescription}</p>
-            <p style="margin-top: 0.75rem;"><strong>Setup:</strong> {offer.setupPrice}</p>
-            <p style="margin-top: 0.35rem;"><strong>Betrieb:</strong> {offer.retainerPrice}</p>
+            <p style="margin-top: 0.75rem;"><strong>Pilot:</strong> {offer.pilotFromPrice}</p>
+            <p style="margin-top: 0.35rem;"><strong>Care optional:</strong> {offer.careFromPrice}</p>
+            <p style="margin-top: 0.35rem;"><strong>Hinweis:</strong> Finale Kalkulation nach Workflow-Audit.</p>
             <ul class="list list-check" style="margin-top: 0.85rem;">
               {offer.deliverables.slice(0, 3).map((deliverable) => (
                 <li>{deliverable}</li>
@@ -158,14 +160,14 @@ const structuredData = [
 
   <section class="section-tight">
     <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
-      <h2>Immo-Pivot operativ umsetzen</h2>
+      <h2>Welcher Engpass in eurer Verwaltung hat den größten Hebel?</h2>
       <p class="lead">
-        Einstieg über die priorisierten Kernoffers IM-01 und IM-02. Danach folgt der Ausbau Richtung
-        Koordination, Serienkommunikation und Rückstandsprozesse.
+        Im Erstgespräch schauen wir auf euren Ablauf und priorisieren den ersten Schritt –
+        kostenlos und unverbindlich.
       </p>
       <div class="button-row">
         <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="immo_final_cta">
-          Erstes Offer priorisieren
+          Erstgespräch buchen
         </a>
       </div>
     </div>

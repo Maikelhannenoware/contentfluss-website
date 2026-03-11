@@ -64,13 +64,14 @@ const structuredData = [
 
       <aside class="workflow-visual" data-reveal>
         <header>
-          <strong>Preisrahmen</strong>
+          <strong>Projektstart</strong>
           <span>{offer.code}</span>
         </header>
         <ul class="metric-list">
-          <li><strong>Setup:</strong> {offer.setupPrice}</li>
-          <li><strong>Retainer:</strong> {offer.retainerPrice}</li>
+          <li><strong>Pilot ab:</strong> {offer.pilotFromPrice}</li>
+          <li><strong>Care optional ab:</strong> {offer.careFromPrice}</li>
           <li><strong>Implementierung:</strong> {offer.implementationTime}</li>
+          <li><strong>Hinweis:</strong> Finale Kalkulation nach Workflow-Audit.</li>
         </ul>
       </aside>
     </div>
@@ -141,8 +142,8 @@ const structuredData = [
     <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
       <h2>Nächster Schritt</h2>
       <p class="lead">
-        Im Erstgespräch klären wir Prozesslast, Teamrouting und den schnellsten MVP-Pfad für
-        {` ${offer.code}`}. Danach folgt ein klarer Implementierungsplan.
+        Im Erstgespräch klären wir Prozesslast, Teamrouting und den kleinsten sinnvollen Pilot
+        für {` ${offer.code}`}. Danach folgt ein klarer Implementierungsplan.
       </p>
       <div class="button-row">
         <a
