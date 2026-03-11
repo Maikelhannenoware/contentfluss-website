@@ -1135,10 +1135,31 @@ p {
 
 .ba-pane {
   padding: clamp(1rem, 2vw, 1.35rem);
+  transition: background 0.22s ease;
+}
+
+/* Vorher: subtle red tint */
+.ba-pane:first-child {
+  background: rgba(239,68,68,0.05);
+  border-left: 3px solid rgba(239,68,68,0.22);
+}
+
+/* Nachher: subtle green tint */
+.ba-pane:last-child {
+  background: rgba(34,197,94,0.05);
+  border-left: 3px solid rgba(34,197,94,0.22);
+}
+
+.before-after-card:hover .ba-pane:first-child {
+  background: rgba(239,68,68,0.08);
+}
+
+.before-after-card:hover .ba-pane:last-child {
+  background: rgba(34,197,94,0.08);
 }
 
 .ba-pane + .ba-pane {
-  border-top: 1px dashed var(--color-line);
+  border-top: 1px dashed rgba(255,255,255,0.06);
 }
 
 .ba-label {
@@ -1156,17 +1177,19 @@ p {
 
 .ba-label-before {
   color: #fca5a5;
-  background: rgba(239,68,68,0.12);
+  background: rgba(239,68,68,0.15);
+  border: 1px solid rgba(239,68,68,0.2);
 }
 
 .ba-label-after {
   color: #86efac;
-  background: rgba(34,197,94,0.12);
+  background: rgba(34,197,94,0.15);
+  border: 1px solid rgba(34,197,94,0.2);
 }
 
 .ba-pane p {
   font-size: 0.91rem;
-  color: var(--color-muted);
+  color: rgba(190,215,230,0.75);
 }
 
 /* ─── STAT CALLOUT GRID ─────────────────────────────────────────── */
@@ -1424,7 +1447,7 @@ p {
 
   .ba-pane + .ba-pane {
     border-top: none;
-    border-left: 1px dashed var(--color-line);
+    border-left: 3px solid rgba(34,197,94,0.22);
   }
 
   .pricing-grid {

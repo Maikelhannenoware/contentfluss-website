@@ -18,7 +18,7 @@ export function absoluteUrl(path: string): string {
 export function organizationSchema() {
   return {
     '@context': 'https://schema.org',
-    '@type': ['Organization', 'LocalBusiness'],
+    '@type': ['Organization', 'ProfessionalService'],
     name: 'Contentfluss',
     url: SITE_URL,
     email: 'hallo@contentfluss.de',
@@ -31,9 +31,9 @@ export function organizationSchema() {
       addressCountry: 'DE',
     },
     areaServed: [
-      { '@type': 'City', name: 'Neuss' },
-      { '@type': 'City', name: 'Düsseldorf' },
-      { '@type': 'AdministrativeArea', name: 'Nordrhein-Westfalen' },
+      { '@type': 'Country', name: 'Deutschland' },
+      { '@type': 'Country', name: 'Österreich' },
+      { '@type': 'Country', name: 'Schweiz' },
     ],
     knowsAbout: [
       'KI Automatisierung Handwerk',
@@ -65,7 +65,7 @@ export function professionalServiceSchema(pageUrl: string, description: string) 
     name: 'Contentfluss',
     url: absoluteUrl(pageUrl),
     description,
-    areaServed: 'Deutschland',
+    areaServed: ['Deutschland', 'Österreich', 'Schweiz'],
     serviceType: [
       'AI-Operations',
       'Workflow-Audit',
