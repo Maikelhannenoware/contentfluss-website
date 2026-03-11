@@ -333,6 +333,94 @@ function isActive(href: string) {
       } else {
         revealItems.forEach((item) => item.classList.add('is-visible'));
       }
+
+      // ── Stagger-Animation für [data-stagger] Container ────────────
+      document.querySelectorAll('[data-stagger]').forEach((parent) => {
+        const children = Array.from(parent.children);
+        children.forEach((child, i) => {
+          (child as HTMLElement).style.animationDelay = `${i * 0.09}s`;
+          (child as HTMLElement).style.animationFillMode = 'both';
+        });
+
+        const staggerObs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('stagger-visible');
+              staggerObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        staggerObs.observe(parent);
+      });
+
+      // ── Counter-up für [data-counter] Elemente ────────────────────
+      function animateCounter(el: Element) {
+        const raw = el.getAttribute('data-counter') ?? '';
+        const match = raw.match(/(\d+)/g);
+        if (!match) return;
+        const target = parseInt(match[match.length - 1], 10);
+        const suffix = raw.includes('%') ? ' %' : '';
+
+        const duration = 1400;
+        const startTime = performance.now();
+
+        function tick(now: number) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const ease = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(ease * target);
+          el.textContent = current + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.dispatchEvent(new Event('counter-done'));
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      const counterEls = document.querySelectorAll('[data-counter]');
+      const counterObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            counterObs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.6 });
+
+      counterEls.forEach(el => counterObs.observe(el));
+    </script>
+
+    <script>
+      // ── Spotlight-Effekt auf Cards ─────────────────────────────────
+      const spotlightTargets = document.querySelectorAll(
+        '.card, .stat-card, .process-step, .pricing-card'
+      );
+
+      spotlightTargets.forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = (card as HTMLElement).getBoundingClientRect();
+          const x = (e as MouseEvent).clientX - rect.left;
+          const y = (e as MouseEvent).clientY - rect.top;
+          (card as HTMLElement).style.setProperty('--spotlight-x', `${x}px`);
+          (card as HTMLElement).style.setProperty('--spotlight-y', `${y}px`);
+        });
+      });
+
+      // ── Typewriter-Effekt auf [data-typewriter] ───────────────────
+      document.querySelectorAll('[data-typewriter]').forEach((el) => {
+        const text = (el as HTMLElement).dataset.typewriter ?? '';
+        el.textContent = '';
+        let i = 0;
+        const interval = setInterval(() => {
+          el.textContent += text[i];
+          i++;
+          if (i >= text.length) {
+            clearInterval(interval);
+            setTimeout(() => el.classList.add('typewriter-done'), 1200);
+          }
+        }, 60);
+      });
     </script>
   </body>
 </html>

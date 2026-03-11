@@ -105,7 +105,7 @@ const structuredData = [
     <div class="container hero-grid">
       <div class="hero-copy" data-reveal>
         <p class="eyebrow eyebrow-light">AI-Workflows für Handwerk & Immobilienverwaltung</p>
-        <h1 class="hero-h1">Büroprozesse <span class="text-gradient">automatisieren</span> – für Handwerk & Immobilien</h1>
+        <h1 class="hero-h1">Büroprozesse <span class="text-gradient" data-typewriter="automatisieren"></span> – für Handwerk & Immobilien</h1>
         <p class="lead">
           Contentfluss legt einen AI-Layer über eure bestehenden Abläufe. Keine neue Software,
           kein Systemwechsel – sondern Workflows, die Anfragen, Angebote, Meldungen und
@@ -212,14 +212,14 @@ const structuredData = [
   </section>
 
   <!-- ── 4. BRANCHENVERTICALS ──────────────────────────────────────── -->
-  <section class="section" style="background: var(--color-panel); padding-block: clamp(3rem, 6vw, 5.5rem);">
+  <section class="section section-panel" style="padding-block: clamp(3rem, 6vw, 5.5rem);">
     <div class="container">
       <div class="section-head" data-reveal>
         <p class="eyebrow">Spezialisiert, nicht verallgemeinert</p>
         <h2>Wir kennen nur zwei operative Umfelder – und die kennen wir gut</h2>
       </div>
 
-      <div class="card-grid two">
+      <div class="card-grid two" data-stagger>
         <article class="card" data-reveal>
           <p class="eyebrow" style="margin-bottom: 0.8rem;">Handwerksbetriebe</p>
           <h3>Anfragen strukturieren, Angebote nachfassen, Auslastung stabilisieren</h3>
@@ -269,7 +269,7 @@ const structuredData = [
         <h2>Drei Einsatzfelder, die sofort wirken können</h2>
       </div>
 
-      <div class="card-grid three">
+      <div class="card-grid three" data-stagger>
         {featuredWorkflows.map((workflow) => (
           <article class="card" data-reveal>
             <span class="chip">{workflow.vertical}</span>
@@ -297,7 +297,7 @@ const structuredData = [
   </section>
 
   <!-- ── 6. PROCESS TIMELINE ──────────────────────────────────────── -->
-  <section class="section" style="background: var(--color-panel); padding-block: clamp(3rem, 6vw, 5.5rem);">
+  <section class="section section-panel" style="padding-block: clamp(3rem, 6vw, 5.5rem);">
     <div class="container">
       <div class="section-head" data-reveal>
         <p class="eyebrow">So läuft ein Projekt mit uns ab</p>
@@ -341,7 +341,7 @@ const structuredData = [
         <h2>Klare Arbeitsweise. Belastbare Umsetzung. Ehrliche Empfehlungen.</h2>
       </div>
 
-      <div class="card-grid four">
+      <div class="card-grid four" data-stagger>
         <article class="card" data-reveal>
           <h3>Klar statt kompliziert</h3>
           <p>Keine Tool-Show. Nur Lösungen, die im Alltag funktionieren und verständlich erklärt sind.</p>
@@ -370,7 +370,7 @@ const structuredData = [
         <h2>Typische Situationen, die wir strukturieren</h2>
       </div>
 
-      <div class="card-grid three">
+      <div class="card-grid three" data-stagger>
         {proofExamples.map((example) => (
           <article class="card before-after-card" data-reveal>
             <div class="ba-pane">
@@ -414,14 +414,24 @@ const structuredData = [
       </div>
 
       <div class="stat-grid">
-        {simulatedProofCases.map((item) => (
-          <div class="stat-card" data-reveal>
-            <div class="stat-value">{item.value}</div>
-            <div class="stat-label">{item.label}</div>
-            <p class="mono-label" style="margin-top: 0.55rem;">{item.title}</p>
-            <p class="stat-note">{item.note}</p>
-          </div>
-        ))}
+        <div class="stat-card" data-reveal>
+          <div class="stat-value">bis <span data-counter="40">40</span> %</div>
+          <div class="stat-label">{simulatedProofCases[0].label}</div>
+          <p class="mono-label" style="margin-top: 0.55rem;">{simulatedProofCases[0].title}</p>
+          <p class="stat-note">{simulatedProofCases[0].note}</p>
+        </div>
+        <div class="stat-card" data-reveal>
+          <div class="stat-value">bis <span data-counter="35">35</span> %</div>
+          <div class="stat-label">{simulatedProofCases[1].label}</div>
+          <p class="mono-label" style="margin-top: 0.55rem;">{simulatedProofCases[1].title}</p>
+          <p class="stat-note">{simulatedProofCases[1].note}</p>
+        </div>
+        <div class="stat-card" data-reveal>
+          <div class="stat-value">bis <span data-counter="50">50</span> %</div>
+          <div class="stat-label">{simulatedProofCases[2].label}</div>
+          <p class="mono-label" style="margin-top: 0.55rem;">{simulatedProofCases[2].title}</p>
+          <p class="stat-note">{simulatedProofCases[2].note}</p>
+        </div>
       </div>
     </div>
   </section>
