@@ -58,3 +58,6 @@ pnpm-debug.log*
 # local skill artifacts
 skills/
 skills-lock.json
+
+# git worktrees
+.worktrees/
