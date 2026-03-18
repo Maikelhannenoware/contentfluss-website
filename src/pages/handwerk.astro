@@ -14,7 +14,7 @@ const schemas = [
   <section class="hero-sub">
     <div class="container content-narrow">
       <span class="eyebrow">Für Handwerksbetriebe</span>
-      <h1 style="margin-top:1rem">Weniger Rückfragen. Weniger Nachfassen. Mehr Klarheit im Ablauf.</h1>
+      <h1 style="margin-top:1rem">Weniger Rückfragen. Sauberere Anfragen. Angebote, die nachverfolgt werden.</h1>
       <p class="page-intro" style="margin-top:1rem">Wenn Anfragen unvollständig reinkommen, Angebote offen liegen bleiben und Rückfragen den Tag zerhacken, hilft kein neues Buzzword — sondern ein besserer Ablauf.</p>
       <div class="flex-row" style="margin-top:2rem">
         <a href="/kontakt" class="btn btn-primary btn-lg" data-track="handwerk_hero_cta">Fit-Call buchen</a>
@@ -40,6 +40,35 @@ const schemas = [
             <p style="font-size:0.875rem;max-width:none">{p.body}</p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-head-center" data-reveal>
+        <span class="section-label">Vorher / Nachher</span>
+        <h2>Was sich konkret ändert</h2>
+      </div>
+      <div class="before-after" data-stagger>
+        <div class="before-card">
+          <span class="comparison-label comparison-label-before">Ohne Workflow</span>
+          <ul class="pain-list">
+            <li>Anfrage kommt rein — ohne Adresse, Fotos, Beschreibung</li>
+            <li>Mitarbeiter ruft zurück, um nachzufragen</li>
+            <li>Angebot geht raus — und wird nie nachverfolgt</li>
+            <li>Mitbewerber antwortet schneller</li>
+          </ul>
+        </div>
+        <div class="after-card">
+          <span class="comparison-label comparison-label-after">Mit Workflow</span>
+          <ul class="benefit-list">
+            <li>Anfrage wird automatisch auf Vollständigkeit geprüft</li>
+            <li>Fehlende Infos werden direkt nachgefordert</li>
+            <li>Angebot geht raus — Follow-up läuft automatisch</li>
+            <li>Eingangsbestätigung: sofort, kein manueller Aufwand</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
@@ -86,7 +115,7 @@ const schemas = [
         <span class="section-label">Zusammenarbeit</span>
         <h2>Wie es abläuft</h2>
       </div>
-      <div class="grid-3" data-stagger>
+      <div class="process-flow" data-stagger>
         {[
           { n:'01', title:'Engpass benennen', body:'Im Fit-Call sprechen wir über eure Situation. Keine Vorbereitung nötig.' },
           { n:'02', title:'Workflow entwickeln', body:'Wir bauen den Ablauf auf eure Systeme, Formulierungen und typischen Fälle zu.' },
@@ -102,11 +131,17 @@ const schemas = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="container content-center">
-      <h2>Welcher Ablauf kostet euch am meisten Zeit?</h2>
-      <p style="margin-top:0.75rem;margin-bottom:2rem;margin-inline:auto">Im Fit-Call klären wir, ob ein Workflow das lösen kann — und was das kosten würde.</p>
-      <a href="/kontakt" class="btn btn-primary btn-lg" data-track="handwerk_final_cta">Fit-Call buchen</a>
+  <section class="section-feature">
+    <div class="container">
+      <div class="conviction-block" data-reveal>
+        <span class="eyebrow">Fit-Call — kostenlos, 30 Minuten</span>
+        <h2>Welcher Ablauf kostet euch täglich die meiste Zeit?</h2>
+        <p class="page-intro">Im Fit-Call klären wir, ob ein KI-Workflow das lösen kann. Kein Pitch, keine Verpflichtung.</p>
+        <div class="cta-group" style="justify-content:center;margin-top:2rem">
+          <a href="/kontakt" class="btn btn-primary btn-lg" data-track="handwerk_final_cta">Fit-Call buchen</a>
+          <a href="/workflows" class="cta-link" data-track="handwerk_final_workflows">Alle Workflows →</a>
+        </div>
+      </div>
     </div>
   </section>
 
