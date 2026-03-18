@@ -1,486 +1,241 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {
-  handwerkWorkflows,
-  immobilienverwaltungWorkflows,
-  featuredWorkflowIds,
-  type WorkflowDefinition,
-} from '../lib/workflows';
-import { professionalServiceSchema, faqSchema, type FaqItem } from '../lib/seo';
+import { pageMeta, faqSchema, organizationSchema, websiteSchema } from '../lib/seo';
+import { handwerkWorkflows, immobilienverwaltungWorkflows } from '../lib/workflows';
 
-const description =
-  'Contentfluss automatisiert Büroprozesse für Handwerksbetriebe und Immobilienverwaltungen. Weniger Rückfragen, schnellere Vorgänge, klare Abläufe. Erstgespräch kostenlos.';
-
-const workflowMap = new Map(
-  [...handwerkWorkflows, ...immobilienverwaltungWorkflows].map((workflow) => [workflow.slug, workflow])
-);
-
-const featuredWorkflows = featuredWorkflowIds
-  .map((slug) => workflowMap.get(slug))
-  .filter((workflow): workflow is WorkflowDefinition => workflow !== undefined)
-  .map((workflow) => ({
-    ...workflow,
-    vertical: handwerkWorkflows.some((entry) => entry.slug === workflow.slug)
-      ? 'Handwerk'
-      : 'Immobilienverwaltung',
-  }));
-
-const proofExamples = [
-  {
-    before: 'Anfragen kommen per Mail, Telefon und Messenger unsortiert rein.',
-    after: 'Der Eingang wird automatisch kategorisiert, priorisiert und als sauberer Task vorbereitet.',
-  },
-  {
-    before: 'Offene Angebote werden manuell nachgehalten und geraten aus dem Blick.',
-    after: 'Follow-ups laufen strukturiert nach Zeitplan mit klaren Wiedervorlagen.',
-  },
-  {
-    before: 'Schadenmeldungen sind unvollständig und führen zu langen Rückfragen.',
-    after: 'Pflichtinfos werden vorqualifiziert, damit Vorgänge schneller bearbeitet werden können.',
-  },
+const meta = pageMeta.home;
+const featuredWorkflows = [
+  handwerkWorkflows[0],
+  handwerkWorkflows[1],
+  immobilienverwaltungWorkflows[0],
+  immobilienverwaltungWorkflows[1],
 ];
-
-const simulatedProofCases = [
-  {
-    value: '25–40 %',
-    label: 'weniger Rückfragen',
-    title: 'Handwerk: Anfrageannahme',
-    note: 'Simulierter Zielkorridor bei ~90 Anfragen/Monat',
-  },
-  {
-    value: '20–35 %',
-    label: 'höhere Follow-up-Quote',
-    title: 'Handwerk: Angebots-Follow-up',
-    note: 'Simulierter Zielkorridor mit strukturierten Sequenzen',
-  },
-  {
-    value: '30–50 %',
-    label: 'weniger Nachforderungen',
-    title: 'Immobilienverwaltung: Schadens-Triage',
-    note: 'Simulierter Zielkorridor je Schadenfall',
-  },
+const faqs = [
+  { q: 'Ist das ein Softwarewechsel?', a: 'Nein. Wir setzen auf bestehende Abläufe und Systeme auf. Kein neues Tool als Voraussetzung.' },
+  { q: 'Passt das auch für kleinere Betriebe?', a: 'Ja. Die meisten Workflows sind für Betriebe mit 3–30 Mitarbeitern gemacht — dort entsteht der größte Nutzen pro Stunde.' },
+  { q: 'Wo setzt KI hier konkret an?', a: 'Anfragen einordnen, Informationen nachziehen, Standardantworten versenden, Status kommunizieren, Übergaben dokumentieren.' },
+  { q: 'Was passiert im Fit-Call?', a: 'Kein Pitch. Wir schauen gemeinsam, wo bei euch Engpässe entstehen — und ob ein Workflow das lösen kann.' },
+  { q: 'Wie lange dauert die Umsetzung?', a: 'Die meisten Workflows gehen in 3–5 Wochen live. Das hängt vom Umfang und den nötigen Integrationen ab.' },
 ];
-
-const faqItems: FaqItem[] = [
-  {
-    question: 'Was kostet ein Erstgespräch?',
-    answer: 'Das Erstgespräch ist kostenlos und unverbindlich. Wir klären darin, ob und welcher Workflow bei euch den größten Hebel hat. Erst danach entscheiden wir gemeinsam, ob ein bezahlter Audit sinnvoll ist.',
-  },
-  {
-    question: 'Wie hoch ist das Risiko für uns?',
-    answer: 'Der Einstieg über den Workflow-Audit (590 €) ist bewusst so gebaut, dass ihr eine klare Entscheidungsgrundlage habt, bevor eine teurere Umsetzung beginnt. Es gibt keine Mindestvertragslaufzeit für den Audit.',
-  },
-  {
-    question: 'Müssen wir bestehende Software ersetzen?',
-    answer: 'Nein. Contentfluss arbeitet als AI-Layer über eurem bestehenden Setup. Wir binden an, was ihr bereits nutzt. Kein System-Wechsel, kein Parallelbetrieb zweier Welten.',
-  },
-  {
-    question: 'Ist das auch etwas für kleinere Betriebe?',
-    answer: 'Ja. Unsere Klientel sind Betriebe mit 3 bis 30 Mitarbeitern. Gerade dort summiert sich der manuelle Aufwand am schnellsten und der Entlastungseffekt ist am deutlichsten spürbar.',
-  },
-  {
-    question: 'Wie lange dauert die Umsetzung eines Workflows?',
-    answer: 'Ein erster Pilot ist in der Regel innerhalb von 4 bis 8 Wochen produktiv, abhängig von Komplexität und Integrationstiefe. Wir liefern kein Jahresprojekt, sondern abgegrenzte Umsetzungen mit klarem Enddatum.',
-  },
-  {
-    question: 'Wie ist das mit Datenschutz und DSGVO?',
-    answer: 'Wir legen Wert auf DSGVO-orientierte Umsetzung. Personenbezogene Daten werden nur dort eingesetzt, wo es notwendig und rechtlich abgesichert ist. Details klären wir im Audit.',
-  },
-];
-
-const structuredData = [
-  professionalServiceSchema('/', description),
-  faqSchema(faqItems),
-];
+const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => ({ question: f.q, answer: f.a })))];
 ---
+<Layout title={meta.title} description={meta.description} schemas={schemas}>
 
-<Layout
-  title="Contentfluss – AI-Workflows für Handwerk & Immobilien"
-  description={description}
-  canonicalPath="/"
-  structuredData={structuredData}
->
-  <!-- ── 1. HERO DARK ─────────────────────────────────────────────── -->
-  <section class="hero hero-dark">
-    <div class="container hero-grid">
-      <div class="hero-copy" data-reveal>
-        <p class="eyebrow eyebrow-light">AI-Workflows für Handwerk & Immobilienverwaltung</p>
-        <h1 class="hero-h1">Büroprozesse <span class="text-gradient" data-typewriter="automatisieren"></span><br>für Handwerk & Immobilien</h1>
-        <p class="lead">
-          Contentfluss legt einen AI-Layer über eure bestehenden Abläufe. Keine neue Software,
-          kein Systemwechsel, sondern Workflows, die Anfragen, Angebote, Meldungen und
-          Kommunikation automatisieren.
-        </p>
-        <div class="button-row">
-          <a
-            href="/kontakt"
-            class="btn btn-primary"
-            data-track="cta_clicked"
-            data-track-label="home_hero_erstgespraech"
-          >
-            Erstgespräch buchen
-          </a>
-          <a
-            href="/workflows"
-            class="btn btn-ghost-light"
-            data-track="cta_clicked"
-            data-track-label="home_hero_loesungen"
-          >
-            Lösungen ansehen
-          </a>
-        </div>
-        <p class="trustline">Pragmatisch. DSGVO-orientiert. Ohne unnötigen Tool-Zirkus.</p>
-      </div>
-
-      <aside class="workflow-visual workflow-visual-dark" aria-label="Beispiel eines Workflow-Dashboards" data-reveal>
-        <header>
-          <strong>Operatives Dashboard</strong>
-          <span><span class="status-dot" aria-hidden="true"></span>Demo-Ansicht</span>
-        </header>
-        <div class="metric-grid">
-          <div class="metric">
-            <span>Neue Anfragen</span>
-            <strong>18</strong>
-          </div>
-          <div class="metric">
-            <span>Angebote offen</span>
-            <strong>7</strong>
-          </div>
-          <div class="metric">
-            <span>Tickets priorisiert</span>
-            <strong>24</strong>
-          </div>
-          <div class="metric">
-            <span>Follow-ups heute</span>
-            <strong>11</strong>
+  <!-- 1. HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-split">
+        <div class="stack gap-6">
+          <span class="eyebrow">KI-Workflows für KMU</span>
+          <h1>KI-Workflows für Betriebe, die im Alltag wirklich Arbeit abnehmen.</h1>
+          <p class="page-intro mt-4">Contentfluss baut KI-Workflows für Handwerksbetriebe und Hausverwaltungen — auf bestehende Abläufe aufgesetzt, ohne IT-Großprojekt.</p>
+          <div class="cta-group mt-6">
+            <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_hero_cta">Fit-Call buchen</a>
+            <a href="/workflows" class="btn btn-ghost" data-track="home_hero_workflows">Workflows ansehen →</a>
           </div>
         </div>
-        <ul class="metric-list">
-          <li>Schadenmeldungen automatisch vorqualifiziert</li>
-          <li>Dispo-Updates in Echtzeit ans Team gesendet</li>
-          <li>Heute automatisiert erledigt: Demo-Zähler</li>
-        </ul>
-      </aside>
+
+        <div class="ops-flow" aria-hidden="true">
+          <p class="ops-flow-title">Eingehende Anfrage — Live</p>
+          <div class="ops-flow-nodes">
+            <div class="ops-node">
+              <span class="ops-node-dot success"></span>
+              <span class="ops-node-label">Anfrage eingegangen</span>
+              <span class="ops-badge ops-badge-green" style="margin-left:auto">empfangen</span>
+            </div>
+            <div class="ops-connector"><div class="ops-connector-line active"></div></div>
+            <div class="ops-node">
+              <span class="ops-node-dot active"></span>
+              <span class="ops-node-label active">Vollständigkeit prüfen</span>
+              <span class="ops-badge ops-badge-blue" style="margin-left:auto">läuft</span>
+            </div>
+            <div class="ops-connector"><div class="ops-connector-line active"></div></div>
+            <div class="ops-node">
+              <span class="ops-node-dot pending"></span>
+              <span class="ops-node-label muted">Zuweisen &amp; weiterleiten</span>
+              <span class="ops-badge ops-badge-muted" style="margin-left:auto">wartet</span>
+            </div>
+            <div class="ops-connector"><div class="ops-connector-line"></div></div>
+            <div class="ops-node">
+              <span class="ops-node-dot pending"></span>
+              <span class="ops-node-label muted">Eingangsbestätigung senden</span>
+              <span class="ops-badge ops-badge-muted" style="margin-left:auto">wartet</span>
+            </div>
+            <div class="ops-connector"><div class="ops-connector-line"></div></div>
+            <div class="ops-node">
+              <span class="ops-node-dot pending"></span>
+              <span class="ops-node-label muted">Übergabe ins CRM</span>
+              <span class="ops-badge ops-badge-muted" style="margin-left:auto">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ── 2. VALUE PILLS ─────────────────────────────────────────────── -->
-  <section class="section-tight">
-    <div class="container value-bar">
-      <div class="value-pill value-pill-check" data-reveal>Spezialisiert auf Handwerk & Immobilienverwaltung</div>
-      <div class="value-pill value-pill-check" data-reveal>Messbare Entlastung, keine leeren Versprechen</div>
-      <div class="value-pill value-pill-check" data-reveal>Offene Lösungen, kein Vendor Lock-in</div>
-      <div class="value-pill value-pill-check" data-reveal>DACH-Region, remote oder vor Ort</div>
-    </div>
-  </section>
-
-  <!-- ── 3. PROBLEM / SOLUTION ─────────────────────────────────────── -->
-  <section class="section">
-    <div class="container split two">
-      <article class="card card-muted" data-reveal>
-        <p class="eyebrow">Was täglich wirklich Zeit kostet</p>
-        <h2>Viele operative Teams verlieren Stunden an Aufgaben, die sich täglich wiederholen</h2>
-        <p class="lead">
-          Rückfragen, Nachfassen, unstrukturierte Eingänge. Was sich nach kleinem Aufwand
-          anfühlt, summiert sich im Monat auf Dutzende Stunden. Unsichtbar, aber teuer.
-        </p>
-        <ul class="list" style="margin-top: 1rem;">
-          <li>Anfragen kommen unvollständig über mehrere Kanäle rein</li>
-          <li>Angebote werden nicht nachgefasst, Chancen gehen verloren</li>
-          <li>Schadenmeldungen brauchen mehrere Klärungsrunden</li>
-          <li>E-Mails und Anrufe reißen den Tagesablauf auseinander</li>
-          <li>Abstimmungen und Rückfragen binden zu viel Bürozeit</li>
-        </ul>
-      </article>
-
-      <article class="card card-accent" data-reveal>
-        <p class="eyebrow">Contentfluss automatisiert genau diese Abläufe</p>
-        <h2>Nicht als Generalüberholung, sondern gezielt am Engpass</h2>
-        <p class="lead">
-          Ein strukturierter Workflow ersetzt fünf manuelle Schritte und läuft neben eurem
-          Betrieb, ohne ihn zu unterbrechen.
-        </p>
-        <ul class="list list-check" style="margin-top: 1rem;">
-          <li>Strukturierte Eingänge mit automatischer Vorqualifikation</li>
-          <li>Angebots-Follow-up mit Wiedervorlage und Eskalation</li>
-          <li>Vorqualifizierte Schadenmeldungen ab Erstkontakt</li>
-          <li>Klare Zuständigkeiten und automatisches Routing</li>
-          <li>Messbare Entlastung, sichtbar im Alltag</li>
-        </ul>
-      </article>
-    </div>
-  </section>
-
-  <!-- ── 4. BRANCHENVERTICALS ──────────────────────────────────────── -->
-  <section class="section section-panel" style="padding-block: clamp(3rem, 6vw, 5.5rem);">
+  <!-- 2. TRUST STRIP -->
+  <div class="trust-strip">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow">Spezialisiert, nicht verallgemeinert</p>
-        <h2>Zwei operative Umfelder. Beide kennen wir gut.</h2>
-      </div>
-
-      <div class="card-grid two" data-stagger>
-        <article class="card" data-reveal>
-          <p class="eyebrow" style="margin-bottom: 0.8rem;">Handwerksbetriebe</p>
-          <h3>Anfragen strukturieren, Angebote nachfassen, Auslastung stabilisieren</h3>
-          <p style="margin-top: 0.6rem;">
-            Für Betriebe, die Bürozeit reduzieren und vom Erstkontakt bis zum Folgeauftrag
-            klare Prozesse wollen, ohne den Werkzeugkasten zu ersetzen.
-          </p>
-          <div class="button-row">
-            <a
-              href="/handwerk"
-              class="btn btn-secondary"
-              data-track="vertical_page_clicked"
-              data-track-label="home_handwerk"
-            >
-              Für Handwerksbetriebe
-            </a>
-          </div>
-        </article>
-
-        <article class="card" data-reveal>
-          <p class="eyebrow" style="margin-bottom: 0.8rem;">Immobilienverwaltungen</p>
-          <h3>Schadenmeldungen triagieren, Inbox entlasten, Koordination automatisieren</h3>
-          <p style="margin-top: 0.6rem;">
-            Für Verwaltungen, die Reaktionszeiten verkürzen und Sachbearbeitung entlasten
-            wollen, ohne ein weiteres Tool zu kaufen.
-          </p>
-          <div class="button-row">
-            <a
-              href="/immobilienverwaltung"
-              class="btn btn-secondary"
-              data-track="vertical_page_clicked"
-              data-track-label="home_immobilienverwaltung"
-            >
-              Für Immobilienverwaltungen
-            </a>
-          </div>
-        </article>
-      </div>
+      <ul class="trust-strip-list">
+        <li class="trust-item">Für Handwerk &amp; Hausverwaltung</li>
+        <li class="trust-item">Auf bestehende Abläufe aufgesetzt</li>
+        <li class="trust-item">Keine generische KI-Beratung</li>
+        <li class="trust-item">Umsetzung, nicht Konzept</li>
+      </ul>
     </div>
-  </section>
+  </div>
 
-  <!-- ── 5. FEATURED WORKFLOWS ─────────────────────────────────────── -->
+  <!-- 3. AUDIENCE SPLIT -->
   <section class="section">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow">Beispiele für Workflows mit echtem Hebel</p>
-        <h2>Drei Einsatzfelder, die sofort wirken können</h2>
+      <div class="section-head">
+        <span class="section-label">Für wen</span>
+        <h2>Spezialisiert auf zwei Branchen</h2>
       </div>
-
-      <div class="card-grid three" data-stagger>
-        {featuredWorkflows.map((workflow) => (
-          <article class="card" data-reveal>
-            <span class="chip">{workflow.vertical}</span>
-            <h3 style="margin-top: 0.6rem;">{workflow.name}</h3>
-            <p>{workflow.short}</p>
-            <ul class="list list-check" style="margin-top: 0.9rem;">
-              {workflow.benefits.map((benefit) => (
-                <li>{benefit}</li>
-              ))}
+      <div class="grid-2" data-stagger>
+        <div class="card card-elevated">
+          <div class="card-header">
+            <span class="eyebrow">Handwerk</span>
+            <h3 style="margin-top:1rem">Handwerksbetriebe</h3>
+          </div>
+          <div class="card-body">
+            <ul class="pain-list">
+              <li>Anfragen kommen unvollständig oder über viele Kanäle rein</li>
+              <li>Angebote werden nicht sauber nachverfolgt</li>
+              <li>Rückfragen zerhacken den Arbeitstag</li>
             </ul>
-            <div class="button-row">
-              <a
-                href={`/kontakt?workflow=${workflow.slug}`}
-                class="btn btn-ghost"
-                data-track="workflow_cta_clicked"
-                data-track-label={`home_${workflow.slug}`}
-              >
-                Workflow besprechen
-              </a>
+          </div>
+          <div class="card-footer">
+            <a href="/handwerk" class="btn btn-secondary btn-sm" data-track="home_audience_handwerk">Mehr für Handwerk →</a>
+          </div>
+        </div>
+        <div class="card card-elevated">
+          <div class="card-header">
+            <span class="eyebrow">Hausverwaltung</span>
+            <h3 style="margin-top:1rem">Immobilienverwaltungen</h3>
+          </div>
+          <div class="card-body">
+            <ul class="pain-list">
+              <li>Schadenmeldungen kommen unstrukturiert über mehrere Kanäle</li>
+              <li>Informationen müssen ständig nachgezogen werden</li>
+              <li>Prozesse hängen an einzelnen Personen</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <a href="/immobilienverwaltung" class="btn btn-secondary btn-sm" data-track="home_audience_immo">Mehr für Hausverwaltung →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. WORKFLOW EXAMPLES -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Was konkret automatisiert wird</span>
+        <h2>Operative Abläufe, nicht Feature-Listen</h2>
+        <p>Jeder Workflow löst ein reales Problem — keine abstrakten KI-Anwendungen.</p>
+      </div>
+      <div class="grid-2" data-stagger>
+        {featuredWorkflows.map((wf, i) => (
+          <div class="workflow-card">
+            <div class="workflow-card-meta">
+              <h3 class="workflow-card-title">{wf.name}</h3>
+              <span class="mono-tag">{i < 2 ? 'HW' : 'IM'}</span>
             </div>
-          </article>
+            <div>
+              <p class="workflow-col-label">Problem</p>
+              <p class="workflow-problem-block">{wf.problem}</p>
+            </div>
+            <div>
+              <p class="workflow-col-label">Was dadurch besser läuft</p>
+              <ul class="workflow-benefits">
+                {wf.benefits.map(b => <li>{b}</li>)}
+              </ul>
+            </div>
+          </div>
         ))}
       </div>
-    </div>
-  </section>
-
-  <!-- ── 6. PROCESS TIMELINE ──────────────────────────────────────── -->
-  <section class="section section-panel" style="padding-block: clamp(3rem, 6vw, 5.5rem);">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow">So läuft ein Projekt mit uns ab</p>
-        <h2>Audit. Pilot. Betrieb. In drei Schritten zur stabilen Automatisierung.</h2>
-      </div>
-
-      <div class="process-timeline">
-        <article class="process-step" data-reveal>
-          <div class="process-step-badge" aria-hidden="true">1</div>
-          <h3>Audit</h3>
-          <p style="margin-top: 0.5rem;">
-            Wir schauen auf euren Prozess, identifizieren den größten operativen Hebel und
-            liefern einen priorisierten Plan. Ihr wisst danach genau, was sich wirtschaftlich lohnt.
-          </p>
-        </article>
-        <article class="process-step" data-reveal>
-          <div class="process-step-badge" aria-hidden="true">2</div>
-          <h3>Build / Pilot</h3>
-          <p style="margin-top: 0.5rem;">
-            Wir bauen den ersten Workflow, testen ihn mit echten Fällen und bringen ihn produktiv.
-            Kein Big-Bang-Projekt, sondern ein begrenzter Pilot mit klarem Ergebnis.
-          </p>
-        </article>
-        <article class="process-step" data-reveal>
-          <div class="process-step-badge" aria-hidden="true">3</div>
-          <h3>Betrieb</h3>
-          <p style="margin-top: 0.5rem;">
-            Wir begleiten, optimieren und entwickeln weiter, aber nur wo es sinnvoll ist.
-            Keine Dauerverträge ohne Mehrwert.
-          </p>
-        </article>
+      <div style="margin-top:2rem;text-align:center">
+        <a href="/workflows" class="btn btn-secondary" data-track="home_workflows_all">Alle Workflows ansehen</a>
       </div>
     </div>
   </section>
 
-  <!-- ── 7. WHY US ─────────────────────────────────────────────────── -->
+  <!-- 5. WHY CONTENTFLUSS -->
   <section class="section">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow">Warum Unternehmen mit Contentfluss arbeiten</p>
-        <h2>Klare Arbeitsweise. Belastbare Umsetzung. Ehrliche Empfehlungen.</h2>
+      <div class="section-head">
+        <span class="section-label">Warum Contentfluss</span>
+        <h2>Umsetzung statt Beratung</h2>
       </div>
-
-      <div class="card-grid four" data-stagger>
-        <article class="card" data-reveal>
-          <h3>Klar statt kompliziert</h3>
-          <p>Keine Tool-Show. Nur Lösungen, die im Alltag funktionieren und verständlich erklärt sind.</p>
-        </article>
-        <article class="card" data-reveal>
-          <h3>Operativ statt theoretisch</h3>
-          <p>Wir denken vom Engpass, nicht vom Trend. Was nichts bringt, bauen wir nicht.</p>
-        </article>
-        <article class="card" data-reveal>
-          <h3>Hochwertig statt gebastelt</h3>
-          <p>Saubere Umsetzung, strukturierte Übergabe, dokumentierte Prozesse.</p>
-        </article>
-        <article class="card" data-reveal>
-          <h3>Partnerschaft statt Projektabwurf</h3>
-          <p>Kurze Wege, direkte Kommunikation, Empfehlungen die auch mal gegen uns sprechen.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── 8. BEFORE / AFTER ─────────────────────────────────────────── -->
-  <section class="section-tight">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow">Wie das in der Praxis aussehen kann</p>
-        <h2>Typische Situationen, die wir strukturieren</h2>
-      </div>
-
-      <div class="card-grid three" data-stagger>
-        {proofExamples.map((example) => (
-          <article class="card before-after-card" data-reveal>
-            <div class="ba-pane">
-              <p class="ba-label ba-label-before">Vorher</p>
-              <p>{example.before}</p>
-            </div>
-            <div class="ba-pane">
-              <p class="ba-label ba-label-after">Nachher</p>
-              <p>{example.after}</p>
-            </div>
-          </article>
+      <div class="grid-4" data-stagger>
+        {[
+          { title: 'Keine Theoriefolien', body: 'Was wir liefern, läuft. Kein Konzept-Deliverable, keine Empfehlungsliste zum Selbstumsetzen.' },
+          { title: 'Kein Systemwechsel', body: 'Auf bestehende Tools und Abläufe aufgesetzt. Kein IT-Großprojekt als Voraussetzung.' },
+          { title: 'Branchenfokus', body: 'Spezialisiert auf Handwerk und Hausverwaltung — nicht auf alles für alle.' },
+          { title: 'Klare Abläufe', body: 'Kurze Analyse, schnelle Umsetzung, Nachschärfen im Betrieb.' },
+        ].map(item => (
+          <div class="card">
+            <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem">{item.title}</h3>
+            <p style="font-size:0.875rem;max-width:none">{item.body}</p>
+          </div>
         ))}
       </div>
-
-      <div class="button-row" data-reveal>
-        <a
-          href="/fallbeispiele"
-          class="btn btn-secondary"
-          data-track="cta_clicked"
-          data-track-label="home_fallbeispiele"
-        >
-          Mehr Beispiele ansehen
-        </a>
-      </div>
-      <p style="margin-top: 0.65rem; color: var(--color-muted); font-size: 0.86rem;" data-reveal>
-        Diese Beispiele zeigen typische Abläufe, keine verifizierten Kundendaten.
-      </p>
     </div>
   </section>
 
-  <!-- ── 9. SIMULATED PROOF ─────────────────────────────────────────── -->
-  <section class="section-tight">
+  <!-- 6. PROCESS -->
+  <section class="section section-alt">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow">Zahlen ohne Fake-Referenzen</p>
-        <h2>Simulierte Orientierungskorridore, transparent gekennzeichnet</h2>
-        <p>
-          Wir haben noch keine veröffentlichten Kundenreferenzen. Stattdessen zeigen wir, was
-          auf Basis typischer Prozessvolumina realistisch erreichbar ist.
-        </p>
+      <div class="section-head">
+        <span class="section-label">Ablauf</span>
+        <h2>Wie die Zusammenarbeit funktioniert</h2>
       </div>
-
-      <div class="stat-grid">
-        <div class="stat-card" data-reveal>
-          <div class="stat-value">bis <span data-counter="40">40</span> %</div>
-          <div class="stat-label">{simulatedProofCases[0].label}</div>
-          <p class="mono-label" style="margin-top: 0.55rem;">{simulatedProofCases[0].title}</p>
-          <p class="stat-note">{simulatedProofCases[0].note}</p>
-        </div>
-        <div class="stat-card" data-reveal>
-          <div class="stat-value">bis <span data-counter="35">35</span> %</div>
-          <div class="stat-label">{simulatedProofCases[1].label}</div>
-          <p class="mono-label" style="margin-top: 0.55rem;">{simulatedProofCases[1].title}</p>
-          <p class="stat-note">{simulatedProofCases[1].note}</p>
-        </div>
-        <div class="stat-card" data-reveal>
-          <div class="stat-value">bis <span data-counter="50">50</span> %</div>
-          <div class="stat-label">{simulatedProofCases[2].label}</div>
-          <p class="mono-label" style="margin-top: 0.55rem;">{simulatedProofCases[2].title}</p>
-          <p class="stat-note">{simulatedProofCases[2].note}</p>
-        </div>
+      <div class="grid-3" data-stagger>
+        {[
+          { n: '01', title: 'Engpass verstehen', body: 'Im Fit-Call sprechen wir über eure Abläufe. Wo verliert ihr täglich Zeit? Was geht verloren?' },
+          { n: '02', title: 'Workflow bauen', body: 'Wir entwickeln und implementieren den Ablauf — auf eure Systeme und Sprache abgestimmt.' },
+          { n: '03', title: 'Im Alltag einsetzen', body: 'Der Workflow geht live. Wir begleiten den Start und schärfen nach, was im Betrieb nicht stimmt.' },
+        ].map(s => (
+          <div class="process-step">
+            <span class="process-step-num">{s.n}</span>
+            <p class="process-step-title">{s.title}</p>
+            <p class="process-step-body">{s.body}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- ── 10. FAQ ────────────────────────────────────────────────────── -->
+  <!-- 7. FAQ -->
   <section class="section">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <p class="eyebrow">Häufige Fragen</p>
-        <h2>Was Betriebe uns vor dem Erstgespräch fragen</h2>
+    <div class="container content-narrow">
+      <div class="section-head">
+        <span class="section-label">FAQ</span>
+        <h2>Häufige Fragen</h2>
       </div>
-
-      <div class="faq-accordion" data-reveal>
-        {faqItems.map((item) => (
-          <details>
-            <summary>
-              <span>{item.question}</span>
-              <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </summary>
-            <div class="faq-body">
-              <p>{item.answer}</p>
-            </div>
-          </details>
+      <ul class="faq-list">
+        {faqs.map(faq => (
+          <li class="faq-item">
+            <details>
+              <summary>{faq.q}</summary>
+              <p class="faq-answer">{faq.a}</p>
+            </details>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   </section>
 
-  <!-- ── 11. FINAL CTA (DARK) ──────────────────────────────────────── -->
-  <section class="section-dark-cta">
-    <div class="container" data-reveal>
-      <p class="eyebrow eyebrow-light">Nächster Schritt</p>
-      <h2>Prüft in 20 Minuten, ob sich Automatisierung bei euch wirtschaftlich lohnt</h2>
-      <p class="lead">
-        Im kostenlosen Erstgespräch schauen wir auf euren Prozess und sagen euch offen,
-        ob eine Umsetzung Sinn macht. Und wenn ja, wo wir anfangen würden.
-      </p>
-      <div class="button-row">
-        <a
-          href="/kontakt"
-          class="btn btn-primary"
-          data-track="cta_clicked"
-          data-track-label="home_final_erstgespraech"
-        >
-          Erstgespräch buchen
-        </a>
-      </div>
+  <!-- 8. FINAL CTA -->
+  <section class="section section-alt">
+    <div class="container content-center">
+      <h2>Sagt uns, was manuell laufen bleibt. Wir sagen euch, ob ein Workflow das löst.</h2>
+      <p style="margin-top:1rem;margin-bottom:2rem;margin-inline:auto">Kostenloser Fit-Call, ca. 30 Minuten. Kein Pitch, keine Verpflichtung.</p>
+      <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_final_cta">Fit-Call buchen</a>
     </div>
   </section>
+
 </Layout>
