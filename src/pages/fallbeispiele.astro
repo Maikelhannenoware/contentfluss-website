@@ -1,107 +1,95 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
+import { pageMeta, breadcrumbSchema } from '../lib/seo';
 
-const description =
-  'Beispiel-Workflows von Contentfluss: transparente Vorher/Nachher-Setups für Handwerk und Immobilienverwaltung ohne erfundene Referenzen.';
-
-const useCases = [
-  {
-    title: 'Handwerk: Anfrageannahme mit Vorqualifikation',
-    before:
-      'Neue Anfragen kommen über mehrere Kanäle rein. Pflichtinformationen fehlen häufig und Rückfragen verzögern den Start.',
-    setup:
-      'Eingänge werden in ein strukturiertes Intake überführt, automatisch kategorisiert und mit Priorität an das Büro übergeben.',
-    possibleResult:
-      'Schnellere Erstreaktion, weniger manuelle Rückfragen und klarere Bearbeitung je Anfrage.',
-    simulatedImpact: 'Simulierte Orientierung: 25-40 % weniger Rückfragen in der Erstaufnahme.',
-  },
-  {
-    title: 'Handwerk: Angebots-Follow-up mit Wiedervorlage',
-    before:
-      'Angebote werden einzeln manuell nachgehalten. Follow-ups erfolgen unregelmäßig und Chancen gehen verloren.',
-    setup:
-      'Angebote erhalten statusabhängige Follow-up-Strecken inklusive Erinnerung und Eskalation bei Inaktivität.',
-    possibleResult:
-      'Mehr Rückläufe auf Angebote und weniger Verwaltungsaufwand pro offenem Vorgang.',
-    simulatedImpact: 'Simulierte Orientierung: 20-35 % höhere Follow-up-Quote.',
-  },
-  {
-    title: 'Immobilienverwaltung: Schadenmeldung & Triage',
-    before:
-      'Schadenmeldungen enthalten oft unvollständige Informationen und verursachen lange Klärungsschleifen.',
-    setup:
-      'Meldungen werden auf Vollständigkeit geprüft, priorisiert und mit relevanten Daten in den Bearbeitungsprozess überführt.',
-    possibleResult:
-      'Schnellere Bearbeitung und entlastete Sachbearbeitung bei parallelen Fällen.',
-    simulatedImpact: 'Simulierte Orientierung: 30-50 % weniger Nachforderungen je Schadenfall.',
-  },
-  {
-    title: 'Immobilienverwaltung: Inbox-Triage',
-    before:
-      'Postfächer sind überlastet. Wichtige Vorgänge werden zu spät erkannt und Zuständigkeiten sind unklar.',
-    setup:
-      'E-Mails werden automatisch nach Anliegen, Dringlichkeit und Objektbezug geordnet und zuständig verteilt.',
-    possibleResult:
-      'Weniger Kommunikationschaos und verlässlichere Reaktionszeiten im Tagesgeschäft.',
-    simulatedImpact: 'Simulierte Orientierung: 20-35 % kürzere Erstreaktionszeit in der Inbox.',
-  },
+const meta = pageMeta.fallbeispiele;
+const schemas = [
+  breadcrumbSchema([{name:'Startseite',path:'/'},{name:'Fallbeispiele',path:'/fallbeispiele'}]),
 ];
 
-const structuredData = [
-  professionalServiceSchema('/fallbeispiele', description),
-  breadcrumbSchema([
-    { name: 'Startseite', path: '/' },
-    { name: 'Fallbeispiele', path: '/fallbeispiele' },
-  ]),
+const cases = [
+  {
+    id: 'HW-01',
+    title: 'Anfragequalifizierung im SHK-Betrieb',
+    tag: 'Handwerk',
+    ausgangslage: 'Ein SHK-Betrieb mit 12 Mitarbeitern bekommt täglich Anfragen per Telefon, E-Mail und Kontaktformular. Viele davon unvollständig: keine Adresse, keine Beschreibung, keine Fotos. Die Bürokraft muss bei fast jeder Anfrage nachhaken, bevor ein Angebot rausgeht.',
+    ablauf: 'Ein Workflow prüft eingehende Anfragen automatisch auf Vollständigkeit, fordert fehlende Informationen beim Anfragenden nach und legt den Vorgang erst dann als bearbeitungsfertig an, wenn alle Pflichtfelder gefüllt sind.',
+    wirkung: 'Weniger Rückfragen pro Anfrage, schnellere Erstreaktion, weniger Anfragen, die im Alltag untergehen.',
+  },
+  {
+    id: 'HW-02',
+    title: 'Angebots-Follow-up im Elektrobetrieb',
+    tag: 'Handwerk',
+    ausgangslage: 'Ein Elektrobetrieb verschickt pro Woche 8–12 Angebote. Rund die Hälfte bleibt ohne Rückmeldung. Nachfassen passiert unregelmäßig und oft zu spät — weil es im Tagesgeschäft untergeht.',
+    ablauf: 'Ein Workflow erkennt offene Angebote, versendet zeitbasiert eine erste Erinnerung, priorisiert größere Posten automatisch und eskaliert bei Nichtreaktion intern zur Wiedervorlage.',
+    wirkung: 'Mehr Rücklauf auf Angebote, klarere Übersicht über offene Posten, weniger manueller Aufwand für Nachfassaktionen.',
+  },
+  {
+    id: 'IM-01',
+    title: 'Schadenmeldung und Vorqualifikation',
+    tag: 'Hausverwaltung',
+    ausgangslage: 'Eine Hausverwaltung mit 600 Einheiten bearbeitet täglich Schadenmeldungen, die per E-Mail, Telefon und teilweise WhatsApp eingehen. Viele Meldungen sind unvollständig — es fehlen Einheitsnummer, Fotos oder eine klare Beschreibung.',
+    ablauf: 'Ein Workflow nimmt die Meldung entgegen, prüft auf Pflichtfelder, fordert fehlende Informationen automatisch beim Meldenden nach und erstellt einen strukturierten Vorgang erst nach vollständiger Erfassung.',
+    wirkung: 'Weniger Rückfragen an Mieter und Eigentümer, schnellerer Start der Bearbeitung, weniger Vorgänge, die wegen fehlender Infos liegen bleiben.',
+  },
+  {
+    id: 'IM-02',
+    title: 'Inbox-Triage in der Hausverwaltung',
+    tag: 'Hausverwaltung',
+    ausgangslage: 'Das Team einer Hausverwaltung bearbeitet ein gemeinsames Postfach mit 80–120 E-Mails pro Tag. Viele Mails sind unklar zugeordnet, Prioritäten fehlen, und Sachbearbeiter greifen oft zum gleichen Vorgang.',
+    ablauf: 'Ein Workflow analysiert eingehende E-Mails, erkennt Anliegen und Dringlichkeit, ordnet sie dem zuständigen Sachbearbeiter zu und bereitet eine Kurzansicht zur schnelleren Bearbeitung vor.',
+    wirkung: 'Klarere Zuständigkeiten, weniger doppelte Bearbeitung, schnellere Reaktionszeiten auf dringende Anliegen.',
+  },
 ];
 ---
+<Layout title={meta.title} description={meta.description} schemas={schemas}>
 
-<Layout
-  title="Fallbeispiele – AI-Workflow Beispiele für Handwerk & Immobilien"
-  description={description}
-  canonicalPath="/fallbeispiele"
-  structuredData={structuredData}
->
-  <section class="hero">
-    <div class="container" data-reveal>
-      <p class="eyebrow">Beispiel-Setups</p>
-      <h1>Typische Einsatzfelder aus der Praxis</h1>
-      <p class="lead">
-        Diese Beispiele sind bewusst als mögliche Setups formuliert. Sie zeigen typische Abläufe,
-        nicht erfundene Kundenreferenzen.
-      </p>
-      <p style="margin-top: 0.7rem; color: var(--color-muted);">
-        Alle KPI-Angaben auf dieser Seite sind klar gekennzeichnete Simulationen zur Einordnung.
-      </p>
+  <section class="hero-sub">
+    <div class="container content-narrow">
+      <span class="eyebrow">Fallbeispiele</span>
+      <h1 style="margin-top:1rem">Wie operative Workflows im Alltag wirken.</h1>
+      <p class="page-intro" style="margin-top:1rem">Die folgenden Beispiele sind exemplarische Musterabläufe — keine echten Kundencases, keine erfundenen Zahlen. Sie zeigen, wie typische Workflows aufgebaut sind und welche Wirkung sie entfalten können.</p>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container card-grid two">
-      {useCases.map((caseItem) => (
-        <article class="card" data-reveal>
-          <h2 style="font-size: 1.4rem;">{caseItem.title}</h2>
-          <p style="margin-top: 0.75rem;"><strong>Ausgangslage:</strong> {caseItem.before}</p>
-          <p style="margin-top: 0.55rem;"><strong>Beispiel-Setup:</strong> {caseItem.setup}</p>
-          <p style="margin-top: 0.55rem;"><strong>Mögliche Wirkung:</strong> {caseItem.possibleResult}</p>
-          <p style="margin-top: 0.55rem;"><strong>Simulierte KPI-Orientierung:</strong> {caseItem.simulatedImpact}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="section-tight">
-    <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
-      <h2>Euer konkreter Ablauf ist anders?</h2>
-      <p class="lead">
-        Im Erstgespräch prüfen wir euren tatsächlichen Prozess und leiten daraus ein passendes Setup ab.
-      </p>
-      <div class="button-row">
-        <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="cases_final_cta">
-          Workflow besprechen
-        </a>
+  <section class="section">
+    <div class="container">
+      <div class="stack gap-8" data-stagger>
+        {cases.map(c => (
+          <div class="card">
+            <div class="card-header" style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+              <div>
+                <span class="mono-tag">{c.id}</span>
+                <h2 style="font-size:clamp(1.15rem,2.5vw,1.45rem);margin-top:0.75rem">{c.title}</h2>
+              </div>
+              <span class="eyebrow">{c.tag}</span>
+            </div>
+            <div class="grid-3">
+              <div>
+                <p class="workflow-col-label">Ausgangslage</p>
+                <p style="font-size:0.875rem;max-width:none">{c.ausgangslage}</p>
+              </div>
+              <div>
+                <p class="workflow-col-label">Beispiel-Ablauf</p>
+                <p style="font-size:0.875rem;max-width:none">{c.ablauf}</p>
+              </div>
+              <div>
+                <p class="workflow-col-label">Mögliche Wirkung</p>
+                <p style="font-size:0.875rem;max-width:none">{c.wirkung}</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
+
+  <section class="section section-alt">
+    <div class="container content-center">
+      <h2>Passt einer dieser Abläufe zu eurem Engpass?</h2>
+      <p style="margin-top:0.75rem;margin-bottom:2rem;margin-inline:auto">Im Fit-Call klären wir, ob ein Workflow bei euch konkret Sinn ergibt.</p>
+      <a href="/kontakt" class="btn btn-primary btn-lg" data-track="fallbeispiele_final_cta">Fit-Call buchen</a>
+    </div>
+  </section>
+
 </Layout>
