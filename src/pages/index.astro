@@ -11,9 +11,9 @@ const featuredWorkflows = [
 ];
 const faqs = [
   { q: 'Ist das ein Softwarewechsel?', a: 'Nein. Wir setzen auf bestehende Abläufe und Systeme auf. Kein neues Tool als Voraussetzung.' },
-  { q: 'Passt das auch für kleinere Betriebe?', a: 'Ja. Die meisten Workflows sind für Betriebe mit 3–30 Mitarbeitern gemacht — dort entsteht der größte Nutzen pro Stunde.' },
+  { q: 'Passt das auch für kleinere Betriebe?', a: 'Ja. Die meisten Workflows sind für Betriebe mit 3–30 Mitarbeitern gemacht, dort entsteht der größte Nutzen pro Stunde.' },
   { q: 'Wo setzt KI hier konkret an?', a: 'Anfragen einordnen, Informationen nachziehen, Standardantworten versenden, Status kommunizieren, Übergaben dokumentieren.' },
-  { q: 'Was passiert im Fit-Call?', a: 'Kein Pitch. Wir schauen gemeinsam, wo bei euch Engpässe entstehen — und ob ein Workflow das lösen kann.' },
+  { q: 'Was passiert im Fit-Call?', a: 'Kein Pitch. Wir schauen gemeinsam, wo bei euch Engpässe entstehen, und ob ein Workflow das lösen kann.' },
   { q: 'Wie lange dauert die Umsetzung?', a: 'Die meisten Workflows gehen in 3–5 Wochen live. Das hängt vom Umfang und den nötigen Integrationen ab.' },
 ];
 const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => ({ question: f.q, answer: f.a })))];
@@ -28,7 +28,7 @@ const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => 
         <div class="stack gap-6">
           <span class="eyebrow">KI-Workflows für Handwerk &amp; Hausverwaltung</span>
           <h1>Weniger manuelle Arbeit. Klarere Abläufe. Weniger, was liegen bleibt.</h1>
-          <p class="page-intro">Contentfluss baut KI-Workflows für Handwerksbetriebe und Hausverwaltungen — auf bestehende Abläufe aufgesetzt, ohne IT-Großprojekt.</p>
+          <p class="page-intro">Contentfluss baut KI-Workflows für Handwerksbetriebe und Hausverwaltungen, auf bestehende Abläufe aufgesetzt, ohne IT-Großprojekt.</p>
           <div class="cta-group">
             <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_hero_cta">Fit-Call buchen</a>
             <a href="/workflows" class="cta-link" data-track="home_hero_workflows">Workflows ansehen →</a>
@@ -199,7 +199,7 @@ const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => 
           </div>
         ))}
       </div>
-      <div style="margin-top:2rem;text-align:center">
+      <div class="mt-8 text-center">
         <a href="/workflows" class="btn btn-secondary" data-track="home_workflows_all">Alle Workflows ansehen</a>
       </div>
     </div>
@@ -252,7 +252,7 @@ const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => 
   <section class="section-feature">
     <div class="container">
       <div class="conviction-block" data-reveal>
-        <span class="eyebrow">Fit-Call — kostenlos, 30 Minuten</span>
+        <span class="eyebrow">Fit-Call: kostenlos, 30 Minuten</span>
         <h2>Welcher Ablauf kostet euch täglich die meiste Zeit?</h2>
         <p class="page-intro">Im Fit-Call klären wir, ob ein Workflow das lösen kann. Kein Pitch, keine Verpflichtung.</p>
         <div class="cta-group" style="justify-content:center;margin-top:2rem">
