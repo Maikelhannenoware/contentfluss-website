@@ -1,111 +1,70 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
+import { pageMeta, breadcrumbSchema } from '../lib/seo';
 
-const description =
-  'Über Contentfluss: Maikel Hannen verbindet operative Prozessklarheit mit moderner AI-Umsetzung für Handwerk und Immobilienverwaltung.';
-
-const structuredData = [
-  professionalServiceSchema('/ueber-uns', description),
-  breadcrumbSchema([
-    { name: 'Startseite', path: '/' },
-    { name: 'Über uns', path: '/ueber-uns' },
-  ]),
+const meta = pageMeta.ueberUns;
+const schemas = [
+  breadcrumbSchema([{name:'Startseite',path:'/'},{name:'Über uns',path:'/ueber-uns'}]),
 ];
 ---
+<Layout title={meta.title} description={meta.description} schemas={schemas}>
 
-<Layout
-  title="Über uns | Contentfluss"
-  description={description}
-  canonicalPath="/ueber-uns"
-  structuredData={structuredData}
->
-  <section class="hero">
-    <div class="container" data-reveal>
-      <p class="eyebrow">Über Contentfluss</p>
-      <h1>Contentfluss verbindet operative Klarheit mit moderner AI-Umsetzung</h1>
-      <p class="lead">
-        Wir bauen keine Showcases, sondern Workflows, die Unternehmen im Alltag wirklich entlasten.
-      </p>
+  <section class="hero-sub">
+    <div class="container content-narrow">
+      <span class="eyebrow">Über uns</span>
+      <h1 style="margin-top:1rem">Operative Entlastung statt KI-Show.</h1>
+      <p class="page-intro" style="margin-top:1rem">Contentfluss baut KI-Workflows für operative Prozesse in Handwerk und Hausverwaltung. Kein Pitch-Deck, keine Tool-Demo. Umsetzung.</p>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container split two">
-      <article class="card" data-reveal>
-        <h2>Wer dahintersteht</h2>
-        <p class="lead" style="margin-top: 0.7rem;">
-          Ich bin Maikel Hannen.
-        </p>
-        <p style="margin-top: 0.65rem; color: var(--color-muted);">
-          Ich helfe Unternehmen dabei, sinnvolle AI-Workflows in reale Prozesse zu bringen. Pragmatisch,
-          verständlich und ohne unnötigen Tech-Overload. Mich interessiert nicht, welche Tool-Demo gerade am lautesten ist,
-          sondern was im Alltag wirklich Zeit spart, Klarheit bringt und sauber läuft.
-        </p>
-        <p style="margin-top: 0.65rem; color: var(--color-muted);">
-          Contentfluss arbeitet fokussiert für Handwerk und Immobilienverwaltung in der DACH-Region, remote oder vor Ort.
-        </p>
-      </article>
-
-      <article class="card card-muted" data-reveal>
-        <h2>Wie wir arbeiten</h2>
-        <ul class="list list-check" style="margin-top: 0.8rem;">
-          <li>Vom Prozess aus denken</li>
-          <li>Klein starten, sauber live bringen</li>
-          <li>Nicht überautomatisieren</li>
-          <li>Offen kommunizieren</li>
-          <li>Dokumentieren und übergeben</li>
-        </ul>
-      </article>
-    </div>
-  </section>
-
-  <section class="section-tight">
+  <section class="section">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <h2>Wofür Contentfluss steht</h2>
-      </div>
+      <div class="content-aside">
+        <div>
+          <p style="margin-bottom:1.25rem">Contentfluss ist aus der Beobachtung entstanden, dass in vielen kleineren Betrieben jeden Tag Zeit verloren geht — in unvollständige Anfragen, manuelle Übergaben, offene Angebote, die niemand nachverfolgt.</p>
+          <p style="margin-bottom:1.25rem">Das ist kein KI-Problem und kein Software-Problem. Es ist ein Ablauf-Problem. Und Abläufe lassen sich mit den richtigen Werkzeugen lösen — ohne IT-Großprojekt und ohne Systemwechsel.</p>
+          <p>Contentfluss spezialisiert sich auf Handwerk und Hausverwaltung, weil hier die Probleme konkret, wiederkehrend und gut lösbar sind.</p>
+        </div>
 
-      <div class="card-grid four">
-        <article class="card" data-reveal>
-          <h3>Klarheit</h3>
-          <p>Eindeutige Prioritäten statt vager Roadmaps.</p>
-        </article>
-        <article class="card" data-reveal>
-          <h3>Pragmatismus</h3>
-          <p>Nur das bauen, was im Betrieb wirklich hilft.</p>
-        </article>
-        <article class="card" data-reveal>
-          <h3>Qualität</h3>
-          <p>Saubere Umsetzung, dokumentierte Übergabe, verlässliche Standards.</p>
-        </article>
-        <article class="card" data-reveal>
-          <h3>Verlässlichkeit</h3>
-          <p>Kurze Wege, realistische Aussagen, belastbare Zusammenarbeit.</p>
-        </article>
+        <div class="card card-elevated" data-reveal>
+          <p class="workflow-col-label">Gründer</p>
+          <p style="font-family:var(--font-display);font-size:1.1rem;font-weight:600;margin-top:0.5rem">Maikel Hannen</p>
+          <p style="font-size:0.875rem;color:var(--color-text-muted);margin-top:0.25rem">Founder, Contentfluss</p>
+          <hr class="divider" style="margin-block:1rem" />
+          <p style="font-size:0.875rem;max-width:none">Hintergrund in Prozessautomatisierung und KI-Integration. Fokus auf operative Workflows, die im Tagesgeschäft spürbar Arbeit abnehmen — nicht auf Berater-Deliverables.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container" data-reveal>
-      <article class="card card-accent">
-        <h2>So könnte ein erstes Projekt aussehen</h2>
-        <p class="lead" style="margin-top: 0.6rem;">
-          Beispielhafter Ablauf ohne Fake-Case:
-        </p>
-        <ul class="list" style="margin-top: 0.9rem;">
-          <li><strong>Woche 1:</strong> Audit-Gespräch, Prozessaufnahme, Priorisierung.</li>
-          <li><strong>Woche 2-3:</strong> Workflow-Design, technische Umsetzung, Abstimmung mit dem Team.</li>
-          <li><strong>Woche 4:</strong> Livegang, Monitoring, Feinschliff und Übergabe.</li>
-        </ul>
-      </article>
-
-      <div class="button-row">
-        <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="about_final_cta">
-          Erstgespräch buchen
-        </a>
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Prinzipien</span>
+        <h2>Woran sich die Arbeit orientiert</h2>
+      </div>
+      <div class="grid-2" data-stagger>
+        {[
+          { title: 'Alltag vor KI-Show', body: 'Wir starten mit dem Tagesgeschäft, nicht mit der Technologie. Was zählt: Welcher Ablauf kostet heute Zeit? Nicht: Welches AI-Feature ist gerade populär.' },
+          { title: 'Spezialisierung', body: 'Handwerk und Hausverwaltung. Nicht alles für alle. Die Engpässe in diesen Branchen kennen wir, die Abläufe verstehen wir — deshalb geht die Umsetzung schneller.' },
+          { title: 'Umsetzungsnähe', body: 'Was wir liefern, läuft. Kein Audit-Report als Endprodukt, keine Empfehlungsliste zum Selbstumsetzen. Der Workflow ist implementiert und im Einsatz.' },
+          { title: 'Pragmatischer Werkzeugeinsatz', body: 'Wir nutzen, was passt — Make, Claude, Resend, bestehende CRM-Systeme. Kein eigenes Produkt, das als Voraussetzung dient. Der Stack richtet sich nach dem Betrieb.' },
+        ].map(item => (
+          <div class="card">
+            <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem">{item.title}</h3>
+            <p style="font-size:0.875rem;max-width:none">{item.body}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container content-center">
+      <h2>Kein Pitch. Kein Slide-Deck. Nur ein Gespräch über eure Abläufe.</h2>
+      <p style="margin-top:0.75rem;margin-bottom:2rem;margin-inline:auto">Im Fit-Call klären wir, wo euer größter Engpass liegt — und ob ein Workflow dafür Sinn ergibt.</p>
+      <a href="/kontakt" class="btn btn-primary btn-lg" data-track="ueberuns_final_cta">Fit-Call buchen</a>
+    </div>
+  </section>
+
 </Layout>
