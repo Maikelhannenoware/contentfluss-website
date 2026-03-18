@@ -1,83 +1,26 @@
 ---
 interface Props {
   size?: 'sm' | 'md' | 'lg';
-  showText?: boolean;
-  showSub?: boolean;
   class?: string;
 }
-
-const { size = 'md', showText = true, showSub = true, class: className = '' } = Astro.props;
-
-const iconSizes = { sm: 28, md: 34, lg: 44 };
-const iconSize = iconSizes[size];
+const { size = 'md', class: cls } = Astro.props;
+const iconSize = { sm: 22, md: 26, lg: 34 }[size];
+const titleSize = { sm: '0.9375rem', md: '1rem', lg: '1.25rem' }[size];
 ---
-
-<span class:list={['logo', `logo--${size}`, className]}>
-  <!-- Flow mark icon -->
-  <svg
-    width={iconSize}
-    height={iconSize}
-    viewBox="0 0 36 36"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-    class="logo-icon"
-  >
-    <rect width="36" height="36" rx="9" fill="#0f5f78" />
-    <!-- Three flowing lines: top arcs up, middle straight, bottom arcs down -->
-    <path d="M7 12 C13 7.5 23 7.5 29 12" stroke="white" stroke-width="2.7" stroke-linecap="round" />
-    <path d="M7 18 L29 18" stroke="white" stroke-width="2.7" stroke-linecap="round" />
-    <path d="M7 24 C13 28.5 23 28.5 29 24" stroke="white" stroke-width="2.7" stroke-linecap="round" />
+<span class:list={['logo', cls]} style={`--icon:${iconSize}px;--title:${titleSize}`}>
+  <svg width={iconSize} height={iconSize} viewBox="0 0 28 28" fill="none" aria-hidden="true">
+    <rect width="28" height="28" rx="7" fill="#1558FF"/>
+    <path d="M7 10h8M7 14h14M7 18h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
   </svg>
-
-  {showText && (
-    <span class="logo-text">
-      <span class="logo-name">Contentfluss</span>
-      {showSub && <span class="logo-sub">AI-Operations</span>}
-    </span>
-  )}
+  <span class="logo-name">Contentfluss</span>
 </span>
-
 <style>
-  .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    text-decoration: none;
-    line-height: 1;
-  }
-
-  .logo-icon {
-    flex-shrink: 0;
-    display: block;
-  }
-
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.05;
-  }
-
+  .logo { display: inline-flex; align-items: center; gap: 0.55rem; }
   .logo-name {
     font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    color: var(--color-ink);
+    font-size: var(--title);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1;
   }
-
-  .logo-sub {
-    text-transform: uppercase;
-    letter-spacing: 0.13em;
-    color: #647689;
-  }
-
-  /* Size variants */
-  .logo--sm .logo-name { font-size: 1rem; }
-  .logo--sm .logo-sub { font-size: 0.6rem; margin-top: 0.1rem; }
-
-  .logo--md .logo-name { font-size: 1.2rem; }
-  .logo--md .logo-sub { font-size: 0.68rem; margin-top: 0.12rem; }
-
-  .logo--lg .logo-name { font-size: 1.5rem; }
-  .logo--lg .logo-sub { font-size: 0.78rem; margin-top: 0.14rem; }
 </style>
