@@ -1,175 +1,113 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { handwerkOffers } from '../lib/offers';
-import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
+import { pageMeta, breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
+import { handwerkWorkflows } from '../lib/workflows';
 
-const description =
-  'Contentfluss baut AI-Operations für Handwerksbetriebe: Anfrageannahme, Angebots-Follow-up, Service-Recall, Mahnkommunikation und Terminprozesse.';
-
-const painpoints = [
-  'Anfragen kommen unvollständig über mehrere Kanäle rein.',
-  'Angebote werden nicht systematisch nachverfolgt.',
-  'Wartungs- und Service-Recall passiert unregelmäßig.',
-  'Zahlungserinnerungen und Mahnkommunikation binden zu viel Bürozeit.',
-  'Dispo- und Terminabstimmung erzeugt Rückrufschleifen.',
-];
-
-const processSteps = [
-  {
-    title: 'Workflow-Audit',
-    text: 'Ist-Prozess aufnehmen, größten operativen Hebel identifizieren und Zielmetriken festlegen.',
-  },
-  {
-    title: 'Build / Umsetzung',
-    text: 'Priorisierten Workflow implementieren, mit realen Fällen testen und sauber in bestehende Prozesse einbetten.',
-  },
-  {
-    title: 'Betrieb / Optimierung',
-    text: 'Monitoring, Tuning und Weiterentwicklung im laufenden Betrieb mit klaren Verantwortlichkeiten.',
-  },
-];
-
-const structuredData = [
-  professionalServiceSchema('/handwerk', description),
-  breadcrumbSchema([
-    { name: 'Startseite', path: '/' },
-    { name: 'Handwerk', path: '/handwerk' },
-  ]),
+const meta = pageMeta.handwerk;
+const schemas = [
+  breadcrumbSchema([{name:'Startseite',path:'/'},{name:'Handwerk',path:'/handwerk'}]),
+  professionalServiceSchema('/handwerk', meta.description),
 ];
 ---
+<Layout title={meta.title} description={meta.description} schemas={schemas}>
 
-<Layout
-  title="AI-Operations für Handwerk | Contentfluss"
-  description={description}
-  canonicalPath="/handwerk"
-  structuredData={structuredData}
->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy" data-reveal>
-        <p class="eyebrow">AI-Operations für Handwerksbetriebe</p>
-        <h1>Automatisierte Abläufe für Handwerksbetriebe: von der Anfrage bis zum Folgeauftrag</h1>
-        <p class="lead">
-          Contentfluss legt einen AI-Layer über eure bestehenden Abläufe: Anfrageannahme,
-          Angebots-Follow-up, Service-Recall, Mahnkommunikation. Kein Software-Wechsel,
-          nur strukturiertere Prozesse.
-        </p>
-        <p class="trustline">Struktur: Workflow-Audit → Pilot → Ausbau.</p>
-        <div class="button-row">
-          <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="handwerk_hero_cta">
-            Erstgespräch buchen
-          </a>
-          <a href="#offers" class="btn btn-secondary" data-track="cta_clicked" data-track-label="handwerk_hero_offers">
-            5 Handwerk-Offers ansehen
-          </a>
-        </div>
-      </div>
-
-      <aside class="workflow-visual" data-reveal>
-        <header>
-          <strong>Typische Hebel im Handwerk</strong>
-          <span>Intake, Follow-up, Recall</span>
-        </header>
-        <ul class="metric-list">
-          <li>Vollständigere Anfragen statt Rückfrageketten</li>
-          <li>Mehr Angebotsrücklauf durch strukturierte Sequenzen</li>
-          <li>Planbarere Auslastung durch Service-Recall</li>
-          <li>Weniger manuelle Abstimmung im Tagesgeschäft</li>
-        </ul>
-      </aside>
-    </div>
-  </section>
-
-  <section class="section-tight">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <h2>Typische Painpoints in Handwerksbetrieben</h2>
-      </div>
-      <div class="card surface" data-reveal style="padding: 1.3rem;">
-        <ul class="list">
-          {painpoints.map((painpoint) => (
-            <li>{painpoint}</li>
-          ))}
-        </ul>
+  <section class="hero-sub">
+    <div class="container content-narrow">
+      <span class="eyebrow">Für Handwerksbetriebe</span>
+      <h1 style="margin-top:1rem">Weniger Rückfragen. Weniger Nachfassen. Mehr Klarheit im Ablauf.</h1>
+      <p class="page-intro" style="margin-top:1rem">Wenn Anfragen unvollständig reinkommen, Angebote offen liegen bleiben und Rückfragen den Tag zerhacken, hilft kein neues Buzzword — sondern ein besserer Ablauf.</p>
+      <div class="flex-row" style="margin-top:2rem">
+        <a href="/kontakt" class="btn btn-primary btn-lg" data-track="handwerk_hero_cta">Fit-Call buchen</a>
       </div>
     </div>
   </section>
 
-  <section id="offers" class="section">
+  <section class="section section-alt">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <h2>Die 5 Offers für Handwerk</h2>
-        <p>Jedes Offer startet mit einem klar begrenzten Pilot statt mit einem unscharfen Vollausbau.</p>
+      <div class="section-head">
+        <span class="section-label">Typische Engpässe</span>
+        <h2>Was täglich Zeit frisst</h2>
       </div>
+      <div class="grid-2" data-stagger>
+        {[
+          { title: 'Anfragen ohne alle Infos', body: 'Kunde ruft an oder schreibt — aber ohne Adresse, Beschreibung oder Fotos. Bevor es losgehen kann, muss erst nachgehakt werden.' },
+          { title: 'Angebote, die im Nichts verschwinden', body: 'Angebot raus, kein Rücklauf. Nachfassen kommt nie dran. Irgendwann fragt ein Mitbewerber nach — und bekommt den Auftrag.' },
+          { title: 'Rückfragen zu offenen Terminen', body: 'Wann kommt ihr? Ist Montag noch frei? Statusfragen landen direkt beim falschen Ansprechpartner.' },
+          { title: 'Verwaltung neben der Baustelle', body: 'Dokumentation, Materialbestellungen, Abschlussberichte — alles manuell, alles neben dem eigentlichen Job.' },
+        ].map(p => (
+          <div class="card">
+            <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem">{p.title}</h3>
+            <p style="font-size:0.875rem;max-width:none">{p.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
 
-      <div class="card-grid two">
-        {handwerkOffers.map((offer) => (
-          <article class="card" data-reveal>
-            <span class="chip">{offer.code}</span>
-            <h3 style="margin-top: 0.65rem;">{offer.name}</h3>
-            <p>{offer.shortDescription}</p>
-            <p style="margin-top: 0.75rem;"><strong>Pilot:</strong> {offer.pilotFromPrice}</p>
-            <p style="margin-top: 0.35rem;"><strong>Care optional:</strong> {offer.careFromPrice}</p>
-            <p style="margin-top: 0.35rem;"><strong>Hinweis:</strong> Finale Kalkulation nach Workflow-Audit.</p>
-            <ul class="list list-check" style="margin-top: 0.85rem;">
-              {offer.deliverables.slice(0, 3).map((deliverable) => (
-                <li>{deliverable}</li>
-              ))}
-            </ul>
-            <div class="button-row">
-              <a
-                href={`/handwerk/${offer.slug}`}
-                class="btn btn-secondary"
-                data-track="cta_clicked"
-                data-track-label={`handwerk_offer_detail_${offer.slug}`}
-              >
-                Details ansehen
-              </a>
-              <a
-                href={`/kontakt?workflow=${offer.slug}`}
-                class="btn btn-ghost"
-                data-track="workflow_cta_clicked"
-                data-track-label={`handwerk_offer_contact_${offer.slug}`}
-              >
-                Offer besprechen
-              </a>
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Workflows</span>
+        <h2>Was automatisiert werden kann</h2>
+        <p>Konkrete Abläufe für wiederkehrende Aufgaben im Handwerksbetrieb.</p>
+      </div>
+      <div class="grid-2" data-stagger>
+        {handwerkWorkflows.map(wf => (
+          <div class="workflow-card">
+            <div class="workflow-card-meta">
+              <h3 class="workflow-card-title">{wf.name}</h3>
             </div>
-          </article>
+            <div>
+              <p class="workflow-col-label">Problem</p>
+              <p class="workflow-problem-block">{wf.problem}</p>
+            </div>
+            <div>
+              <p class="workflow-col-label">Was automatisiert wird</p>
+              <p style="font-size:0.875rem;color:var(--color-text-secondary)">{wf.solution}</p>
+            </div>
+            <div>
+              <p class="workflow-col-label">Was dadurch besser läuft</p>
+              <ul class="workflow-benefits">
+                {wf.benefits.map(b => <li>{b}</li>)}
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href={`/kontakt?workflow=${wf.slug}`} class="btn btn-secondary btn-sm" data-track={`handwerk_wf_${wf.slug}`}>Anfragen</a>
+            </div>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section-tight">
+  <section class="section section-alt">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <h2>Prozessmodell für jedes Projekt</h2>
+      <div class="section-head">
+        <span class="section-label">Zusammenarbeit</span>
+        <h2>Wie es abläuft</h2>
       </div>
-
-      <div class="card-grid three">
-        {processSteps.map((step, index) => (
-          <article class="card" data-reveal>
-            <span class="kicker-number">{index + 1}</span>
-            <h3 style="margin-top: 0.8rem;">{step.title}</h3>
-            <p>{step.text}</p>
-          </article>
+      <div class="grid-3" data-stagger>
+        {[
+          { n:'01', title:'Engpass benennen', body:'Im Fit-Call sprechen wir über eure Situation. Keine Vorbereitung nötig.' },
+          { n:'02', title:'Workflow entwickeln', body:'Wir bauen den Ablauf auf eure Systeme, Formulierungen und typischen Fälle zu.' },
+          { n:'03', title:'Einsetzen und nachschärfen', body:'Live-Gang, Begleitung im Start, Anpassung was nicht stimmt.' },
+        ].map(s => (
+          <div class="process-step">
+            <span class="process-step-num">{s.n}</span>
+            <p class="process-step-title">{s.title}</p>
+            <p class="process-step-body">{s.body}</p>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
-      <h2>Welcher Workflow wirkt bei euch am schnellsten?</h2>
-      <p class="lead">
-        Im Erstgespräch schauen wir auf euren Betrieb und priorisieren gemeinsam den ersten
-        Schritt, kostenlos und unverbindlich.
-      </p>
-      <div class="button-row">
-        <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="handwerk_final_cta">
-          Erstgespräch buchen
-        </a>
-      </div>
+  <section class="section">
+    <div class="container content-center">
+      <h2>Welcher Ablauf kostet euch am meisten Zeit?</h2>
+      <p style="margin-top:0.75rem;margin-bottom:2rem;margin-inline:auto">Im Fit-Call klären wir, ob ein Workflow das lösen kann — und was das kosten würde.</p>
+      <a href="/kontakt" class="btn btn-primary btn-lg" data-track="handwerk_final_cta">Fit-Call buchen</a>
     </div>
   </section>
+
 </Layout>
