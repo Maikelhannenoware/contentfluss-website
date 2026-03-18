@@ -1,113 +1,106 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { pageMeta, breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
 import { handwerkWorkflows, immobilienverwaltungWorkflows } from '../lib/workflows';
-import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
 
-const description =
-  'Ausgewählte AI-Workflows für operative Teams in Handwerk und Immobilienverwaltung: konkret, branchenspezifisch und auf reale Engpässe ausgerichtet.';
-
-const structuredData = [
-  professionalServiceSchema('/workflows', description),
-  breadcrumbSchema([
-    { name: 'Startseite', path: '/' },
-    { name: 'Workflows', path: '/workflows' },
-  ]),
+const meta = pageMeta.workflows;
+const schemas = [
+  breadcrumbSchema([{name:'Startseite',path:'/'},{name:'Workflows',path:'/workflows'}]),
+  professionalServiceSchema('/workflows', meta.description),
 ];
 ---
+<Layout title={meta.title} description={meta.description} schemas={schemas}>
 
-<Layout
-  title="AI-Workflows für Handwerk & Immobilien – Contentfluss"
-  description={description}
-  canonicalPath="/workflows"
-  structuredData={structuredData}
->
-  <section class="hero">
-    <div class="container" data-reveal>
-      <p class="eyebrow">Kuratiert statt generisch</p>
-      <h1>Ausgewählte AI-Workflows für operative Teams</h1>
-      <p class="lead">
-        Wir bauen keine generischen Demos, sondern Workflows für reale Engpässe in Handwerk und Immobilienverwaltung.
-      </p>
+  <section class="hero-sub">
+    <div class="container content-narrow">
+      <span class="eyebrow">Workflows</span>
+      <h1 style="margin-top:1rem">Operative Abläufe, die manuelle Arbeit ersetzen.</h1>
+      <p class="page-intro" style="margin-top:1rem">Jeder Workflow unten löst ein konkretes Problem in Handwerk oder Hausverwaltung. Keine abstrakten KI-Anwendungen, sondern Abläufe, die im Tagesgeschäft Arbeit abnehmen.</p>
     </div>
   </section>
 
-  <section class="section-tight">
+  <!-- Handwerk Workflows -->
+  <section class="section section-alt">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <h2>Für Handwerk</h2>
+      <div class="section-head">
+        <span class="section-label">Handwerk</span>
+        <h2>Workflows für Handwerksbetriebe</h2>
+        <p>Für SHK-, Elektro-, Dach- und Servicebetriebe mit 3–30 Mitarbeitern.</p>
       </div>
-
-      <div class="card-grid two">
-        {handwerkWorkflows.map((workflow) => (
-          <article class="card" data-reveal>
-            <h3>{workflow.name}</h3>
-            <p><strong>Problem:</strong> {workflow.problem}</p>
-            <p style="margin-top: 0.55rem;"><strong>Lösung:</strong> {workflow.solution}</p>
-            <ul class="list list-check" style="margin-top: 0.85rem;">
-              {workflow.benefits.map((benefit) => (
-                <li>{benefit}</li>
-              ))}
-            </ul>
-            <div class="button-row">
-              <a
-                href={`/kontakt?workflow=${workflow.slug}`}
-                class="btn btn-ghost"
-                data-track="workflow_cta_clicked"
-                data-track-label={`wf_handwerk_${workflow.slug}`}
-              >
-                Workflow besprechen
-              </a>
+      <div class="grid-2" data-stagger>
+        {handwerkWorkflows.map(wf => (
+          <div class="workflow-card">
+            <div class="workflow-card-meta">
+              <h3 class="workflow-card-title">{wf.name}</h3>
+              <span class="mono-tag">HW</span>
             </div>
-          </article>
+            <div>
+              <p class="workflow-col-label">Problem</p>
+              <p class="workflow-problem-block">{wf.problem}</p>
+            </div>
+            <div>
+              <p class="workflow-col-label">Was automatisiert wird</p>
+              <p style="font-size:0.875rem;color:var(--color-text-secondary)">{wf.solution}</p>
+            </div>
+            <div>
+              <p class="workflow-col-label">Was dadurch besser läuft</p>
+              <ul class="workflow-benefits">
+                {wf.benefits.map(b => <li>{b}</li>)}
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href={`/kontakt?workflow=${wf.slug}`} class="btn btn-secondary btn-sm" data-track={`wf_hw_${wf.slug}`}>Anfragen</a>
+            </div>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section-tight">
+  <!-- Immobilienverwaltung Workflows -->
+  <section class="section">
     <div class="container">
-      <div class="section-head" data-reveal>
-        <h2>Für Immobilienverwaltung</h2>
+      <div class="section-head">
+        <span class="section-label">Immobilienverwaltung</span>
+        <h2>Workflows für Hausverwaltungen</h2>
+        <p>Für Haus-, WEG- und Immobilienverwaltungen mit hohem Vorgangsaufkommen.</p>
       </div>
-
-      <div class="card-grid two">
-        {immobilienverwaltungWorkflows.map((workflow) => (
-          <article class="card" data-reveal>
-            <h3>{workflow.name}</h3>
-            <p><strong>Problem:</strong> {workflow.problem}</p>
-            <p style="margin-top: 0.55rem;"><strong>Lösung:</strong> {workflow.solution}</p>
-            <ul class="list list-check" style="margin-top: 0.85rem;">
-              {workflow.benefits.map((benefit) => (
-                <li>{benefit}</li>
-              ))}
-            </ul>
-            <div class="button-row">
-              <a
-                href={`/kontakt?workflow=${workflow.slug}`}
-                class="btn btn-ghost"
-                data-track="workflow_cta_clicked"
-                data-track-label={`wf_immo_${workflow.slug}`}
-              >
-                Workflow besprechen
-              </a>
+      <div class="grid-2" data-stagger>
+        {immobilienverwaltungWorkflows.map(wf => (
+          <div class="workflow-card">
+            <div class="workflow-card-meta">
+              <h3 class="workflow-card-title">{wf.name}</h3>
+              <span class="mono-tag">IM</span>
             </div>
-          </article>
+            <div>
+              <p class="workflow-col-label">Problem</p>
+              <p class="workflow-problem-block">{wf.problem}</p>
+            </div>
+            <div>
+              <p class="workflow-col-label">Was automatisiert wird</p>
+              <p style="font-size:0.875rem;color:var(--color-text-secondary)">{wf.solution}</p>
+            </div>
+            <div>
+              <p class="workflow-col-label">Was dadurch besser läuft</p>
+              <ul class="workflow-benefits">
+                {wf.benefits.map(b => <li>{b}</li>)}
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href={`/kontakt?workflow=${wf.slug}`} class="btn btn-secondary btn-sm" data-track={`wf_im_${wf.slug}`}>Anfragen</a>
+            </div>
+          </div>
         ))}
       </div>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
-      <h2>Noch kein passender Workflow dabei?</h2>
-      <p class="lead">
-        Im Erstgespräch klären wir, welcher Engpass in eurem operativen Ablauf den größten Hebel hat.
-      </p>
-      <div class="button-row">
-        <a href="/kontakt" class="btn btn-primary" data-track="cta_clicked" data-track-label="workflows_final_cta">
-          Erstgespräch buchen
-        </a>
-      </div>
+  <section class="section section-alt">
+    <div class="container content-center">
+      <h2>Welcher Workflow passt zu eurem Engpass?</h2>
+      <p style="margin-top:0.75rem;margin-bottom:2rem;margin-inline:auto">Im Fit-Call besprechen wir, welcher Ablauf zuerst Sinn ergibt — und was die Umsetzung kosten würde.</p>
+      <a href="/kontakt" class="btn btn-primary btn-lg" data-track="workflows_final_cta">Fit-Call buchen</a>
     </div>
   </section>
+
 </Layout>
