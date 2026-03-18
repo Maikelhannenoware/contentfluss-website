@@ -9,6 +9,9 @@ export default defineConfig({
   site: 'https://contentfluss.de',
   adapter: vercel(),
   integrations: [sitemap()],
+  redirects: {
+    '/ueber-mich': '/ueber-uns',
+  },
   vite: {
     plugins: [tailwindcss()]
   }

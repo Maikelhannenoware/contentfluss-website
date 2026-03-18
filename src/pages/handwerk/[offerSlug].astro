@@ -35,14 +35,14 @@ const structuredData = [
   canonicalPath={`/handwerk/${offer.slug}`}
   structuredData={structuredData}
 >
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy" data-reveal>
+  <section class="hero-sub">
+    <div class="container hero-split">
+      <div data-reveal>
         <p class="eyebrow">{offer.code} · Handwerk Offer</p>
         <h1>{offer.name}</h1>
-        <p class="lead">{offer.shortDescription}</p>
-        <p class="trustline"><strong>Zielgruppe:</strong> {offer.targetGroup}</p>
-        <div class="button-row">
+        <p class="page-intro">{offer.shortDescription}</p>
+        <p style="font-size:0.875rem;color:var(--color-text-secondary);margin-top:0.5rem"><strong>Zielgruppe:</strong> {offer.targetGroup}</p>
+        <div class="flex-row" style="margin-top:1.5rem">
           <a
             href={`/kontakt?workflow=${offer.slug}`}
             class="btn btn-primary"
@@ -57,23 +57,23 @@ const structuredData = [
         </div>
       </div>
 
-      <aside class="workflow-visual" data-reveal>
+      <aside class="card card-elevated" data-reveal>
         <header>
           <strong>Projektstart</strong>
           <span>{offer.code}</span>
         </header>
-        <ul class="metric-list">
-          <li><strong>Pilot ab:</strong> {offer.pilotFromPrice}</li>
-          <li><strong>Care optional ab:</strong> {offer.careFromPrice}</li>
-          <li><strong>Implementierung:</strong> {offer.implementationTime}</li>
-          <li><strong>Hinweis:</strong> Finale Kalkulation nach Workflow-Audit.</li>
+        <ul class="benefit-list">
+          <li>Pilot ab: {offer.pilotFromPrice}</li>
+          <li>Care optional ab: {offer.careFromPrice}</li>
+          <li>Implementierung: {offer.implementationTime}</li>
+          <li>Hinweis: Finale Kalkulation nach Workflow-Audit.</li>
         </ul>
       </aside>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container card-grid two">
+  <section class="section-sm">
+    <div class="container grid-2">
       <article class="card" data-reveal>
         <h2 style="font-size: 1.5rem;">Problem</h2>
         <p>{offer.problem}</p>
@@ -85,13 +85,13 @@ const structuredData = [
     </div>
   </section>
 
-  <section class="section-tight">
+  <section class="section-sm">
     <div class="container">
       <div class="section-head" data-reveal>
         <h2>Deliverables</h2>
       </div>
       <div class="card" data-reveal>
-        <ul class="list list-check">
+        <ul class="benefit-list">
           {offer.deliverables.map((deliverable) => (
             <li>{deliverable}</li>
           ))}
@@ -100,11 +100,11 @@ const structuredData = [
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container split two">
+  <section class="section-sm">
+    <div class="container grid-2">
       <article class="card" data-reveal>
         <h2 style="font-size: 1.5rem;">Tech-Stack</h2>
-        <ul class="list" style="margin-top: 0.75rem;">
+        <ul class="benefit-list" style="margin-top: 0.75rem;">
           {offer.techStack.map((item) => (
             <li>{item}</li>
           ))}
@@ -113,7 +113,7 @@ const structuredData = [
 
       <article class="card" data-reveal>
         <h2 style="font-size: 1.5rem;">Onboarding-Ablauf</h2>
-        <ul class="list" style="margin-top: 0.75rem;">
+        <ul class="benefit-list" style="margin-top: 0.75rem;">
           {offer.onboarding.map((step) => (
             <li>{step}</li>
           ))}
@@ -123,9 +123,9 @@ const structuredData = [
   </section>
 
   {offer.caution && (
-    <section class="section-tight">
+    <section class="section-sm">
       <div class="container" data-reveal>
-        <article class="card card-muted">
+        <article class="card card-elevated">
           <h2 style="font-size: 1.35rem;">Hinweis</h2>
           <p>{offer.caution}</p>
         </article>
@@ -133,22 +133,24 @@ const structuredData = [
     </section>
   )}
 
-  <section class="section-tight">
-    <div class="container surface" style="padding: clamp(1.4rem, 4vw, 2.1rem);" data-reveal>
-      <h2>Nächster Schritt</h2>
-      <p class="lead">
-        Im Erstgespräch klären wir Datenlage, Kanalpräferenzen und den kleinsten sinnvollen
-        Pilot für {` ${offer.code}`}. Danach folgt ein klarer Implementierungsplan.
-      </p>
-      <div class="button-row">
-        <a
-          href={`/kontakt?workflow=${offer.slug}`}
-          class="btn btn-primary"
-          data-track="cta_clicked"
-          data-track-label={`offer_hw_final_${offer.slug}`}
-        >
-          Erstgespräch zu {offer.code}
-        </a>
+  <section class="section-sm">
+    <div class="container" data-reveal>
+      <div class="card card-accent" style="padding: clamp(1.4rem, 4vw, 2.1rem);">
+        <h2>Nächster Schritt</h2>
+        <p class="page-intro">
+          Im Erstgespräch klären wir Datenlage, Kanalpräferenzen und den kleinsten sinnvollen
+          Pilot für {` ${offer.code}`}. Danach folgt ein klarer Implementierungsplan.
+        </p>
+        <div class="flex-row" style="margin-top:1.5rem">
+          <a
+            href={`/kontakt?workflow=${offer.slug}`}
+            class="btn btn-primary"
+            data-track="cta_clicked"
+            data-track-label={`offer_hw_final_${offer.slug}`}
+          >
+            Erstgespräch zu {offer.code}
+          </a>
+        </div>
       </div>
     </div>
   </section>
