@@ -1,180 +1,151 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
+import { pageMeta, breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
 
-const description =
-  'Erstgespräch zur KI-Automatisierung für Handwerk und Immobilienverwaltung: strukturiertes Lead-Intake und klare Einschätzung zum Workflow-Hebel.';
-
-const structuredData = [
-  professionalServiceSchema('/kontakt', description),
-  breadcrumbSchema([
-    { name: 'Startseite', path: '/' },
-    { name: 'Kontakt', path: '/kontakt' },
-  ]),
+const meta = pageMeta.kontakt;
+const schemas = [
+  breadcrumbSchema([{name:'Startseite',path:'/'},{name:'Kontakt',path:'/kontakt'}]),
+  professionalServiceSchema('/kontakt', meta.description),
 ];
 ---
+<Layout title={meta.title} description={meta.description} schemas={schemas}>
 
-<Layout
-  title="Kontakt | Erstgespräch für AI-Workflows"
-  description={description}
-  canonicalPath="/kontakt"
-  structuredData={structuredData}
->
-  <section class="hero">
-    <div class="container" data-reveal>
-      <p class="eyebrow">Kontakt</p>
-      <h1>Lasst uns euren größten Workflow-Hebel finden</h1>
-      <p class="lead">
-        Im Erstgespräch schauen wir gemeinsam auf euren Prozess und prüfen, wo sich eine AI-Umsetzung wirklich lohnt.
-      </p>
+  <section class="hero-sub">
+    <div class="container content-narrow">
+      <span class="eyebrow">Kontakt</span>
+      <h1 style="margin-top:1rem">Klären, ob ein Workflow bei euch Sinn ergibt.</h1>
+      <p class="page-intro" style="margin-top:1rem">Im kostenlosen Fit-Call schauen wir uns an, wo bei euch manuelle Arbeit, Rückfragen oder verlorene Anfragen entstehen.</p>
     </div>
   </section>
 
-  <section class="section-tight">
-    <div class="container split two">
-      <article class="card card-muted" data-reveal>
-        <h2>Im Gespräch klären wir</h2>
-        <ul class="list list-check" style="margin-top: 0.85rem;">
-          <li>Wo heute Zeit verloren geht</li>
-          <li>Welcher Workflow zuerst Sinn macht</li>
-          <li>Wie eine sinnvolle Umsetzung aussehen könnte</li>
-          <li>Ob sich der Aufwand wirtschaftlich lohnt</li>
-        </ul>
-        <p style="margin-top: 1rem; color: var(--color-muted);">Antwort in der Regel innerhalb von 24 Stunden.</p>
-      </article>
+  <section class="section">
+    <div class="container">
+      <div class="content-aside">
+        <!-- Left: context and trust -->
+        <div>
+          <div style="margin-bottom:2.5rem">
+            <h3 style="margin-bottom:1rem">Was im Fit-Call passiert</h3>
+            <ul class="benefit-list">
+              <li>Wir schauen, wo heute Zeit verloren geht</li>
+              <li>Wir besprechen, welcher Ablauf zuerst Sinn ergibt</li>
+              <li>Wir klären, wie eine Umsetzung aussehen könnte</li>
+              <li>Wir schätzen den Aufwand realistisch ein</li>
+            </ul>
+          </div>
 
-      <article class="card" data-reveal>
-        <h2>Zwei Wege zum Start</h2>
-        <div class="button-row" style="margin-top: 1rem;">
-          <a
-            href="https://calendly.com/maikel-hannen/kostenloses-erstgesprach"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary"
-            data-track="cta_clicked"
-            data-track-label="kontakt_calendly"
-          >
-            Erstgespräch buchen
-          </a>
-          <a href="#anfrage" class="btn btn-secondary" data-track="cta_clicked" data-track-label="kontakt_form_jump">
-            Anfrage senden
-          </a>
+          <div style="margin-bottom:2.5rem">
+            <h3 style="margin-bottom:1rem">Für wen das passt</h3>
+            <ul class="benefit-list">
+              <li>Handwerksbetriebe oder Hausverwaltungen mit 3–30 Mitarbeitern</li>
+              <li>Wiederkehrende operative Engpässe im Tagesgeschäft</li>
+              <li>Bereitschaft, einen konkreten Ablauf zu verändern</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 style="margin-bottom:1rem">Wann ein Fit-Call keinen Sinn ergibt</h3>
+            <ul class="pain-list">
+              <li>Kein klarer Prozessschmerz — nur allgemeines Interesse an KI</li>
+              <li>Einmaliges Projekt ohne operativen Kontext</li>
+              <li>Erwartung einer fertigen Software statt eines Workflows</li>
+            </ul>
+          </div>
         </div>
-      </article>
+
+        <!-- Right: conversion elements -->
+        <div>
+          <!-- Primary: Calendly -->
+          <div class="card card-accent" style="margin-bottom:2rem" data-reveal>
+            <h2 style="font-size:1.25rem;margin-bottom:0.75rem">Fit-Call buchen</h2>
+            <p style="font-size:0.875rem;margin-bottom:1.25rem;max-width:none">Ca. 30 Minuten, kostenlos, kein Pitch. Wir klären gemeinsam, ob ein Workflow bei euch Sinn ergibt.</p>
+            <a
+              href="https://calendly.com/maikel-hannen/kostenloses-erstgesprach"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn-primary btn-full"
+              data-track="kontakt_calendly"
+            >
+              Termin wählen
+            </a>
+          </div>
+
+          <!-- Divider -->
+          <div style="text-align:center;margin-bottom:2rem;position:relative">
+            <hr class="divider" />
+            <span style="position:relative;top:-0.75rem;background:var(--color-bg);padding:0 1rem;font-size:0.875rem;color:var(--color-text-muted)">oder Anfrage senden</span>
+          </div>
+
+          <!-- Secondary: Form -->
+          <form id="contact-form" class="form-stack" data-reveal>
+            <div class="hidden" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="name">Name</label>
+                <input class="form-input" id="name" name="name" type="text" required placeholder="Vor- und Nachname" />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="company">Unternehmen</label>
+                <input class="form-input" id="company" name="company" type="text" required placeholder="Unternehmensname" />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="email">E-Mail</label>
+                <input class="form-input" id="email" name="email" type="email" required placeholder="name@unternehmen.de" />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="branche">Branche</label>
+                <select class="form-select" id="branche" name="branche" required>
+                  <option value="">Bitte auswählen</option>
+                  <option value="handwerk">Handwerk</option>
+                  <option value="immobilienverwaltung">Immobilienverwaltung</option>
+                  <option value="sonstiges">Sonstiges</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="engpass">Aktueller Engpass</label>
+              <textarea class="form-textarea" id="engpass" name="engpass" required minlength="15" placeholder="Wo hakt es im Alltag am stärksten?"></textarea>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="ziel">Was soll automatisiert oder verbessert werden?</label>
+              <textarea class="form-textarea" id="ziel" name="ziel" required minlength="20" placeholder="Welche Ergebnisse wollt ihr konkret erreichen?"></textarea>
+            </div>
+
+            <label class="form-consent" for="consent">
+              <input id="consent" name="consent" type="checkbox" value="true" required />
+              <span class="form-consent-text">Ich stimme der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage zu. <a href="/datenschutz" style="text-decoration:underline">Datenschutzhinweise</a></span>
+            </label>
+
+            <div id="form-error" class="form-feedback form-feedback-error hidden" role="alert"></div>
+
+            <button
+              id="submit-btn"
+              type="submit"
+              class="btn btn-primary btn-full"
+              data-track="kontakt_form_submit"
+            >
+              Anfrage senden
+            </button>
+
+            <p style="font-size:0.8125rem;color:var(--color-text-muted)">Antwort in der Regel innerhalb von 24 Stunden.</p>
+          </form>
+
+          <div id="form-success" class="form-feedback form-feedback-success hidden" role="status">
+            Danke, eure Anfrage ist eingegangen. Wir melden uns zeitnah mit einem konkreten Vorschlag.
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="anfrage" class="section-tight">
-    <div class="container split two">
-      <article class="card" data-reveal>
-        <h2>Anfrage senden</h2>
-        <p class="lead" style="margin-top: 0.6rem; font-size: 1rem;">
-          Beschreibt kurz euren Engpass. Wir geben euch eine klare Ersteinschätzung ohne Sales-Floskeln.
-        </p>
-
-        <div class="chip-list">
-          <span class="chip">Handwerk</span>
-          <span class="chip">Immobilienverwaltung</span>
-          <span class="chip">DACH-Region</span>
-          <span class="chip">DSGVO-orientiert</span>
-        </div>
-      </article>
-
-      <form id="contact-form" class="form-shell" data-reveal>
-        <div class="hidden" aria-hidden="true">
-          <label for="website">Website</label>
-          <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
-        </div>
-
-        <div class="form-grid">
-          <div class="field">
-            <label for="name">Name</label>
-            <input class="input" id="name" name="name" type="text" required placeholder="Vor- und Nachname" />
-          </div>
-
-          <div class="field">
-            <label for="company">Unternehmen</label>
-            <input class="input" id="company" name="company" type="text" required placeholder="Unternehmensname" />
-          </div>
-
-          <div class="field">
-            <label for="email">E-Mail</label>
-            <input class="input" id="email" name="email" type="email" required placeholder="name@unternehmen.de" />
-          </div>
-
-          <div class="field">
-            <label for="branche">Branche</label>
-            <select class="select" id="branche" name="branche" required>
-              <option value="">Bitte auswählen</option>
-              <option value="handwerk">Handwerk</option>
-              <option value="immobilienverwaltung">Immobilienverwaltung</option>
-              <option value="sonstiges">Sonstiges</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="teamgroesse">Teamgröße (optional)</label>
-            <input class="input" id="teamgroesse" name="teamgroesse" type="text" placeholder="z. B. 8 Mitarbeitende" />
-          </div>
-
-          <div class="field">
-            <label for="engpass">Aktueller Engpass</label>
-            <textarea
-              class="textarea"
-              id="engpass"
-              name="engpass"
-              required
-              minlength="15"
-              placeholder="Wo hakt es im Alltag am stärksten?"
-            ></textarea>
-          </div>
-
-          <div class="field">
-            <label for="ziel">Was soll automatisiert oder verbessert werden?</label>
-            <textarea
-              class="textarea"
-              id="ziel"
-              name="ziel"
-              required
-              minlength="20"
-              placeholder="Welche Ergebnisse wollt ihr konkret erreichen?"
-            ></textarea>
-          </div>
-
-          <label class="checkbox-row" for="audit">
-            <input id="audit" name="audit" type="checkbox" value="true" />
-            <span>Ich möchte zuerst ein Workflow-Audit.</span>
-          </label>
-
-          <label class="checkbox-row" for="consent">
-            <input id="consent" name="consent" type="checkbox" value="true" required />
-            <span>Ich stimme der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage zu.</span>
-          </label>
-
-          <div id="form-error" class="status-message status-error hidden" role="alert"></div>
-
-          <button
-            id="submit-btn"
-            type="submit"
-            class="btn btn-primary"
-            data-track="cta_clicked"
-            data-track-label="kontakt_form_submit"
-          >
-            Anfrage senden
-          </button>
-
-          <p style="font-size: 0.84rem; color: var(--color-muted);">
-            Mit dem Absenden akzeptiert ihr unsere <a href="/datenschutz" style="text-decoration: underline;">Datenschutzhinweise</a>.
-            Antwort in der Regel innerhalb von 24 Stunden.
-          </p>
-        </div>
-
-        <div id="form-success" class="status-message status-success hidden" role="status">
-          Danke, eure Anfrage ist eingegangen. Wir melden uns zeitnah mit einem konkreten Vorschlag.
-        </div>
-      </form>
-    </div>
-  </section>
 </Layout>
 
 <script>
