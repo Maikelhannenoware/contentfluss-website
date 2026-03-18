@@ -22,6 +22,7 @@ const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => 
 
   <!-- 1. HERO -->
   <section class="hero">
+    <div class="hero-accent" aria-hidden="true"></div>
     <div class="container">
       <div class="hero-split">
         <!-- Left: copy -->
@@ -35,8 +36,9 @@ const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => 
           </div>
         </div>
 
-        <!-- Right: Workflow Monitor — calm, spacious, 2-column -->
-        <div class="workflow-monitor" aria-hidden="true">
+        <!-- Right: Workflow Monitor — wrapped for chip positioning -->
+        <div class="hero-monitor-wrap">
+        <div class="workflow-monitor glass" aria-hidden="true">
           <!-- Title bar -->
           <div class="wm-bar">
             <span class="wm-bar-dots">
@@ -91,6 +93,16 @@ const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => 
               <span class="wm-stat-label">Wartet auf Info</span>
             </div>
           </div>
+        </div>
+        <!-- Floating data chips -->
+        <div class="hero-chip hero-chip-1 glass-pill">
+          <span class="chip-dot wm-dot-success"></span>
+          <span>12 heute verarbeitet</span>
+        </div>
+        <div class="hero-chip hero-chip-2 glass-pill">
+          <span class="chip-dot wm-dot-active"></span>
+          <span>Qualifizierung aktiv</span>
+        </div>
         </div>
       </div>
     </div>
