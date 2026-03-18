@@ -1,213 +1,94 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
+import { pageMeta, breadcrumbSchema, professionalServiceSchema } from '../lib/seo';
 
-const description =
-  'Workflow-Audit ab 590 €, Build ab 2.900 €, Betrieb ab 490 €/Monat. Transparente Preise, strukturierter Prozess, kein Vendor-Lock-in.';
-
-const structuredData = [
-  professionalServiceSchema('/leistungen', description),
-  breadcrumbSchema([
-    { name: 'Startseite', path: '/' },
-    { name: 'Leistungen', path: '/leistungen' },
-  ]),
-];
-
-const pricingTiers = [
-  {
-    step: '1',
-    name: 'Workflow-Audit',
-    tag: 'Einstieg ohne Risiko',
-    price: 'ab 590 €',
-    priceMeta: 'einmalig',
-    featured: false,
-    positioning: 'Bevor ihr investiert, wisst ihr genau, ob es sich lohnt.',
-    features: [
-      'Prozessaufnahme und Ist-Analyse',
-      'Engpassanalyse und Hebel-Priorisierung',
-      'Klare Umsetzungsempfehlung',
-      'Priorisierter Plan mit realistischem Aufwand',
-      'Klare Ja/Nein-Empfehlung, keine leeren Versprechen',
-    ],
-    when: 'Wenn unklar ist, welcher Workflow zuerst wirtschaftlich wirkt.',
-    cta: 'Audit anfragen',
-    ctaHref: '/kontakt?audit=1',
-    ctaTrack: 'leistungen_audit',
-    ctaVariant: 'btn-primary',
-  },
-  {
-    step: '2',
-    name: 'Build / Umsetzung',
-    tag: 'Pilot-Projekt',
-    price: 'ab 2.900 €',
-    priceMeta: 'bis 7.900 €+, je nach Umfang',
-    featured: true,
-    positioning: 'Ein abgegrenzter Pilot mit klarem Enddatum, kein Jahresprojekt.',
-    features: [
-      'Workflow-Design und technische Umsetzung',
-      'Testphase mit realen Fällen',
-      'Livegang und Team-Onboarding',
-      'Dokumentierte Übergabe',
-      'Anbindung bestehender Tools',
-    ],
-    when: 'Wenn ein klarer Engpass definiert ist und operativ gelöst werden soll.',
-    cta: 'Erstgespräch buchen',
-    ctaHref: '/kontakt',
-    ctaTrack: 'leistungen_erstgespraech',
-    ctaVariant: 'btn-secondary',
-  },
-  {
-    step: '3',
-    name: 'Betrieb / Optimierung',
-    tag: 'Laufende Begleitung',
-    price: 'ab 490 €',
-    priceMeta: 'bis 1.490 €+/Monat',
-    featured: false,
-    positioning: 'Kontinuierlich belastbar, nicht einmal eingerichtet und vergessen.',
-    features: [
-      'Monitoring und Fehleranalyse',
-      'KPI-Review im laufenden Betrieb',
-      'Tuning von Regeln und Vorlagen',
-      'Gezielte Weiterentwicklung',
-      'Klare Ansprechpartner, kurze Wege',
-    ],
-    when: 'Wenn der Workflow dauerhaft stabil laufen und mitwachsen soll.',
-    cta: 'Erstgespräch buchen',
-    ctaHref: '/kontakt',
-    ctaTrack: 'leistungen_erstgespraech',
-    ctaVariant: 'btn-secondary',
-  },
+const meta = pageMeta.leistungen;
+const schemas = [
+  breadcrumbSchema([{name:'Startseite',path:'/'},{name:'Leistungen',path:'/leistungen'}]),
+  professionalServiceSchema('/leistungen', meta.description),
 ];
 ---
+<Layout title={meta.title} description={meta.description} schemas={schemas}>
 
-<Layout
-  title="Leistungen & Preise – Contentfluss"
-  description={description}
-  canonicalPath="/leistungen"
-  structuredData={structuredData}
->
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container" data-reveal>
-      <p class="eyebrow">Leistungen & Preise</p>
-      <h1>Workflow-Audit, Umsetzung und Betrieb: transparent und ohne Paketboxen</h1>
-      <p class="lead">
-        Kein Bauchladen, kein blindes Tool-Setup. Drei klar abgegrenzte Leistungsstufen,
-        ihr steigt ein wo es für euch Sinn macht.
-      </p>
+  <section class="hero-sub">
+    <div class="container content-narrow">
+      <span class="eyebrow">Leistungen</span>
+      <h1 style="margin-top:1rem">Operative KI-Workflows, die im Alltag Arbeit abnehmen.</h1>
+      <p class="page-intro" style="margin-top:1rem">Contentfluss liefert keine Strategiefolien und keine Tool-Empfehlungen. Wir analysieren operative Engpässe, bauen den passenden Workflow und setzen ihn um.</p>
     </div>
   </section>
 
-  <!-- PRICING CARDS -->
-  <section class="section-tight">
+  <!-- What gets delivered -->
+  <section class="section section-alt">
     <div class="container">
-      <div class="pricing-grid">
-        {pricingTiers.map((tier) => (
-          <div class={`pricing-card${tier.featured ? ' pricing-featured' : ''}`} data-reveal>
-            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.15rem;">
-              <span class="pricing-tag">{tier.tag}</span>
-              <span class="mono-label">Schritt {tier.step}</span>
-            </div>
-            <h2 style="font-size: clamp(1.2rem, 2.5vw, 1.5rem); margin-bottom: 0.15rem;">{tier.name}</h2>
-            <p class="pricing-price">{tier.price}</p>
-            <p class="pricing-meta">{tier.priceMeta}</p>
-            <p style="font-size: 0.89rem; color: var(--color-muted); margin-bottom: 0.75rem; font-style: italic;">{tier.positioning}</p>
-            <hr class="pricing-divider" />
-            <ul class="pricing-feature-list">
-              {tier.features.map((feature) => (
-                <li>{feature}</li>
-              ))}
-            </ul>
-            <p style="margin-top: 0.85rem; font-size: 0.83rem; color: #7a8f9e;">
-              <strong>Wann sinnvoll:</strong> {tier.when}
-            </p>
-            <div class="button-row">
-              <a
-                href={tier.ctaHref}
-                class={`btn ${tier.ctaVariant}`}
-                data-track="cta_clicked"
-                data-track-label={tier.ctaTrack}
-              >
-                {tier.cta}
-              </a>
-            </div>
+      <div class="section-head">
+        <span class="section-label">Was bei der Zusammenarbeit entsteht</span>
+        <h2>Vier Umsetzungsblöcke</h2>
+      </div>
+      <div class="grid-4" data-stagger>
+        {[
+          { n:'01', title:'Prozessanalyse', body:'Wir schauen auf eure bestehenden Abläufe und identifizieren, wo täglich Zeit verloren geht — konkret, nicht abstrakt.' },
+          { n:'02', title:'Workflow-Design', body:'Wir entwerfen den Ablauf: welche Schritte automatisiert werden, welche Systeme angebunden sind, wie die Übergaben funktionieren.' },
+          { n:'03', title:'Umsetzung', body:'Wir bauen und implementieren den Workflow — auf euren Stack, eure Sprache und eure typischen Fälle zugeschnitten.' },
+          { n:'04', title:'Rollout & Nachschärfen', body:'Der Workflow geht live. Wir begleiten den Start und passen an, was im echten Betrieb nicht stimmt.' },
+        ].map(item => (
+          <div class="process-step">
+            <span class="process-step-num">{item.n}</span>
+            <p class="process-step-title">{item.title}</p>
+            <p class="process-step-body">{item.body}</p>
           </div>
         ))}
       </div>
-      <p style="margin-top: 1rem; font-size: 0.82rem; color: var(--color-muted);" data-reveal>
-        * Finale Kalkulation erfolgt nach Workflow-Audit. Preise abhängig von Prozesskomplexität, Teamgröße und Integrationsgrad.
-      </p>
     </div>
   </section>
 
-  <!-- TECHNISCHE INTEGRATION -->
-  <section class="section-tight">
+  <!-- What you get -->
+  <section class="section">
+    <div class="container content-narrow">
+      <div class="section-head">
+        <span class="section-label">Was ihr bekommt</span>
+        <h2>Abläufe, die ab Tag 1 laufen</h2>
+      </div>
+      <p style="margin-bottom:1.25rem">Am Ende einer Zusammenarbeit steht kein PDF mit Empfehlungen, sondern ein Workflow, der in eurem Betrieb läuft. Die Automatisierung ist eingebaut, die Systeme sind verbunden, und euer Team weiß, was sich verändert hat.</p>
+      <p style="margin-bottom:1.25rem">Ihr braucht dafür keine interne IT-Abteilung, kein neues Tool als Voraussetzung und keine lange Einarbeitung. Der Workflow setzt auf das auf, was schon da ist — und ersetzt die manuellen Schritte, die heute am meisten Zeit kosten.</p>
+      <p>Wenn nach dem Start etwas hakt, schärfen wir nach. Das ist Teil der Arbeit, nicht ein Extrawunsch.</p>
+    </div>
+  </section>
+
+  <!-- Typical workflow types -->
+  <section class="section section-alt">
     <div class="container">
-      <article class="card" data-reveal>
-        <h2>Eure bestehenden Tools bleiben im Mittelpunkt</h2>
-        <p class="lead" style="margin-top: 0.6rem;">
-          Wir binden an, was ihr bereits nutzt. Kein Ersatz, kein Parallelsystem.
-        </p>
-        <div class="chip-list" style="margin-top: 1rem;">
-          <span class="chip">Bestehende Tools anbinden</span>
-          <span class="chip">Formulare</span>
-          <span class="chip">E-Mail</span>
-          <span class="chip">WhatsApp</span>
-          <span class="chip">Telefon</span>
-          <span class="chip">Interne Freigaben</span>
-          <span class="chip">Einfache Dashboards</span>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- TRANSPARENTE ANGEBOTSLOGIK -->
-  <section class="section-tight">
-    <div class="container" data-reveal>
-      <article class="card">
-        <h2>Was wir nicht tun</h2>
-        <p class="lead" style="margin-top: 0.6rem;">
-          Wir verkaufen keine überladenen Pakete mit Leistungen, die ihr nicht braucht.
-          Der Umfang richtet sich nach eurer Prozesskomplexität, nicht nach einer Preisliste.
-        </p>
-        <ul class="list list-check" style="margin-top: 1rem;">
-          <li>Klare Leistungsabgrenzung vor Projektstart</li>
-          <li>Sauber dokumentierte Übergabe an euer Team</li>
-          <li>Keine Lock-in-Architektur ohne triftigen Grund</li>
-        </ul>
-        <p style="margin-top: 1rem; color: var(--color-muted); font-size: 0.9rem;">
-          Content-Marketing kann auf Anfrage ergänzend unterstützt werden, steht aber nicht im Zentrum unseres Angebots.
-        </p>
-      </article>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="section-dark-cta">
-    <div class="container" data-reveal>
-      <p class="eyebrow eyebrow-light">Nächster Schritt</p>
-      <h2>Noch unsicher wo ihr einsteigen sollt?</h2>
-      <p class="lead">
-        Im Erstgespräch klären wir das gemeinsam, in 20 Minuten. Kostenlos und unverbindlich.
-      </p>
-      <div class="button-row">
-        <a
-          href="/kontakt"
-          class="btn btn-primary"
-          data-track="cta_clicked"
-          data-track-label="leistungen_erstgespraech"
-        >
-          Erstgespräch buchen
-        </a>
-        <a
-          href="/kontakt?audit=1"
-          class="btn btn-ghost-light"
-          data-track="cta_clicked"
-          data-track-label="leistungen_audit"
-        >
-          Audit anfragen
-        </a>
+      <div class="section-head">
+        <span class="section-label">Typische Workflows</span>
+        <h2>Was wir häufig umsetzen</h2>
+      </div>
+      <div class="grid-3" data-stagger>
+        {[
+          { title:'Anfragequalifizierung', body:'Eingänge automatisch prüfen, kategorisieren und als bearbeitungsfertigen Vorgang weiterleiten.' },
+          { title:'Angebots-Follow-up', body:'Offene Angebote zeitbasiert nachfassen, priorisieren und mit dem richtigen Ton wiedervorlegen.' },
+          { title:'Schadenmeldungen', body:'Meldungen auf Vollständigkeit prüfen, nachfordern und strukturiert als Vorgang anlegen.' },
+          { title:'Inbox-Triage', body:'E-Mails und Tickets automatisch priorisieren, zuordnen und zur Bearbeitung vorbereiten.' },
+          { title:'Übergaben & Status', body:'Interne Übergaben und externe Statusupdates standardisieren, damit nichts durchrutscht.' },
+          { title:'Serienkommunikation', body:'Wiederkehrende Anschreiben, Erinnerungen und Nachforderungen fristenbasiert und dokumentiert auslösen.' },
+        ].map(item => (
+          <div class="card">
+            <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem">{item.title}</h3>
+            <p style="font-size:0.875rem;max-width:none">{item.body}</p>
+          </div>
+        ))}
+      </div>
+      <div style="margin-top:2rem;text-align:center">
+        <a href="/workflows" class="btn btn-secondary" data-track="leistungen_workflows">Alle Workflows ansehen</a>
       </div>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container content-center">
+      <h2>Welcher Ablauf kostet euch am meisten Zeit?</h2>
+      <p style="margin-top:0.75rem;margin-bottom:2rem;margin-inline:auto">Im Fit-Call klären wir, wo der größte Hebel liegt — und ob ein Workflow dafür Sinn ergibt.</p>
+      <a href="/kontakt" class="btn btn-primary btn-lg" data-track="leistungen_final_cta">Fit-Call buchen</a>
+    </div>
+  </section>
+
 </Layout>
