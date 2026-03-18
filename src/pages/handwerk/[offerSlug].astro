@@ -19,7 +19,7 @@ const { offer } = Astro.props as Props;
 
 const description = `${offer.code} ${offer.name}: ${offer.shortDescription}`;
 
-const structuredData = [
+const schemas = [
   professionalServiceSchema(`/handwerk/${offer.slug}`, description),
   breadcrumbSchema([
     { name: 'Startseite', path: '/' },
@@ -33,7 +33,7 @@ const structuredData = [
   title={`${offer.code} ${offer.name} | Handwerk Offer`}
   description={description}
   canonicalPath={`/handwerk/${offer.slug}`}
-  structuredData={structuredData}
+  schemas={schemas}
 >
   <section class="hero-sub">
     <div class="container hero-split">

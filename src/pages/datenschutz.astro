@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { breadcrumbSchema } from '../lib/seo';
 
-const structuredData = [
+const schemas = [
   breadcrumbSchema([
     { name: 'Startseite', path: '/' },
     { name: 'Datenschutz', path: '/datenschutz' },
@@ -14,7 +14,7 @@ const structuredData = [
   title="Datenschutz"
   description="Datenschutzerklärung von Contentfluss gemäß DSGVO."
   canonicalPath="/datenschutz"
-  structuredData={structuredData}
+  schemas={schemas}
 >
   <section class="section">
     <div class="container legal-shell" data-reveal>

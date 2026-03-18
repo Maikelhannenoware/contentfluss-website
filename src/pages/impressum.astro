@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { breadcrumbSchema } from '../lib/seo';
 
-const structuredData = [
+const schemas = [
   breadcrumbSchema([
     { name: 'Startseite', path: '/' },
     { name: 'Impressum', path: '/impressum' },
@@ -10,7 +10,7 @@ const structuredData = [
 ];
 ---
 
-<Layout title="Impressum" description="Impressum von Contentfluss gemäß § 5 TMG." canonicalPath="/impressum" structuredData={structuredData}>
+<Layout title="Impressum" description="Impressum von Contentfluss gemäß § 5 TMG." canonicalPath="/impressum" schemas={schemas}>
   <section class="section">
     <div class="container legal-shell" data-reveal>
       <p class="eyebrow">Rechtliches</p>
