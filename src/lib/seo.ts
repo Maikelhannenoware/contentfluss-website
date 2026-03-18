@@ -102,3 +102,38 @@ export function faqSchema(items: FaqItem[]) {
     })),
   };
 }
+
+export const pageMeta = {
+  home: {
+    title: 'Contentfluss – KI-Workflows für Handwerk & Immobilienverwaltung',
+    description: 'Contentfluss entwickelt KI-Workflows für operative Prozesse in Handwerk und Hausverwaltung. Weniger manuelle Arbeit, klarere Abläufe und sauberere Anfrageeingänge.'
+  },
+  leistungen: {
+    title: 'Leistungen | Contentfluss – Operative KI-Workflows für KMU',
+    description: 'Prozessanalyse, Workflow-Design und Umsetzung: Contentfluss implementiert KI-Workflows, die operative Abläufe in kleinen und mittleren Betrieben entlasten.'
+  },
+  handwerk: {
+    title: 'KI-Workflows für Handwerksbetriebe | Contentfluss',
+    description: 'Weniger Rückfragen, sauberere Anfragen, automatisiertes Angebots-Follow-up: Contentfluss automatisiert operative Abläufe in SHK-, Elektro- und Dachbetrieben.'
+  },
+  immobilienverwaltung: {
+    title: 'KI-Workflows für Immobilienverwaltungen | Contentfluss',
+    description: 'Strukturierte Schadenmeldungen, Inbox-Triage und Mieteranfragen automatisieren: Contentfluss entlastet operative Abläufe in Haus- und Immobilienverwaltungen.'
+  },
+  workflows: {
+    title: 'Beispiel-Workflows für operative Prozesse | Contentfluss',
+    description: 'Konkrete KI-Workflows für Anfragequalifizierung, Angebots-Follow-up, Schadenmeldungen und interne Übergaben – für Handwerk und Hausverwaltung.'
+  },
+  fallbeispiele: {
+    title: 'Beispielabläufe & Workflow-Szenarien | Contentfluss',
+    description: 'Exemplarische Workflow-Szenarien für typische operative Engpässe in Handwerk und Hausverwaltung – transparent dargestellt als Musterabläufe.'
+  },
+  ueberUns: {
+    title: 'Über Contentfluss | KI-Workflows mit Fokus auf operative Entlastung',
+    description: 'Contentfluss ist spezialisiert auf operative KI-Workflows für KMU. Kein Berater-Pitch, keine Tool-Show – sondern umsetzbare Abläufe, die im Alltag funktionieren.'
+  },
+  kontakt: {
+    title: 'Kontakt & Fit-Call | Contentfluss',
+    description: 'Im kostenlosen Fit-Call klären wir, welcher operative Ablauf bei euch zuerst entlastet werden sollte – und ob ein KI-Workflow dafür wirtschaftlich Sinn ergibt.'
+  }
+} as const;
