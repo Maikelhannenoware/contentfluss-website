@@ -8,7 +8,6 @@ const featuredWorkflows = [
   handwerkWorkflows[0],
   handwerkWorkflows[1],
   immobilienverwaltungWorkflows[0],
-  immobilienverwaltungWorkflows[1],
 ];
 const faqs = [
   { q: 'Ist das ein Softwarewechsel?', a: 'Nein. Wir setzen auf bestehende Abläufe und Systeme auf. Kein neues Tool als Voraussetzung.' },
@@ -25,47 +24,71 @@ const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => 
   <section class="hero">
     <div class="container">
       <div class="hero-split">
+        <!-- Left: copy -->
         <div class="stack gap-6">
-          <span class="eyebrow">KI-Workflows für KMU</span>
-          <h1>KI-Workflows für Betriebe, die im Alltag wirklich Arbeit abnehmen.</h1>
-          <p class="page-intro mt-4">Contentfluss baut KI-Workflows für Handwerksbetriebe und Hausverwaltungen — auf bestehende Abläufe aufgesetzt, ohne IT-Großprojekt.</p>
-          <div class="cta-group mt-6">
+          <span class="eyebrow">KI-Workflows für Handwerk &amp; Hausverwaltung</span>
+          <h1>Weniger manuelle Arbeit. Klarere Abläufe. Weniger, was liegen bleibt.</h1>
+          <p class="page-intro">Contentfluss baut KI-Workflows für Handwerksbetriebe und Hausverwaltungen — auf bestehende Abläufe aufgesetzt, ohne IT-Großprojekt.</p>
+          <div class="cta-group">
             <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_hero_cta">Fit-Call buchen</a>
-            <a href="/workflows" class="btn btn-ghost" data-track="home_hero_workflows">Workflows ansehen →</a>
+            <a href="/workflows" class="cta-link" data-track="home_hero_workflows">Workflows ansehen →</a>
           </div>
         </div>
 
-        <div class="ops-flow" aria-hidden="true">
-          <p class="ops-flow-title">Eingehende Anfrage — Live</p>
-          <div class="ops-flow-nodes">
-            <div class="ops-node">
-              <span class="ops-node-dot success"></span>
-              <span class="ops-node-label">Anfrage eingegangen</span>
-              <span class="ops-badge ops-badge-green" style="margin-left:auto">empfangen</span>
+        <!-- Right: Workflow Monitor — calm, spacious, 2-column -->
+        <div class="workflow-monitor" aria-hidden="true">
+          <!-- Title bar -->
+          <div class="wm-bar">
+            <span class="wm-bar-dots">
+              <span class="wm-bar-dot"></span>
+              <span class="wm-bar-dot"></span>
+              <span class="wm-bar-dot"></span>
+            </span>
+            <span class="wm-bar-title">Workflow-Monitor</span>
+            <span class="wm-bar-live">
+              <span class="wm-status-dot"></span>
+              aktiv
+            </span>
+          </div>
+          <!-- 2-column: Eingehend / Verarbeitet -->
+          <div class="wm-cols">
+            <div>
+              <p class="wm-col-head">Eingehend</p>
+              <div class="wm-items">
+                <div class="wm-item">
+                  <span class="wm-item-dot wm-dot-blue"></span>
+                  <span class="wm-item-text">Anfrage SHK-Betrieb</span>
+                </div>
+                <div class="wm-item">
+                  <span class="wm-item-dot wm-dot-muted"></span>
+                  <span class="wm-item-text muted">Schadenmeldung 3B</span>
+                </div>
+              </div>
             </div>
-            <div class="ops-connector"><div class="ops-connector-line active"></div></div>
-            <div class="ops-node">
-              <span class="ops-node-dot active"></span>
-              <span class="ops-node-label active">Vollständigkeit prüfen</span>
-              <span class="ops-badge ops-badge-blue" style="margin-left:auto">läuft</span>
+            <div class="wm-col-divider"></div>
+            <div>
+              <p class="wm-col-head">Verarbeitet</p>
+              <div class="wm-items">
+                <div class="wm-item">
+                  <span class="wm-item-dot wm-dot-active"></span>
+                  <span class="wm-item-text active">Qualifizierung läuft</span>
+                </div>
+                <div class="wm-item">
+                  <span class="wm-item-dot wm-dot-success"></span>
+                  <span class="wm-item-text">Routing abgeschlossen ✓</span>
+                </div>
+              </div>
             </div>
-            <div class="ops-connector"><div class="ops-connector-line active"></div></div>
-            <div class="ops-node">
-              <span class="ops-node-dot pending"></span>
-              <span class="ops-node-label muted">Zuweisen &amp; weiterleiten</span>
-              <span class="ops-badge ops-badge-muted" style="margin-left:auto">wartet</span>
+          </div>
+          <!-- 2-stat bar -->
+          <div class="wm-stats">
+            <div class="wm-stat">
+              <span class="wm-stat-value">12</span>
+              <span class="wm-stat-label">Heute verarbeitet</span>
             </div>
-            <div class="ops-connector"><div class="ops-connector-line"></div></div>
-            <div class="ops-node">
-              <span class="ops-node-dot pending"></span>
-              <span class="ops-node-label muted">Eingangsbestätigung senden</span>
-              <span class="ops-badge ops-badge-muted" style="margin-left:auto">wartet</span>
-            </div>
-            <div class="ops-connector"><div class="ops-connector-line"></div></div>
-            <div class="ops-node">
-              <span class="ops-node-dot pending"></span>
-              <span class="ops-node-label muted">Übergabe ins CRM</span>
-              <span class="ops-badge ops-badge-muted" style="margin-left:auto">—</span>
+            <div class="wm-stat">
+              <span class="wm-stat-value">1</span>
+              <span class="wm-stat-label">Wartet auf Info</span>
             </div>
           </div>
         </div>
@@ -77,67 +100,86 @@ const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => 
   <div class="trust-strip">
     <div class="container">
       <ul class="trust-strip-list">
-        <li class="trust-item">Für Handwerk &amp; Hausverwaltung</li>
-        <li class="trust-item">Auf bestehende Abläufe aufgesetzt</li>
-        <li class="trust-item">Keine generische KI-Beratung</li>
-        <li class="trust-item">Umsetzung, nicht Konzept</li>
+        <li class="trust-item">Audit ab 590 €</li>
+        <li class="trust-item">Pilot in 4–8 Wochen</li>
+        <li class="trust-item">Kein Systemwechsel nötig</li>
+        <li class="trust-item">DSGVO-orientiert</li>
       </ul>
     </div>
   </div>
 
-  <!-- 3. AUDIENCE SPLIT -->
+  <!-- 3. TARGET GROUPS -->
   <section class="section">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head-center" data-reveal>
         <span class="section-label">Für wen</span>
         <h2>Spezialisiert auf zwei Branchen</h2>
+        <p>Nicht generisch. Zwei Problemräume, zwei Lösungsansätze.</p>
       </div>
-      <div class="grid-2" data-stagger>
-        <div class="card card-elevated">
-          <div class="card-header">
-            <span class="eyebrow">Handwerk</span>
-            <h3 style="margin-top:1rem">Handwerksbetriebe</h3>
-          </div>
-          <div class="card-body">
+      <div class="target-panels" data-stagger>
+        <div class="target-panel">
+          <span class="eyebrow">Handwerk</span>
+          <p class="target-panel-title">Handwerksbetriebe</p>
+          <div class="target-panel-pains">
             <ul class="pain-list">
-              <li>Anfragen kommen unvollständig oder über viele Kanäle rein</li>
-              <li>Angebote werden nicht sauber nachverfolgt</li>
+              <li>Anfragen kommen ohne alle Infos rein</li>
+              <li>Angebote werden nicht nachverfolgt</li>
               <li>Rückfragen zerhacken den Arbeitstag</li>
             </ul>
           </div>
-          <div class="card-footer">
-            <a href="/handwerk" class="btn btn-secondary btn-sm" data-track="home_audience_handwerk">Mehr für Handwerk →</a>
-          </div>
+          <a href="/handwerk" class="btn btn-secondary btn-sm" data-track="home_target_handwerk">Mehr für Handwerk →</a>
         </div>
-        <div class="card card-elevated">
-          <div class="card-header">
-            <span class="eyebrow">Hausverwaltung</span>
-            <h3 style="margin-top:1rem">Immobilienverwaltungen</h3>
-          </div>
-          <div class="card-body">
+        <div class="target-panel">
+          <span class="eyebrow">Hausverwaltung</span>
+          <p class="target-panel-title">Immobilienverwaltungen</p>
+          <div class="target-panel-pains">
             <ul class="pain-list">
               <li>Schadenmeldungen kommen unstrukturiert über mehrere Kanäle</li>
               <li>Informationen müssen ständig nachgezogen werden</li>
               <li>Prozesse hängen an einzelnen Personen</li>
             </ul>
           </div>
-          <div class="card-footer">
-            <a href="/immobilienverwaltung" class="btn btn-secondary btn-sm" data-track="home_audience_immo">Mehr für Hausverwaltung →</a>
-          </div>
+          <a href="/immobilienverwaltung" class="btn btn-secondary btn-sm" data-track="home_target_immo">Mehr für Hausverwaltung →</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 4. WORKFLOW EXAMPLES -->
+  <!-- 4. PROBLEM FRAMING -->
   <section class="section section-alt">
     <div class="container">
-      <div class="section-head">
+      <div class="content-aside" data-reveal>
+        <div class="stack gap-6">
+          <div>
+            <span class="section-label">Das Problem</span>
+            <h2>Operative Arbeit, die ständig hängen bleibt</h2>
+            <p class="mt-4">Anfragen gehen ein, unvollständig. Angebote werden nicht nachverfolgt. Schadenmeldungen landen auf drei verschiedenen Kanälen. Das ist kein Software-Problem. Es ist ein Ablauf-Problem.</p>
+            <p class="mt-4">KI-Workflows lösen genau das, nicht als IT-Großprojekt, sondern als konkreter Ablauf, der morgen läuft.</p>
+          </div>
+        </div>
+        <div class="card card-elevated">
+          <p class="section-label">Typische Engpässe</p>
+          <ul class="pain-list">
+            <li>Anfragen kommen unvollständig oder über viele Kanäle rein</li>
+            <li>Angebote werden nie sauber nachverfolgt</li>
+            <li>Rückfragen zu offenen Terminen landen beim falschen Ansprechpartner</li>
+            <li>Schadenmeldungen sind manuell koordiniert, langsam und fehleranfällig</li>
+            <li>Prozesse hängen an einzelnen Personen, nicht an Abläufen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. FEATURED WORKFLOWS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
         <span class="section-label">Was konkret automatisiert wird</span>
         <h2>Operative Abläufe, nicht Feature-Listen</h2>
-        <p>Jeder Workflow löst ein reales Problem — keine abstrakten KI-Anwendungen.</p>
+        <p>Jeder Workflow löst ein reales Problem, keine abstrakten KI-Anwendungen.</p>
       </div>
-      <div class="grid-2" data-stagger>
+      <div class="grid-3" data-stagger>
         {featuredWorkflows.map((wf, i) => (
           <div class="workflow-card">
             <div class="workflow-card-meta">
@@ -163,40 +205,17 @@ const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => 
     </div>
   </section>
 
-  <!-- 5. WHY CONTENTFLUSS -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <span class="section-label">Warum Contentfluss</span>
-        <h2>Umsetzung statt Beratung</h2>
-      </div>
-      <div class="grid-4" data-stagger>
-        {[
-          { title: 'Keine Theoriefolien', body: 'Was wir liefern, läuft. Kein Konzept-Deliverable, keine Empfehlungsliste zum Selbstumsetzen.' },
-          { title: 'Kein Systemwechsel', body: 'Auf bestehende Tools und Abläufe aufgesetzt. Kein IT-Großprojekt als Voraussetzung.' },
-          { title: 'Branchenfokus', body: 'Spezialisiert auf Handwerk und Hausverwaltung — nicht auf alles für alle.' },
-          { title: 'Klare Abläufe', body: 'Kurze Analyse, schnelle Umsetzung, Nachschärfen im Betrieb.' },
-        ].map(item => (
-          <div class="card">
-            <h3 style="font-size:1rem;font-weight:600;margin-bottom:0.5rem">{item.title}</h3>
-            <p style="font-size:0.875rem;max-width:none">{item.body}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. PROCESS -->
+  <!-- 6. HOW IT WORKS -->
   <section class="section section-alt">
     <div class="container">
-      <div class="section-head">
+      <div class="section-head" data-reveal>
         <span class="section-label">Ablauf</span>
         <h2>Wie die Zusammenarbeit funktioniert</h2>
       </div>
-      <div class="grid-3" data-stagger>
+      <div class="process-flow" data-stagger>
         {[
           { n: '01', title: 'Engpass verstehen', body: 'Im Fit-Call sprechen wir über eure Abläufe. Wo verliert ihr täglich Zeit? Was geht verloren?' },
-          { n: '02', title: 'Workflow bauen', body: 'Wir entwickeln und implementieren den Ablauf — auf eure Systeme und Sprache abgestimmt.' },
+          { n: '02', title: 'Workflow bauen', body: 'Wir entwickeln und implementieren den Ablauf, auf eure Systeme und Sprache abgestimmt.' },
           { n: '03', title: 'Im Alltag einsetzen', body: 'Der Workflow geht live. Wir begleiten den Start und schärfen nach, was im Betrieb nicht stimmt.' },
         ].map(s => (
           <div class="process-step">
@@ -230,11 +249,17 @@ const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => 
   </section>
 
   <!-- 8. FINAL CTA -->
-  <section class="section section-alt">
-    <div class="container content-center">
-      <h2>Sagt uns, was manuell laufen bleibt. Wir sagen euch, ob ein Workflow das löst.</h2>
-      <p style="margin-top:1rem;margin-bottom:2rem;margin-inline:auto">Kostenloser Fit-Call, ca. 30 Minuten. Kein Pitch, keine Verpflichtung.</p>
-      <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_final_cta">Fit-Call buchen</a>
+  <section class="section-feature">
+    <div class="container">
+      <div class="conviction-block" data-reveal>
+        <span class="eyebrow">Fit-Call — kostenlos, 30 Minuten</span>
+        <h2>Welcher Ablauf kostet euch täglich die meiste Zeit?</h2>
+        <p class="page-intro">Im Fit-Call klären wir, ob ein Workflow das lösen kann. Kein Pitch, keine Verpflichtung.</p>
+        <div class="cta-group" style="justify-content:center;margin-top:2rem">
+          <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_final_cta">Fit-Call buchen</a>
+          <a href="/workflows" class="cta-link" data-track="home_final_workflows">Workflows ansehen →</a>
+        </div>
+      </div>
     </div>
   </section>
 
