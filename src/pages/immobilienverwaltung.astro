@@ -14,7 +14,7 @@ const schemas = [
   <section class="hero-sub">
     <div class="container content-narrow">
       <span class="eyebrow">Für Immobilienverwaltungen</span>
-      <h1 style="margin-top:1rem">Weniger unstrukturierte Eingänge. Weniger Rückfragen. Schnellere Bearbeitung.</h1>
+      <h1 style="margin-top:1rem">Weniger Rückfragen. Strukturiertere Eingänge. Schnellere Bearbeitung.</h1>
       <p class="page-intro" style="margin-top:1rem">Wenn Schadenmeldungen über verschiedene Kanäle unsauber reinkommen und Informationen ständig nachgezogen werden müssen, braucht es einen klareren Workflow statt mehr Kleinarbeit.</p>
       <div class="flex-row" style="margin-top:2rem">
         <a href="/kontakt" class="btn btn-primary btn-lg" data-track="immo_hero_cta">Fit-Call buchen</a>
@@ -40,6 +40,30 @@ const schemas = [
             <p style="font-size:0.875rem;max-width:none">{p.body}</p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="content-aside" data-reveal>
+        <div>
+          <span class="section-label">Das Problem</span>
+          <h2>Informationen, die ständig nachgezogen werden müssen</h2>
+          <p class="mt-4">Wenn eine Schadenmeldung über WhatsApp reinkommt, die nächste per E-Mail und die dritte beim Anruf — fehlen immer andere Infos. Ein strukturierter Intake-Workflow stellt sicher, dass alle nötigen Informationen beim ersten Kontakt ankommen — automatisch.</p>
+        </div>
+        <div class="intake-comparison">
+          <div class="intake-block intake-bad">
+            <span class="intake-tag intake-tag-bad">Ohne Struktur</span>
+            <p class="intake-text">"Hallo, bei uns in Wohnung 3. OG ist die Heizung kaputt."</p>
+            <p class="intake-result bad">→ Welche Einheit? Wann? Wie lange schon? Fotos? Mieter-Kontakt?</p>
+          </div>
+          <div class="intake-block intake-good">
+            <span class="intake-tag intake-tag-good">Mit Workflow</span>
+            <p class="intake-text resolved">Einheit: 3-B · Problem: Heizungsausfall · Dauer: 2 Tage<br/>Kontakt: [Mieter] · Fotos: 2 angehängt · Priorität: hoch</p>
+            <p class="intake-result good">→ Bereit zur Weiterleitung. Keine Rückfrage nötig.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -86,7 +110,7 @@ const schemas = [
         <span class="section-label">Zusammenarbeit</span>
         <h2>Wie es abläuft</h2>
       </div>
-      <div class="grid-3" data-stagger>
+      <div class="process-flow" data-stagger>
         {[
           { n:'01', title:'Prozesslast klären', body:'Im Fit-Call schauen wir, welche Abläufe am meisten Zeit kosten und wo Übergaben hängen.' },
           { n:'02', title:'Workflow aufsetzen', body:'Wir bauen den Ablauf auf eure Kanäle, Systeme und typischen Vorgangsmuster zu.' },
@@ -102,11 +126,17 @@ const schemas = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="container content-center">
-      <h2>Welcher Ablauf bindet bei euch die meiste Zeit?</h2>
-      <p style="margin-top:0.75rem;margin-bottom:2rem;margin-inline:auto">Im Fit-Call klären wir, ob ein Workflow das lösen kann — und was das kosten würde.</p>
-      <a href="/kontakt" class="btn btn-primary btn-lg" data-track="immo_final_cta">Fit-Call buchen</a>
+  <section class="section-feature">
+    <div class="container">
+      <div class="conviction-block" data-reveal>
+        <span class="eyebrow">Fit-Call — kostenlos, 30 Minuten</span>
+        <h2>Welche Meldung kostet euch täglich die meiste Zeit?</h2>
+        <p class="page-intro">Im Fit-Call klären wir, ob ein strukturierter Intake-Workflow das lösen kann. Kein Pitch, keine Verpflichtung.</p>
+        <div class="cta-group" style="justify-content:center;margin-top:2rem">
+          <a href="/kontakt" class="btn btn-primary btn-lg" data-track="immo_final_cta">Fit-Call buchen</a>
+          <a href="/workflows" class="cta-link" data-track="immo_final_workflows">Alle Workflows →</a>
+        </div>
+      </div>
     </div>
   </section>
 
