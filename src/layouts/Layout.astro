@@ -49,12 +49,13 @@ const allSchemas = schemas
     <meta name="twitter:title" content={computedTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
-    <meta name="theme-color" content="#0A0A0A" />
+    <meta name="theme-color" content="#060B18" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <script is:inline>document.documentElement.classList.add('motion-ready');</script>
     {allSchemas.map((schema) => (
       <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)}></script>
     ))}
@@ -141,8 +142,16 @@ const allSchemas = schemas
 
     <!-- JS Block 1: Mobile menu toggle -->
     <script>
-      const toggle = document.querySelector('.nav-toggle');
+      const header = document.querySelector('.site-header');
+      const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement | null;
       const panel = document.getElementById('mobile-nav-panel');
+      const syncHeaderState = () => {
+        header?.classList.toggle('scrolled', window.scrollY > 50);
+      };
+
+      syncHeaderState();
+      window.addEventListener('scroll', syncHeaderState, { passive: true });
+
       if (toggle && panel) {
         toggle.addEventListener('click', () => {
           const open = toggle.getAttribute('aria-expanded') === 'true';

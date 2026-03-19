@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contentfluss – Homepage Hero Varianten v2 (Skill-basiert)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* ── RESET & BASE ─────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* Design System Output: B2B Dark */
+    --ds-bg:         #060D18;
+    --ds-bg-card:    #0F172A;
+    --ds-bg-surface: #1E293B;
+    --ds-border:     rgba(255,255,255,0.08);
+    --ds-accent:     #0EA5E9;
+    --ds-accent-2:   #38BDF8;
+    --ds-cta:        #F97316;
+    --ds-text:       #F1F5F9;
+    --ds-text-muted: #94A3B8;
+    --ds-text-dim:   #475569;
+
+    /* Typography (Inter) */
+    --font-heading: 'Inter', system-ui, sans-serif;
+    --font-body:    'Inter', system-ui, sans-serif;
+  }
+
+  body {
+    background: #0A0D14;
+    color: #CBD5E1;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── VISUAL COMPANION CHROME ─────────────────── */
+  .vc-header {
+    background: #0F172A;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .vc-header h1 {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #F1F5F9;
+  }
+  .vc-header p {
+    font-size: 0.75rem;
+    color: #64748B;
+  }
+  .vc-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-left: auto;
+  }
+  .badge-skill   { background: #1E3A5F; color: #38BDF8; border: 1px solid #0EA5E9; }
+  .badge-copy    { background: #1A3324; color: #4ADE80; border: 1px solid #22C55E; }
+  .badge-seo     { background: #3B1F00; color: #FB923C; border: 1px solid #F97316; }
+  .badge-v2      { background: #2D1B69; color: #A78BFA; border: 1px solid #7C3AED; }
+
+  /* ── SKILL-OUTPUT PANEL ──────────────────────── */
+  .skill-output-panel {
+    background: #080D17;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding: 1.5rem 2rem;
+  }
+  .skill-output-panel h2 {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #64748B;
+    margin-bottom: 1rem;
+  }
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .skill-card {
+    background: #0F172A;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  .skill-card-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .skill-card-label.design  { color: #38BDF8; }
+  .skill-card-label.copy    { color: #4ADE80; }
+  .skill-card-label.seo     { color: #FB923C; }
+  .skill-card ul { list-style: none; }
+  .skill-card ul li {
+    font-size: 0.75rem;
+    color: #94A3B8;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .skill-card ul li:last-child { border-bottom: none; }
+  .skill-card ul li strong { color: #CBD5E1; }
+
+  /* ── VARIANT WRAPPER ─────────────────────────── */
+  .variant-section {
+    padding: 3rem 2rem;
+    border-bottom: 2px solid rgba(255,255,255,0.06);
+  }
+  .variant-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .variant-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+  }
+  .tag-a { background: #1E3A5F; color: #38BDF8; border: 1px solid #0EA5E9; }
+  .tag-b { background: #1A3324; color: #4ADE80; border: 1px solid #22C55E; }
+  .tag-c { background: #3B1F00; color: #FB923C; border: 1px solid #F97316; }
+  .variant-label h2 {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #F1F5F9;
+  }
+  .variant-label p {
+    font-size: 0.75rem;
+    color: #64748B;
+  }
+  .formula-badge {
+    margin-left: auto;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #64748B;
+    background: #1E293B;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* ── ANNOTATION BOX ──────────────────────────── */
+  .annotation-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .annotation {
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    line-height: 1.5;
+  }
+  .annotation-design {
+    background: rgba(14, 165, 233, 0.06);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    color: #7DD3FC;
+  }
+  .annotation-copy {
+    background: rgba(74, 222, 128, 0.06);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    color: #86EFAC;
+  }
+  .annotation-seo {
+    background: rgba(249, 115, 22, 0.06);
+    border: 1px solid rgba(249, 115, 22, 0.2);
+    color: #FCA86D;
+  }
+  .annotation label {
+    display: block;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.6rem;
+    margin-bottom: 0.4rem;
+    opacity: 0.7;
+  }
+
+  /* ── DIFF ROW ────────────────────────────────── */
+  .diff-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.7rem;
+  }
+  .diff-old {
+    background: rgba(239, 68, 68, 0.06);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    color: #FCA5A5;
+  }
+  .diff-new {
+    background: rgba(74, 222, 128, 0.06);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    color: #86EFAC;
+  }
+  .diff-old::before { content: "− Aktuell: "; font-weight: 700; opacity: 0.7; }
+  .diff-new::before { content: "+ Variant: "; font-weight: 700; opacity: 0.7; }
+
+  /* ── HERO COMPONENTS ─────────────────────────── */
+  .hero-frame {
+    background: var(--ds-bg);
+    border: 1px solid var(--ds-border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Grid texture */
+  .hero-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(14,165,233,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14,165,233,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  /* Orb */
+  .hero-frame::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(14,165,233,0.12) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 3rem;
+    padding: 4rem 3rem;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ds-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1.25rem;
+    padding: 0.25rem 0.75rem;
+    background: rgba(14,165,233,0.1);
+    border: 1px solid rgba(14,165,233,0.2);
+    border-radius: 999px;
+  }
+  .hero-eyebrow svg { width: 12px; height: 12px; }
+
+  .hero-h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #F8FAFC;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+  }
+  .hero-h1 .accent { color: var(--ds-accent); }
+  .hero-h1 .dim { color: #64748B; }
+
+  .hero-sub {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: #94A3B8;
+    max-width: 520px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .btn-primary-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--ds-accent);
+    color: #fff;
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 200ms, transform 150ms;
+  }
+  .btn-primary-hero:hover { background: var(--ds-accent-2); transform: translateY(-1px); }
+
+  .btn-ghost-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    color: #94A3B8;
+    font-family: var(--font-heading);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    border-radius: 8px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    cursor: pointer;
+    transition: border-color 200ms, color 200ms;
+  }
+  .btn-ghost-hero:hover { border-color: rgba(255,255,255,0.2); color: #F1F5F9; }
+
+  .trust-line {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.8125rem;
+    color: #475569;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .trust-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22C55E;
+  }
+
+  /* Dashboard visual */
+  .dashboard-visual {
+    background: #0F172A;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 1.25rem;
+    font-family: var(--font-body);
+  }
+  .dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .dash-title { font-size: 0.8125rem; font-weight: 600; color: #CBD5E1; }
+  .dash-status {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.6875rem;
+    color: #64748B;
+  }
+  .status-pulse {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #22C55E;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .dash-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .metric-chip {
+    background: #1E293B;
+    border-radius: 6px;
+    padding: 0.625rem;
+  }
+  .metric-chip span { display: block; font-size: 0.6875rem; color: #64748B; margin-bottom: 0.2rem; }
+  .metric-chip strong { font-size: 1.25rem; font-weight: 700; color: #F1F5F9; }
+  .dash-list { list-style: none; }
+  .dash-list li {
+    font-size: 0.6875rem;
+    color: #64748B;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .dash-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--ds-accent);
+    flex-shrink: 0;
+  }
+  .dash-list li:last-child { border-bottom: none; }
+
+  /* ── VARIANT B: Frage-Hero ───────────────────── */
+  .hero-frame-b {
+    background: linear-gradient(135deg, #060D18 0%, #0A1628 100%);
+    border: 1px solid var(--ds-border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-frame-b::before {
+    content: '';
+    position: absolute;
+    width: 800px; height: 500px;
+    background: radial-gradient(ellipse, rgba(56, 189, 248, 0.08) 0%, transparent 65%);
+    top: -150px; left: -200px;
+    pointer-events: none;
+  }
+  .hero-inner-b {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    padding: 5rem 3.5rem;
+    text-align: left;
+  }
+  .stat-callout {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(14,165,233,0.08);
+    border: 1px solid rgba(14,165,233,0.18);
+    border-radius: 10px;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .stat-callout-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #38BDF8;
+    line-height: 1;
+  }
+  .stat-callout-text {
+    font-size: 0.8125rem;
+    color: #94A3B8;
+    line-height: 1.4;
+  }
+  .hero-h1-b {
+    font-family: var(--font-heading);
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #F8FAFC;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+  .hero-h1-b .question-mark { color: var(--ds-accent); }
+
+  /* ── VARIANT C: Statement-Hero ───────────────── */
+  .hero-frame-c {
+    background: #060D18;
+    border: 1px solid var(--ds-border);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero-frame-c::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 80% 50%, rgba(249,115,22,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 50% at 20% 30%, rgba(14,165,233,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-inner-c {
+    position: relative;
+    z-index: 1;
+    padding: 4.5rem 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-h1-c {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.05;
+    color: #F8FAFC;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+  }
+  .hero-h1-c .strikethrough {
+    text-decoration: line-through;
+    color: #EF4444;
+    opacity: 0.9;
+  }
+  .hero-h1-c .resolution {
+    display: block;
+    color: #4ADE80;
+    font-size: 2.5rem;
+    margin-top: 0.2rem;
+  }
+  .before-after-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .ba-card {
+    background: #0F172A;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 0.875rem 1rem;
+    font-size: 0.8125rem;
+  }
+  .ba-card-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.35rem;
+  }
+  .ba-card-label.before { color: #F87171; }
+  .ba-card-label.after  { color: #4ADE80; }
+  .ba-card p { color: #94A3B8; line-height: 1.4; }
+
+  /* ── SEO SPECS FOOTER ────────────────────────── */
+  .seo-specs-panel {
+    background: rgba(249,115,22,0.04);
+    border: 1px solid rgba(249,115,22,0.15);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-top: 1.5rem;
+    font-size: 0.7rem;
+    font-family: 'Courier New', monospace;
+  }
+  .seo-specs-panel h3 {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #FB923C;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-body);
+  }
+  .seo-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0.25rem;
+    color: #94A3B8;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .seo-row:last-child { border-bottom: none; }
+  .seo-key { color: #FB923C; }
+  .seo-val { color: #CBD5E1; }
+
+  /* ── FOOTER ──────────────────────────────────── */
+  .vc-footer {
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #334155;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+</style>
+</head>
+<body>
+
+<!-- ── VISUAL COMPANION HEADER ──────────────── -->
+<header class="vc-header">
+  <div>
+    <h1>Contentfluss – Homepage Hero Varianten</h1>
+    <p>Basiert auf UI/UX Pro Max Design System + Copywriting Skill + SEO Build Mode</p>
+  </div>
+  <span class="vc-badge badge-v2">v2 — Skill-basiert</span>
+</header>
+
+<!-- ── SKILL OUTPUT PANEL ─────────────────────── -->
+<div class="skill-output-panel">
+  <h2>Skill-Outputs (Grundlage aller 3 Varianten)</h2>
+  <div class="skill-grid">
+
+    <div class="skill-card">
+      <div class="skill-card-label design">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M8 5v6"/></svg>
+        UI/UX Pro Max — Design System
+      </div>
+      <ul>
+        <li><strong>Pattern:</strong> Trust &amp; Authority + Conversion</li>
+        <li><strong>Style:</strong> Trust &amp; Authority (Badges, Metriken)</li>
+        <li><strong>Font:</strong> Inter 700 (-1.5 tracking) Hero / Inter 400 Body</li>
+        <li><strong>Alt-Font:</strong> Plus Jakarta Sans 800 (Enterprise SaaS)</li>
+        <li><strong>BG:</strong> #0F172A — Card: #1E293B — Border: rgba(255,255,255,0.08)</li>
+        <li><strong>Accent:</strong> #0EA5E9 (Sky-500) — CTA: #F97316 (Orange)</li>
+        <li><strong>Avoid:</strong> Purple/Pink AI-Gradient, Generic Robot-Hero</li>
+        <li><strong>Landing:</strong> Hero → Proof (Logos, Stats) → Solution → CTA</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-label copy">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M3 4h10M3 8h7M3 12h5"/></svg>
+        Copywriting Skill — Deutsche Formeln
+      </div>
+      <ul>
+        <li><strong>Var. A:</strong> Ergebnis-Formel: "[Zahl] weniger [Pain]. Ohne [Aufwand]."</li>
+        <li><strong>Var. B:</strong> Frage-Formel: "Wie viele Stunden verliert [Zielgruppe] für [Pain]?"</li>
+        <li><strong>Var. C:</strong> Statement-Formel: "[Chaos]. Nicht mehr." — kürzer, mutiger</li>
+        <li><strong>CTA (schwach→stark):</strong> "Mehr erfahren" → "Kostenloses Erstgespräch buchen"</li>
+        <li><strong>Trust DACH:</strong> Response-Zeit + Geografie + Kein Vertrag</li>
+        <li><strong>Regel:</strong> Kein Em-Dash, kein "revolutionär", Sie-Ansprache</li>
+      </ul>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-label seo">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><circle cx="6" cy="6" r="4"/><path d="M14 14l-3.5-3.5"/></svg>
+        SEO Build Mode — Page Specs
+      </div>
+      <ul>
+        <li><strong>Primary KW:</strong> KI Automatisierung Handwerk</li>
+        <li><strong>Intent:</strong> Commercial / Transactional</li>
+        <li><strong>Title Tag:</strong> "KI Automatisierung für Handwerksbetriebe | Contentfluss" (52 Z.)</li>
+        <li><strong>Meta:</strong> "Weniger Rückfragen, mehr Kapazität: Contentfluss automatisiert Anfragen, Follow-ups & Schadenmeldungen. Erstgespräch kostenlos." (153 Z.)</li>
+        <li><strong>H1:</strong> Muss "KI Automatisierung" + "Handwerk" enthalten</li>
+        <li><strong>Intern:</strong> Homepage → /handwerk, /immobilien, /kontakt</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     VARIANTE A — Ergebnis-Formel
+     ══════════════════════════════════════════════════ -->
+<section class="variant-section">
+  <div class="variant-label">
+    <span class="variant-tag tag-a">Variante A</span>
+    <div>
+      <h2>Ergebnis-Formel: "[Zahl] weniger [Pain]. Ohne [Aufwand]."</h2>
+      <p>Konkrete Zahl im Vordergrund, Einwand-Abbau direkt in der Headline. Stärkstes Trust-Signal für B2B-Käufer.</p>
+    </div>
+    <span class="formula-badge">Copywriting Skill → Ergebnis-Formel</span>
+  </div>
+
+  <!-- Annotations -->
+  <div class="annotation-row">
+    <div class="annotation annotation-design">
+      <label>Design System</label>
+      <strong>Font:</strong> Inter 700, -0.025em tracking, 3rem (48px) Hero<br>
+      <strong>Accent:</strong> #0EA5E9 auf "Rückfragen" als Farb-Highlight<br>
+      <strong>Layout:</strong> 2-Spalten (Copy + Dashboard Visual)<br>
+      <strong>Pattern:</strong> Trust &amp; Authority — Metriken prominent
+    </div>
+    <div class="annotation annotation-copy">
+      <label>Copywriting Skill</label>
+      <strong>Formel:</strong> Zahl + Ergebnis + Einwand-Abbau<br>
+      <strong>Sub:</strong> Erklärt "wie" ohne Fachjargon<br>
+      <strong>CTA:</strong> "Kostenloses Erstgespräch buchen" (stark)<br>
+      <strong>Trust:</strong> "Kein Vertrag" + "DACH-Region"
+    </div>
+    <div class="annotation annotation-seo">
+      <label>SEO Build Mode</label>
+      <strong>H1 enthält:</strong> "KI-Automatisierung" + "Handwerk"<br>
+      <strong>First 100 Words:</strong> Primärkeyword organisch integriert<br>
+      <strong>Intent:</strong> Commercial — bereit für Demo/Kontakt<br>
+      <strong>Title Tag:</strong> "KI Automatisierung Handwerksbetriebe | Contentfluss"
+    </div>
+  </div>
+
+  <!-- Hero Mockup A -->
+  <div class="hero-frame">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <span class="hero-eyebrow">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 1L7.5 4.5L11 5l-2.5 2.5L9 11 6 9.5 3 11l.5-3.5L1 5l3.5-.5z"/></svg>
+          KI-Automatisierung für Handwerk &amp; Immobilienverwaltung
+        </span>
+        <h1 class="hero-h1">
+          <span class="accent">25–40 %</span> weniger<br>
+          Rückfragen.<br>
+          <span style="color:#94A3B8;font-weight:400;font-size:2rem;">Ohne neue Software.</span>
+        </h1>
+        <p class="hero-sub">
+          Contentfluss legt einen KI-Layer über Ihre bestehenden Abläufe.
+          Anfragen, Angebote, Schadenmeldungen: automatisiert,
+          in Ihrem System, ohne Systemwechsel.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#" class="btn-primary-hero">
+            Kostenloses Erstgespräch buchen
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg>
+          </a>
+          <a href="#" class="btn-ghost-hero">Lösungen ansehen</a>
+        </div>
+        <div class="trust-line">
+          <span class="trust-item"><span class="trust-dot"></span>Kein Vertrag</span>
+          <span class="trust-item"><span class="trust-dot"></span>DACH-Region</span>
+          <span class="trust-item"><span class="trust-dot"></span>In 4–8 Wochen live</span>
+        </div>
+      </div>
+
+      <aside class="dashboard-visual">
+        <div class="dash-header">
+          <span class="dash-title">Operatives Dashboard</span>
+          <span class="dash-status">
+            <span class="status-pulse"></span>Demo-Ansicht
+          </span>
+        </div>
+        <div class="dash-metrics">
+          <div class="metric-chip"><span>Neue Anfragen</span><strong>18</strong></div>
+          <div class="metric-chip"><span>Angebote offen</span><strong>7</strong></div>
+          <div class="metric-chip"><span>Tickets priorisiert</span><strong>24</strong></div>
+          <div class="metric-chip"><span>Follow-ups heute</span><strong>11</strong></div>
+        </div>
+        <ul class="dash-list">
+          <li>Schadenmeldungen automatisch vorqualifiziert</li>
+          <li>Dispo-Updates in Echtzeit ans Team gesendet</li>
+          <li>Follow-ups automatisiert nach Zeitplan</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+
+  <!-- Diff -->
+  <div class="diff-row">
+    <div class="diff-old">"Büroprozesse automatisieren für Handwerk &amp; Immobilien" — generisch, kein konkreter Nutzen</div>
+    <div class="diff-new">"25–40 % weniger Rückfragen. Ohne neue Software." — Zahl + Pain + Einwand-Abbau in einer Zeile</div>
+  </div>
+
+  <!-- SEO Specs -->
+  <div class="seo-specs-panel">
+    <h3>SEO Build Mode — Page Specs für Variante A</h3>
+    <div class="seo-row"><span class="seo-key">PRIMARY KEYWORD</span><span class="seo-val">KI Automatisierung Handwerk (Suchintent: commercial)</span></div>
+    <div class="seo-row"><span class="seo-key">TITLE TAG (52 Z.)</span><span class="seo-val">"KI Automatisierung für Handwerksbetriebe | Contentfluss"</span></div>
+    <div class="seo-row"><span class="seo-key">META DESC (153 Z.)</span><span class="seo-val">"25–40 % weniger Rückfragen: Contentfluss automatisiert Anfragen, Follow-ups &amp; Schadenmeldungen. Für Handwerk &amp; Immobilien im DACH-Raum. Erstgespräch kostenlos."</span></div>
+    <div class="seo-row"><span class="seo-key">H1</span><span class="seo-val">Enthält "KI-Automatisierung" + "Handwerk" → SEO-konform</span></div>
+    <div class="seo-row"><span class="seo-key">INTERNAL LINKS</span><span class="seo-val">Homepage → /handwerk (anchor: "Handwerksbetriebe") | → /kontakt (anchor: "Erstgespräch buchen")</span></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     VARIANTE B — Frage-Formel
+     ══════════════════════════════════════════════════ -->
+<section class="variant-section">
+  <div class="variant-label">
+    <span class="variant-tag tag-b">Variante B</span>
+    <div>
+      <h2>Frage-Formel: "Wie viele Stunden verliert [Zielgruppe] täglich für [Pain]?"</h2>
+      <p>Aktiviert Selbstreflexion, erzeugt kognitives Engagement. Ideal wenn Besucher noch nicht wissen, wie viel Zeit sie wirklich verlieren.</p>
+    </div>
+    <span class="formula-badge">Copywriting Skill → Frage-Formel</span>
+  </div>
+
+  <!-- Annotations -->
+  <div class="annotation-row">
+    <div class="annotation annotation-design">
+      <label>Design System</label>
+      <strong>Stat Callout:</strong> Zahl-Chip als visueller Anker (oben links)<br>
+      <strong>Layout:</strong> Full-width linksbündig, max-width 760px<br>
+      <strong>Orb:</strong> Groß, links, dezent (radial-gradient sky-500)<br>
+      <strong>Hierarchie:</strong> Zahl → Frage → Erklärung → CTA
+    </div>
+    <div class="annotation annotation-copy">
+      <label>Copywriting Skill</label>
+      <strong>Formel:</strong> Frage als Einstieg (Copywriting SKILL.md Abschnitt)<br>
+      <strong>Sub:</strong> Benennt konkrete Pain-Points aus Skill (Rückfragen, Follow-up, Meldungen)<br>
+      <strong>CTA:</strong> "Meinen Betrieb entlasten" (Ich-Perspektive, stark)<br>
+      <strong>Trust:</strong> "Erstgespräch in 15 Minuten" (konkrete Zeit)
+    </div>
+    <div class="annotation annotation-seo">
+      <label>SEO Build Mode</label>
+      <strong>H1 alt:</strong> Frage-H1 geht auf Longtail "Stunden Routineaufgaben Handwerk"<br>
+      <strong>Hinweis:</strong> Frage-Headlines weniger direkt SEO-optimiert, aber höhere CTR<br>
+      <strong>Empfehlung:</strong> Title Tag bleibt Keyword-orientiert, H1 kann Frage sein<br>
+      <strong>Schema:</strong> FAQ-Schema ergänzen (Frage + Antwort als strukturiertes Datum)
+    </div>
+  </div>
+
+  <!-- Hero Mockup B -->
+  <div class="hero-frame-b">
+    <div class="hero-inner-b">
+
+      <div class="stat-callout">
+        <div class="stat-callout-number">3–5h</div>
+        <div class="stat-callout-text">täglich für Routineaufgaben,<br>die kein Ergebnis bringen</div>
+      </div>
+
+      <h1 class="hero-h1-b">
+        Wie viele Stunden verliert Ihr<br>
+        Betrieb täglich für Aufgaben,<br>
+        die sich immer wiederholen<span class="question-mark">?</span>
+      </h1>
+      <p class="hero-sub">
+        Anfragen sortieren, Angebote nachhaken, Schadenmeldungen klären:
+        Das kostet mehr als gedacht. Contentfluss automatisiert genau das,
+        ohne Systemwechsel, ohne neues Tool-Chaos.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#" class="btn-primary-hero">
+          Meinen Betrieb entlasten
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5"/></svg>
+        </a>
+        <a href="#" class="btn-ghost-hero">Lösungen ansehen</a>
+      </div>
+      <div class="trust-line">
+        <span class="trust-item"><span class="trust-dot"></span>Erstgespräch kostenlos, 15 Minuten</span>
+        <span class="trust-item"><span class="trust-dot"></span>Für Handwerk &amp; Immobilienverwaltung</span>
+        <span class="trust-item"><span class="trust-dot"></span>DACH-Region</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Diff -->
+  <div class="diff-row">
+    <div class="diff-old">"Büroprozesse automatisieren" — Aussage, kein Engagement, kein Bezug zum Leser</div>
+    <div class="diff-new">"Wie viele Stunden verliert Ihr Betrieb...?" — Leser denkt sofort an seine eigene Situation</div>
+  </div>
+
+  <!-- SEO Specs -->
+  <div class="seo-specs-panel">
+    <h3>SEO Build Mode — Page Specs für Variante B</h3>
+    <div class="seo-row"><span class="seo-key">PRIMARY KEYWORD</span><span class="seo-val">KI Automatisierung Handwerk</span></div>
+    <div class="seo-row"><span class="seo-key">TITLE TAG (54 Z.)</span><span class="seo-val">"KI Automatisierung für Handwerksbetriebe | Contentfluss" (bleibt gleich — Title ist SEO, H1 ist Copy)</span></div>
+    <div class="seo-row"><span class="seo-key">META DESC (156 Z.)</span><span class="seo-val">"Routineaufgaben fressen Ihre Kapazität? Contentfluss automatisiert Anfragen, Follow-ups &amp; Meldungen für Handwerk &amp; Immobilien. Kostenloses Erstgespräch, 15 Minuten."</span></div>
+    <div class="seo-row"><span class="seo-key">SCHEMA</span><span class="seo-val">FAQ-Schema ergänzen: Frage → "Wie viele Stunden..." + Antwort "Im Durchschnitt 3–5h täglich..."</span></div>
+    <div class="seo-row"><span class="seo-key">INTERNAL LINKS</span><span class="seo-val">→ /handwerk (anchor: "Handwerksbetriebe") | → /immobilien | → /kontakt</span></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════
+     VARIANTE C — Statement-Formel (mutig)
+     ══════════════════════════════════════════════════ -->
+<section class="variant-section">
+  <div class="variant-label">
+    <span class="variant-tag tag-c">Variante C</span>
+    <div>
+      <h2>Statement-Formel: "[Chaos]. Nicht mehr." — kürzer, mutiger</h2>
+      <p>Maximale Kürzung. Benennt das Problem direkt, dann dreht es um. Differenzierender, riskanter, für mutigere Markenpositionierung.</p>
+    </div>
+    <span class="formula-badge">Copywriting Skill → Statement-Formel</span>
+  </div>
+
+  <!-- Annotations -->
+  <div class="annotation-row">
+    <div class="annotation annotation-design">
+      <label>Design System</label>
+      <strong>Durchgestrichen:</strong> "Anfragen-Chaos" in Rot (#EF4444) mit Strikethrough = visueller Beweis<br>
+      <strong>"Nicht mehr." in Grün:</strong> (#4ADE80) — Anti-Pattern-Kontrapunkt<br>
+      <strong>Rechte Seite:</strong> Before/After-Cards (Design System: "before/after comparisons")<br>
+      <strong>Dual-Orb:</strong> Rot links + Blau rechts = visuelles Spannungsfeld
+    </div>
+    <div class="annotation annotation-copy">
+      <label>Copywriting Skill</label>
+      <strong>Formel:</strong> Statement-Formel aus SKILL.md: "[Chaos]. [Nicht mehr.]"<br>
+      <strong>Konkretion:</strong> Before/After-Cards = zeigt statt erzählt (Show over Tell)<br>
+      <strong>CTA:</strong> "Kostenloses Erstgespräch vereinbaren" (direkt, kein Umweg)<br>
+      <strong>Kein Em-Dash:</strong> ✓ | Sie-Ansprache: ✓ | Kein "revolutionär": ✓
+    </div>
+    <div class="annotation annotation-seo">
+      <label>SEO Build Mode</label>
+      <strong>Challenge:</strong> Sehr kurze H1 ("Anfragen-Chaos. Nicht mehr.") — wenig Keyword-Dichte<br>
+      <strong>Lösung:</strong> Sub-Headline enthält Keywords; H1 ist Branding, Sub ist SEO<br>
+      <strong>Vorteil:</strong> Emotionale H1 = bessere CTR → indirekter SEO-Effekt<br>
+      <strong>Title Tag:</strong> Bleibt unverändert keyword-orientiert
+    </div>
+  </div>
+
+  <!-- Hero Mockup C -->
+  <div class="hero-frame-c">
+    <div class="hero-inner-c">
+      <div>
+        <span class="hero-eyebrow">
+          KI-Workflows für Handwerk &amp; Immobilienverwaltung
+        </span>
+        <h1 class="hero-h1-c">
+          <span class="strikethrough">Anfragen-Chaos.</span>
+          <span class="resolution">Nicht mehr.</span>
+        </h1>
+        <p class="hero-sub">
+          Contentfluss automatisiert Eingangsverwaltung, Follow-ups und
+          Schadenmeldungen für Handwerksbetriebe und Immobilienverwaltungen
+          im DACH-Raum. KI-Automatisierung, die zu Ihrem Betrieb passt.
+        </p>
+        <div class="hero-cta-row">
+          <a href="#" class="btn-primary-hero">
+            Kostenloses Erstgespräch vereinbaren
+          </a>
+        </div>
+        <div class="trust-line">
+          <span class="trust-item"><span class="trust-dot"></span>Innerhalb von 4–8 Wochen live</span>
+          <span class="trust-item"><span class="trust-dot"></span>DSGVO-orientiert</span>
+          <span class="trust-item"><span class="trust-dot"></span>Kein Vendor Lock-in</span>
+        </div>
+      </div>
+
+      <div class="before-after-stack">
+        <div class="ba-card">
+          <div class="ba-card-label before">Vorher</div>
+          <p>Anfragen kommen per Mail, Telefon und Messenger unsortiert rein. Niemand behält den Überblick.</p>
+        </div>
+        <div class="ba-card">
+          <div class="ba-card-label after">Nachher</div>
+          <p>Der Eingang wird automatisch kategorisiert, priorisiert und als sauberer Task vorbereitet.</p>
+        </div>
+        <div class="ba-card">
+          <div class="ba-card-label before">Vorher</div>
+          <p>Offene Angebote geraten aus dem Blick. Follow-up-Quote unter 30 %.</p>
+        </div>
+        <div class="ba-card">
+          <div class="ba-card-label after">Nachher</div>
+          <p>Follow-ups laufen strukturiert nach Zeitplan, 20–35 % höhere Quote.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Diff -->
+  <div class="diff-row">
+    <div class="diff-old">"Büroprozesse automatisieren" — neutrale Aussage, kein emotionaler Anker, kein konkreter Schmerz</div>
+    <div class="diff-new">"Anfragen-Chaos. Nicht mehr." — Benennt den Schmerz, löst ihn in 3 Wörtern auf. Before/After beweist es visuell.</div>
+  </div>
+
+  <!-- SEO Specs -->
+  <div class="seo-specs-panel">
+    <h3>SEO Build Mode — Page Specs für Variante C</h3>
+    <div class="seo-row"><span class="seo-key">PRIMARY KEYWORD</span><span class="seo-val">KI Automatisierung Handwerk</span></div>
+    <div class="seo-row"><span class="seo-key">TITLE TAG (52 Z.)</span><span class="seo-val">"KI Automatisierung für Handwerksbetriebe | Contentfluss" (unverändert — Keyword sitzt im Title)</span></div>
+    <div class="seo-row"><span class="seo-key">META DESC (155 Z.)</span><span class="seo-val">"Schluss mit Anfragen-Chaos: Contentfluss automatisiert KI-Workflows für Handwerk &amp; Immobilien im DACH-Raum. Keine neue Software. Erstgespräch kostenlos buchen."</span></div>
+    <div class="seo-row"><span class="seo-key">H1 SEO-Strategie</span><span class="seo-val">Kurze emotionale H1 + Sub-Headline mit "KI-Automatisierung für Handwerksbetriebe" = Branding + SEO kombiniert</span></div>
+    <div class="seo-row"><span class="seo-key">INTERNAL LINKS</span><span class="seo-val">→ /handwerk (anchor: "Handwerksbetriebe") | → /immobilien | → /kontakt (anchor: "Erstgespräch")</span></div>
+  </div>
+</section>
+
+
+<!-- ── FOOTER ──────────────────────────────────── -->
+<footer class="vc-footer">
+  Contentfluss Homepage Varianten v2 — Generiert auf Basis von UI/UX Pro Max (Design System), Copywriting Skill (deutsche Formeln) und SEO Build Mode (Page Specs)
+  <br>Font: Inter (Design System: "Modern Dark Cinema") | Farbe: #0EA5E9 Sky-500 Accent (B2B Dark Palette) | Anti-Pattern vermieden: Generic AI Purple Gradient
+</footer>
+
+</body>
+</html>
