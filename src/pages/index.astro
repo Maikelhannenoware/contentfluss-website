@@ -1,256 +1,404 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { pageMeta, faqSchema, organizationSchema, websiteSchema } from '../lib/seo';
-import { handwerkWorkflows, immobilienverwaltungWorkflows } from '../lib/workflows';
+import { pageMeta, organizationSchema, websiteSchema } from '../lib/seo';
+import {
+  handwerkWorkflows,
+  immobilienverwaltungWorkflows,
+  type WorkflowDefinition,
+} from '../lib/workflows';
 
 const meta = pageMeta.home;
-const featuredWorkflows = [
-  handwerkWorkflows[0],
-  handwerkWorkflows[1],
-  immobilienverwaltungWorkflows[0],
+const workflowIndex = new Map<string, WorkflowDefinition>(
+  [...handwerkWorkflows, ...immobilienverwaltungWorkflows].map((workflow) => [workflow.slug, workflow])
+);
+const getWorkflow = (slug: string) => workflowIndex.get(slug)!;
+
+const featuredWorkflow = getWorkflow('anfrageannahme-vorqualifikation');
+const supportingWorkflows = [
+  getWorkflow('angebots-follow-up-conversion'),
+  getWorkflow('schadenmeldung-vorqualifikation'),
 ];
-const faqs = [
-  { q: 'Ist das ein Softwarewechsel?', a: 'Nein. Wir setzen auf bestehende Abläufe und Systeme auf. Kein neues Tool als Voraussetzung.' },
-  { q: 'Passt das auch für kleinere Betriebe?', a: 'Ja. Die meisten Workflows sind für Betriebe mit 3–30 Mitarbeitern gemacht, dort entsteht der größte Nutzen pro Stunde.' },
-  { q: 'Wo setzt KI hier konkret an?', a: 'Anfragen einordnen, Informationen nachziehen, Standardantworten versenden, Status kommunizieren, Übergaben dokumentieren.' },
-  { q: 'Was passiert im Fit-Call?', a: 'Kein Pitch. Wir schauen gemeinsam, wo bei euch Engpässe entstehen, und ob ein Workflow das lösen kann.' },
-  { q: 'Wie lange dauert die Umsetzung?', a: 'Die meisten Workflows gehen in 3–5 Wochen live. Das hängt vom Umfang und den nötigen Integrationen ab.' },
+
+const trustPills = [
+  'Pilot in 3–5 Wochen',
+  'Kein Systemwechsel',
+  'DSGVO-orientiert',
+  'Für Teams mit 3–30 Mitarbeitenden',
 ];
-const schemas = [organizationSchema(), websiteSchema(), faqSchema(faqs.map(f => ({ question: f.q, answer: f.a })))];
+
+const inboundFragments = [
+  { channel: 'Telefon', text: 'Telefonische Anfrage ohne Adresse' },
+  { channel: 'WhatsApp', text: 'WhatsApp mit 2 Fotos' },
+  { channel: 'E-Mail', text: 'E-Mail ohne Rückrufnummer' },
+  { channel: 'Schaden', text: 'Schadensmeldung ohne Ticket' },
+];
+
+const structuredOutputs = [
+  { label: 'Vollständige Anfrage', detail: 'Adresse, Fotos, Rückrufnummer, Anliegen' },
+  { label: 'Zuständigkeit erkannt', detail: 'richtige Rolle oder Team direkt zugeordnet' },
+  { label: 'Follow-up gesetzt', detail: 'Status und nächste Aktion stehen fest' },
+  { label: 'Bearbeitung vorbereitet', detail: 'Rückruf, Routing oder Ticket sauber angelegt' },
+];
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Engpass verstehen',
+    body: 'Wir schauen auf den konkreten Vorgang und trennen echten Ablaufdruck von allgemeinem Tool-Lärm.',
+  },
+  {
+    number: '02',
+    title: 'Workflow bauen',
+    body: 'Der Ablauf wird auf eure Sprache, Rollen und vorhandenen Systeme zugeschnitten statt darübergestülpt.',
+  },
+  {
+    number: '03',
+    title: 'Im Alltag einsetzen',
+    body: 'Der Workflow läuft im Betrieb, wird nachgeschärft und muss dort tragen, wo heute Reibung entsteht.',
+  },
+];
+
+const schemas = [organizationSchema(), websiteSchema()];
 ---
+
 <Layout title={meta.title} description={meta.description} schemas={schemas}>
+  <section class="premium-home-hero">
+    <div class="premium-home-liquid premium-home-liquid-a" aria-hidden="true"></div>
+    <div class="premium-home-liquid premium-home-liquid-b" aria-hidden="true"></div>
+    <div class="premium-home-glow premium-home-glow-a" aria-hidden="true"></div>
+    <div class="premium-home-glow premium-home-glow-b" aria-hidden="true"></div>
 
-  <!-- 1. HERO -->
-  <section class="hero">
-    <div class="container hero-shell">
-      <div class="hero-split">
-        <div class="stack gap-8 hero-copy">
-          <span class="eyebrow hero-badge">
-            <span class="eyebrow-dot"></span>
-            KI-Workflows für Handwerk &amp; Hausverwaltung
-          </span>
-          <div class="stack gap-4">
-            <h1>
-              Weniger operative <span class="serif-accent">Reibung.</span>
-              <span class="headline-break">Mehr Flow im Tagesgeschäft.</span>
-            </h1>
-            <p class="page-intro">Contentfluss automatisiert Anfragen, Meldungen, Angebote und Kommunikation — auf euren bestehenden Abläufen, ohne Systemwechsel.</p>
+    <div class="container hero-shell premium-home-hero-shell">
+      <div class="premium-home-copy" data-reveal data-hero-parallax="0.028">
+        <span class="eyebrow premium-home-eyebrow">
+          <span class="eyebrow-dot"></span>
+          KI-Workflows für Handwerk &amp; Hausverwaltung
+        </span>
+
+        <div class="premium-home-copy-body stack gap-6">
+          <h1>
+            <span class="premium-home-line">Weniger operative</span>
+            <span class="premium-home-line"><span class="serif-accent">Reibung.</span> Mehr Flow</span>
+            <span class="premium-home-line">im Tagesgeschäft.</span>
+          </h1>
+          <p class="page-intro">
+            Contentfluss automatisiert Anfragen, Meldungen, Angebote und Kommunikation
+            — auf euren bestehenden Abläufen, ohne Systemwechsel.
+          </p>
+        </div>
+
+        <div class="premium-home-actions">
+          <a href="/kontakt" class="btn btn-primary btn-lg premium-home-primary" data-track="home_hero_cta">
+            Fit-Call buchen
+          </a>
+          <a href="/workflows" class="btn premium-home-secondary" data-track="home_hero_workflows">
+            Workflows ansehen
+          </a>
+        </div>
+
+        <ul class="premium-home-trust" aria-label="Eckpunkte zum Einstieg">
+          {trustPills.map((pill) => <li>{pill}</li>)}
+        </ul>
+      </div>
+
+      <div class="premium-home-visual" data-reveal data-hero-parallax="-0.045" aria-hidden="true">
+        <div class="premium-home-kpi premium-home-kpi-left">
+          <span class="premium-home-kpi-label">Effekt</span>
+          <strong>–18 Min / Tag</strong>
+        </div>
+        <div class="premium-home-kpi premium-home-kpi-right">
+          <span class="premium-home-kpi-label">Heute</span>
+          <strong>12 verarbeitet</strong>
+        </div>
+
+        <div class="premium-home-canvas">
+          <div class="premium-home-canvas-header">
+            <span class="premium-home-canvas-title">Operations Canvas</span>
+            <span class="premium-home-canvas-status">
+              <span class="status-dot status-dot-live"></span>
+              aktiv
+            </span>
           </div>
-          <div class="cta-group">
-            <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_hero_cta">Fit-Call buchen</a>
-            <a href="/workflows" class="cta-link" data-track="home_hero_workflows">Workflows ansehen →</a>
+
+          <div class="premium-home-node-track">
+            <article class="premium-home-node premium-home-node-anfrage">
+              <span class="premium-home-node-index">01</span>
+              <h2>Anfrage</h2>
+              <p>Telefon, Mail und Messenger laufen in einen lesbaren Eingang.</p>
+            </article>
+            <article class="premium-home-node premium-home-node-qualifizierung">
+              <span class="premium-home-node-index">02</span>
+              <h2>Qualifizierung</h2>
+              <p>Fehlende Infos werden nachgezogen und der Kontext strukturiert.</p>
+            </article>
+            <article class="premium-home-node premium-home-node-routing">
+              <span class="premium-home-node-index">03</span>
+              <h2>Routing</h2>
+              <p>Der Vorgang landet mit Zuständigkeit und nächster Aktion im Team.</p>
+            </article>
           </div>
-          <ul class="trust-row" aria-label="Wichtige Eckpunkte">
-            <li class="trust-pill">Pilot in 3–5 Wochen</li>
-            <li class="trust-pill">Kein Systemwechsel</li>
-            <li class="trust-pill">DSGVO-orientiert</li>
-            <li class="trust-pill">3–30 Mitarbeitende</li>
+
+          <div class="premium-home-canvas-panels">
+            <div class="premium-home-input-stack">
+              <span class="premium-home-panel-label">Unsortierte Eingänge</span>
+              <div class="premium-home-signal-list">
+                <div class="premium-home-signal premium-home-signal-mail">
+                  <span>Mail</span>
+                  <small>ohne Rückrufnummer</small>
+                </div>
+                <div class="premium-home-signal premium-home-signal-phone">
+                  <span>Telefon</span>
+                  <small>Adresse fehlt</small>
+                </div>
+                <div class="premium-home-signal premium-home-signal-chat">
+                  <span>WhatsApp</span>
+                  <small>2 Fotos, kein Kontext</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="premium-home-output-board">
+              <span class="premium-home-panel-label">Bearbeitbarer Output</span>
+              <div class="premium-home-output-rows">
+                <div class="premium-home-output-row">
+                  <span>Vollständigkeit</span>
+                  <strong>Adresse, Fotos, Kontakt</strong>
+                </div>
+                <div class="premium-home-output-row">
+                  <span>Zuständigkeit</span>
+                  <strong>Service-Team oder Sachbearbeitung</strong>
+                </div>
+                <div class="premium-home-output-row">
+                  <span>Nächster Schritt</span>
+                  <strong>Rückruf, Ticket oder Statusmail</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section premium-home-signature">
+    <div class="container premium-home-shell">
+      <div class="premium-home-section-head premium-home-section-head-center" data-reveal>
+        <span class="section-label">Signature Transformation</span>
+        <h2>Vom täglichen Durcheinander zum klaren Ablauf</h2>
+        <p>
+          Was heute per Telefon, Mail, WhatsApp und Rückfragen auseinanderläuft,
+          wird in einen sauberen operativen Flow überführt.
+        </p>
+      </div>
+
+      <div class="premium-home-transformation-stage" data-reveal>
+        <div class="premium-home-before-side">
+          <div class="premium-home-stage-head">
+            <span class="premium-home-stage-label">Before</span>
+            <h3>Fragmente statt Vorgang</h3>
+          </div>
+          <div class="premium-home-fragment-stack">
+            {inboundFragments.map((fragment, index) => (
+              <article class:list={['premium-home-fragment', index === 1 && 'premium-home-fragment-glass', index === 3 && 'premium-home-fragment-glass']}>
+                <span class="premium-home-fragment-channel">{fragment.channel}</span>
+                <p>{fragment.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div class="premium-home-transformation-spine">
+          <span class="premium-home-spine-label">Contentfluss Workflow</span>
+          <span class="premium-home-spine-line"></span>
+          <p>liest, ergänzt und routet den Eingang, bevor operative Zeit verloren geht.</p>
+        </div>
+
+        <div class="premium-home-after-side">
+          <div class="premium-home-stage-head">
+            <span class="premium-home-stage-label">After</span>
+            <h3>Strukturierter operativer Flow</h3>
+          </div>
+          <div class="premium-home-after-board">
+            {structuredOutputs.map((item) => (
+              <div class="premium-home-after-row">
+                <span>{item.label}</span>
+                <strong>{item.detail}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section premium-home-industries">
+    <div class="container premium-home-shell">
+      <div class="premium-home-section-head" data-reveal>
+        <span class="section-label">Zwei Branchen, zwei operative Druckbilder</span>
+        <h2>Handwerk und Hausverwaltung brauchen dieselbe Präzision. Aber nicht dieselbe Inszenierung.</h2>
+        <p>
+          Beide Welten profitieren von saubereren Eingängen und klareren Übergaben.
+          Die operative Sprache und der Rhythmus dahinter sind trotzdem unterschiedlich.
+        </p>
+      </div>
+
+      <div class="premium-home-industry-stage">
+        <article class="premium-home-industry premium-home-industry-handwerk" data-reveal>
+          <div class="premium-home-industry-top">
+            <span class="premium-home-industry-chip">Handwerk</span>
+            <span class="premium-home-industry-kicker">Viele Eingänge, wenig Puffer</span>
+          </div>
+          <h3>Wenn Frontoffice, Angebot und Terminstatus an einem Tag gleichzeitig Druck machen.</h3>
+          <p>
+            Für Betriebe, bei denen Anfragen sauber reinkommen müssen, damit Rückruf,
+            Angebot und Dispo nicht im Tagesgeschäft zerrieben werden.
+          </p>
+          <ul class="premium-home-industry-list">
+            <li>Anfragen kommen ohne Adresse, Foto oder klaren Umfang rein.</li>
+            <li>Angebote bleiben offen, weil Follow-up keinen festen Takt hat.</li>
+            <li>Statusfragen gehen direkt ins Büro statt in einen sauberen Ablauf.</li>
           </ul>
-        </div>
+          <div class="premium-home-industry-tags">
+            <span>Frontoffice</span>
+            <span>Angebot</span>
+            <span>Terminstatus</span>
+          </div>
+          <a href="/handwerk" class="btn btn-secondary" data-track="home_industry_handwerk">Mehr für Handwerk</a>
+        </article>
 
-        <div class="operations-canvas-parallax">
-          <div class="operations-canvas-wrap">
-            <div class="operations-canvas" aria-hidden="true">
-              <div class="canvas-bar">
-                <span class="canvas-bar-dots">
-                  <span class="canvas-bar-dot"></span>
-                  <span class="canvas-bar-dot"></span>
-                  <span class="canvas-bar-dot"></span>
-                </span>
-                <span class="canvas-bar-title">Operations Canvas</span>
-                <span class="canvas-bar-status">
-                  <span class="status-dot status-dot-live"></span>
-                  aktiv
-                </span>
-              </div>
-              <div class="canvas-body">
-                <div class="canvas-grid">
-                  <article class="canvas-node canvas-node-start">
-                    <span class="canvas-node-title">Anfrage</span>
-                    <span class="canvas-badge canvas-badge-live">neu</span>
-                  </article>
-                  <div class="canvas-connector canvas-connector-horizontal"></div>
-                  <article class="canvas-node canvas-node-active">
-                    <span class="canvas-node-title">Qualifi-<br />zierung</span>
-                    <span class="canvas-badge canvas-badge-live">läuft</span>
-                  </article>
-                  <div class="canvas-connector canvas-connector-vertical"></div>
-                  <article class="canvas-node canvas-node-done">
-                    <span class="canvas-node-title">Routing</span>
-                    <span class="canvas-badge canvas-badge-done">done</span>
-                  </article>
-                </div>
-              </div>
-              <div class="canvas-stats">
-                <div class="canvas-stat">
-                  <span class="canvas-stat-value">-18 Min / Tag</span>
-                  <span class="canvas-stat-label">weniger Koordination</span>
-                </div>
-                <div class="canvas-stat">
-                  <span class="canvas-stat-value">12 verarbeitet</span>
-                  <span class="canvas-stat-label">heute im Ablauf</span>
-                </div>
-              </div>
+        <article class="premium-home-industry premium-home-industry-immo" data-reveal>
+          <div class="premium-home-industry-top">
+            <span class="premium-home-industry-chip">Hausverwaltung</span>
+            <span class="premium-home-industry-kicker">Koordination statt Kanalchaos</span>
+          </div>
+          <h3>Wenn Meldung, Rückfrage und Dienstleister-Status in derselben Spur landen sollen.</h3>
+          <p>
+            Für Verwaltungen, bei denen Fälle erst dann schneller werden, wenn Eingang,
+            Zuständigkeit und Kommunikation denselben Informationsstand haben.
+          </p>
+          <div class="premium-home-immo-board">
+            <div class="premium-home-immo-row">
+              <span>Schadenmeldung</span>
+              <strong>Einheit, Fotos und Dringlichkeit ergänzt</strong>
+            </div>
+            <div class="premium-home-immo-row">
+              <span>Zuständigkeit</span>
+              <strong>Sachbearbeitung oder Dienstleister direkt erkannt</strong>
+            </div>
+            <div class="premium-home-immo-row">
+              <span>Status</span>
+              <strong>Rückfrage und Update laufen dokumentiert mit</strong>
             </div>
           </div>
-        </div>
+          <a href="/immobilienverwaltung" class="btn btn-secondary" data-track="home_industry_immo">
+            Mehr für Hausverwaltung
+          </a>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- 2. TARGET GROUPS -->
-  <section class="section has-glow glow-br">
-    <div class="container">
-      <div class="section-head-center" data-reveal>
-        <span class="section-label">Für wen</span>
-        <h2><span class="serif-accent">Spezialisiert</span> auf zwei Branchen</h2>
-        <p>Nicht generisch. Zwei Problemräume, zwei Lösungsansätze.</p>
+  <section class="section premium-home-workflows">
+    <div class="container premium-home-shell">
+      <div class="premium-home-section-head" data-reveal>
+        <span class="section-label">Kuratiert statt katalogisiert</span>
+        <h2>Drei Workflows, die im Alltag wirklich etwas verändern</h2>
+        <p>
+          Ein klarer Schwerpunkt, zwei ergänzende Muster. Weniger Kartenflut, mehr Hierarchie
+          und bessere Lesbarkeit für das Wesentliche.
+        </p>
       </div>
-      <div class="target-panels" data-stagger>
-        <div class="target-panel">
-          <span class="panel-eyebrow"><span class="dot dot-blue"></span>Handwerk</span>
-          <p class="target-panel-title">Handwerksbetriebe</p>
-          <div class="target-panel-pains">
-            <ul class="pain-list">
-              <li>Anfragen kommen ohne alle Infos rein</li>
-              <li>Angebote werden nicht nachverfolgt</li>
-              <li>Rückfragen zerhacken den Arbeitstag</li>
-            </ul>
-          </div>
-          <a href="/handwerk" class="btn btn-secondary btn-sm" data-track="home_target_handwerk">Mehr für Handwerk →</a>
-        </div>
-        <div class="target-panel">
-          <span class="panel-eyebrow"><span class="dot dot-violet"></span>Hausverwaltung</span>
-          <p class="target-panel-title">Immobilienverwaltungen</p>
-          <div class="target-panel-pains">
-            <ul class="pain-list">
-              <li>Schadenmeldungen kommen unstrukturiert über mehrere Kanäle</li>
-              <li>Informationen müssen ständig nachgezogen werden</li>
-              <li>Prozesse hängen an einzelnen Personen</li>
-            </ul>
-          </div>
-          <a href="/immobilienverwaltung" class="btn btn-secondary btn-sm" data-track="home_target_immo">Mehr für Hausverwaltung →</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- 4. PROBLEM FRAMING -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="content-aside" data-reveal>
-        <div class="stack gap-6">
-          <div>
-            <span class="section-label">Das Problem</span>
-            <h2>Operative Arbeit, die ständig hängen bleibt</h2>
-            <p class="mt-4">Anfragen gehen ein, unvollständig. Angebote werden nicht nachverfolgt. Schadenmeldungen landen auf drei verschiedenen Kanälen. Das ist kein Software-Problem. Es ist ein Ablauf-Problem.</p>
-            <p class="mt-4">KI-Workflows lösen genau das, nicht als IT-Großprojekt, sondern als konkreter Ablauf, der morgen läuft.</p>
+      <div class="premium-home-workflow-stage">
+        <article class="premium-home-workflow-feature" data-reveal>
+          <div class="premium-home-workflow-feature-top">
+            <span class="premium-home-workflow-chip">Featured Workflow</span>
+            <span class="mono-tag">Handwerk</span>
           </div>
-        </div>
-        <div class="card card-elevated pain-card-elevated">
-          <p class="section-label">Typische Engpässe</p>
-          <ul class="pain-list">
-            <li>Anfragen kommen unvollständig oder über viele Kanäle rein</li>
-            <li>Angebote werden nie sauber nachverfolgt</li>
-            <li>Rückfragen zu offenen Terminen landen beim falschen Ansprechpartner</li>
-            <li>Schadenmeldungen sind manuell koordiniert, langsam und fehleranfällig</li>
-            <li>Prozesse hängen an einzelnen Personen, nicht an Abläufen</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. FEATURED WORKFLOWS -->
-  <section class="section has-glow glow-tl" style="--glow-color: rgba(100, 60, 200, 0.05);">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <span class="section-label">Was konkret automatisiert wird</span>
-        <h2>Operative Abläufe, nicht Feature-Listen</h2>
-        <p>Jeder Workflow löst ein reales Problem, keine abstrakten KI-Anwendungen.</p>
-      </div>
-      <div class="grid-3 featured-workflows" data-stagger>
-        {featuredWorkflows.map((wf, i) => (
-          <div class="workflow-card">
-            <div class="workflow-card-meta">
-              <h3 class="workflow-card-title">{wf.name}</h3>
-              <span class="mono-tag">{i < 2 ? 'HW' : 'IM'}</span>
+          <div class="premium-home-workflow-feature-copy">
+            <h3>{featuredWorkflow.name}</h3>
+            <p class="premium-home-workflow-lead">{featuredWorkflow.short}</p>
+          </div>
+          <div class="premium-home-workflow-feature-grid">
+            <div class="premium-home-workflow-problem-box">
+              <span class="workflow-col-label">Problem</span>
+              <p>{featuredWorkflow.problem}</p>
             </div>
+            <div class="premium-home-workflow-problem-box">
+              <span class="workflow-col-label">Was Contentfluss daraus macht</span>
+              <p>{featuredWorkflow.solution}</p>
+            </div>
+          </div>
+          <div class="premium-home-workflow-feature-foot">
             <div>
-              <p class="workflow-col-label">Problem</p>
-              <p class="workflow-problem-block">{wf.problem}</p>
-            </div>
-            <div>
-              <p class="workflow-col-label">Was dadurch besser läuft</p>
+              <span class="workflow-col-label">Im Alltag spürbar</span>
               <ul class="workflow-benefits">
-                {wf.benefits.map(b => <li>{b}</li>)}
+                {featuredWorkflow.benefits.map((benefit) => <li>{benefit}</li>)}
               </ul>
             </div>
+            <div class="premium-home-workflow-proof">
+              <span class="workflow-col-label">Geeignet für</span>
+              <p>{featuredWorkflow.who}</p>
+              <p class="premium-home-workflow-effect">{featuredWorkflow.effect}</p>
+            </div>
           </div>
-        ))}
+        </article>
+
+        <div class="premium-home-workflow-support" data-stagger>
+          {supportingWorkflows.map((workflow, index) => (
+            <article class={`premium-home-workflow-support-card premium-home-workflow-support-card-${index + 1}`}>
+              <div class="premium-home-workflow-support-head">
+                <h3>{workflow.name}</h3>
+                <span class="mono-tag">{index === 0 ? 'Handwerk' : 'Immo'}</span>
+              </div>
+              <p class="premium-home-workflow-lead">{workflow.short}</p>
+              <p class="premium-home-workflow-support-problem">{workflow.problem}</p>
+              <ul class="workflow-benefits">
+                {workflow.benefits.map((benefit) => <li>{benefit}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
       </div>
-      <div class="mt-8 text-center">
+
+      <div class="premium-home-workflow-cta" data-reveal>
         <a href="/workflows" class="btn btn-secondary" data-track="home_workflows_all">Alle Workflows ansehen</a>
       </div>
     </div>
   </section>
 
-  <!-- 5. HOW IT WORKS -->
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <span class="section-label">Ablauf</span>
-        <h2>Wie die Zusammenarbeit funktioniert</h2>
+  <section class="section-sm premium-home-process">
+    <div class="container premium-home-shell">
+      <div class="premium-home-section-head premium-home-section-head-center" data-reveal>
+        <span class="section-label">Zusammenarbeit</span>
+        <h2>So läuft die Zusammenarbeit ab</h2>
       </div>
-      <div class="process-flow" data-stagger>
-        {[
-          { n: '01', title: 'Engpass verstehen', body: 'Im Fit-Call sprechen wir über eure Abläufe. Wo verliert ihr täglich Zeit? Was geht verloren?' },
-          { n: '02', title: 'Workflow bauen', body: 'Wir entwickeln und implementieren den Ablauf, auf eure Systeme und Sprache abgestimmt.' },
-          { n: '03', title: 'Im Alltag einsetzen', body: 'Der Workflow geht live. Wir begleiten den Start und schärfen nach, was im Betrieb nicht stimmt.' },
-        ].map(s => (
-          <div class="process-step">
-            <span class="process-step-num">{s.n}</span>
-            <p class="process-step-title">{s.title}</p>
-            <p class="process-step-body">{s.body}</p>
-          </div>
+
+      <div class="premium-home-process-rail" data-stagger>
+        {processSteps.map((step) => (
+          <article class="premium-home-process-step">
+            <span class="premium-home-process-number">{step.number}</span>
+            <h3>{step.title}</h3>
+            <p>{step.body}</p>
+          </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 6. FAQ -->
-  <section class="section">
-    <div class="container content-narrow">
-      <div class="section-head">
-        <span class="section-label">FAQ</span>
-        <h2>Häufige Fragen</h2>
-      </div>
-      <ul class="faq-list">
-        {faqs.map(faq => (
-          <li class="faq-item">
-            <details>
-              <summary>{faq.q}</summary>
-              <p class="faq-answer">{faq.a}</p>
-            </details>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- 7. FINAL CTA -->
-  <section class="section-feature has-glow glow-center" style="--glow-color: rgba(21, 88, 255, 0.10);">
-    <div class="container">
-      <div class="conviction-block" data-reveal>
-        <span class="eyebrow">Fit-Call: kostenlos, 30 Minuten</span>
-        <h2>Welcher Ablauf kostet euch täglich die meiste <span class="serif-accent">Zeit?</span></h2>
-        <p class="page-intro">Im Fit-Call klären wir, ob ein Workflow das lösen kann. Kein Pitch, keine Verpflichtung.</p>
-        <div class="cta-group" style="justify-content:center;margin-top:2rem">
-          <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_final_cta">Fit-Call buchen</a>
-          <a href="/workflows" class="cta-link" data-track="home_final_workflows">Workflows ansehen →</a>
-        </div>
+  <section class="section premium-home-final">
+    <div class="container premium-home-shell premium-home-final-shell">
+      <div class="premium-home-final-card" data-reveal>
+        <span class="section-label">Fit-Call</span>
+        <h2>Wenn täglich zu viel hängen bleibt, ist es Zeit für einen besseren Ablauf.</h2>
+        <p class="page-intro">
+          Im Fit-Call schauen wir auf euren Engpass und prüfen, ob ein Workflow in eurem Alltag
+          wirklich Sinn ergibt.
+        </p>
+        <a href="/kontakt" class="btn btn-primary btn-lg premium-home-primary" data-track="home_final_cta">
+          Fit-Call buchen
+        </a>
       </div>
     </div>
   </section>
-
 </Layout>
