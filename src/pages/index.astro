@@ -69,7 +69,7 @@ const schemas = [organizationSchema(), websiteSchema()];
     <div class="premium-home-glow premium-home-glow-b" aria-hidden="true"></div>
 
     <div class="container hero-shell premium-home-hero-shell">
-      <div class="premium-home-copy" data-reveal data-hero-parallax="0.028">
+      <div class="premium-home-copy" data-hero-parallax="0.028">
         <span class="eyebrow premium-home-eyebrow">
           <span class="eyebrow-dot"></span>
           KI-Workflows für Handwerk &amp; Hausverwaltung
@@ -101,7 +101,7 @@ const schemas = [organizationSchema(), websiteSchema()];
         </ul>
       </div>
 
-      <div class="premium-home-visual" data-reveal data-hero-parallax="-0.045" aria-hidden="true">
+      <div class="premium-home-visual" data-hero-parallax="-0.032" aria-hidden="true">
         <div class="premium-home-kpi premium-home-kpi-left">
           <span class="premium-home-kpi-label">Effekt</span>
           <strong>–18 Min / Tag</strong>
@@ -234,12 +234,8 @@ const schemas = [organizationSchema(), websiteSchema()];
   <section class="section premium-home-industries">
     <div class="container premium-home-shell">
       <div class="premium-home-section-head" data-reveal>
-        <span class="section-label">Zwei Branchen, zwei operative Druckbilder</span>
-        <h2>Handwerk und Hausverwaltung brauchen dieselbe Präzision. Aber nicht dieselbe Inszenierung.</h2>
-        <p>
-          Beide Welten profitieren von saubereren Eingängen und klareren Übergaben.
-          Die operative Sprache und der Rhythmus dahinter sind trotzdem unterschiedlich.
-        </p>
+        <span class="section-label">Zwei Branchen, ein Prinzip</span>
+        <h2>Gleiche Präzision. Unterschiedlicher operativer Rhythmus.</h2>
       </div>
 
       <div class="premium-home-industry-stage">
@@ -248,15 +244,11 @@ const schemas = [organizationSchema(), websiteSchema()];
             <span class="premium-home-industry-chip">Handwerk</span>
             <span class="premium-home-industry-kicker">Viele Eingänge, wenig Puffer</span>
           </div>
-          <h3>Wenn Frontoffice, Angebot und Terminstatus an einem Tag gleichzeitig Druck machen.</h3>
-          <p>
-            Für Betriebe, bei denen Anfragen sauber reinkommen müssen, damit Rückruf,
-            Angebot und Dispo nicht im Tagesgeschäft zerrieben werden.
-          </p>
+          <h3>Frontoffice, Angebot und Dispo gleichzeitig unter Druck.</h3>
           <ul class="premium-home-industry-list">
-            <li>Anfragen kommen ohne Adresse, Foto oder klaren Umfang rein.</li>
-            <li>Angebote bleiben offen, weil Follow-up keinen festen Takt hat.</li>
-            <li>Statusfragen gehen direkt ins Büro statt in einen sauberen Ablauf.</li>
+            <li>Anfragen ohne Adresse, Foto oder klaren Umfang</li>
+            <li>Follow-up ohne festen Takt</li>
+            <li>Statusfragen direkt ins Büro statt in den Ablauf</li>
           </ul>
           <div class="premium-home-industry-tags">
             <span>Frontoffice</span>
@@ -271,11 +263,7 @@ const schemas = [organizationSchema(), websiteSchema()];
             <span class="premium-home-industry-chip">Hausverwaltung</span>
             <span class="premium-home-industry-kicker">Koordination statt Kanalchaos</span>
           </div>
-          <h3>Wenn Meldung, Rückfrage und Dienstleister-Status in derselben Spur landen sollen.</h3>
-          <p>
-            Für Verwaltungen, bei denen Fälle erst dann schneller werden, wenn Eingang,
-            Zuständigkeit und Kommunikation denselben Informationsstand haben.
-          </p>
+          <h3>Meldung, Rückfrage und Dienstleister-Status in einer Spur.</h3>
           <div class="premium-home-immo-board">
             <div class="premium-home-immo-row">
               <span>Schadenmeldung</span>
@@ -303,10 +291,6 @@ const schemas = [organizationSchema(), websiteSchema()];
       <div class="premium-home-section-head" data-reveal>
         <span class="section-label">Kuratiert statt katalogisiert</span>
         <h2>Drei Workflows, die im Alltag wirklich etwas verändern</h2>
-        <p>
-          Ein klarer Schwerpunkt, zwei ergänzende Muster. Weniger Kartenflut, mehr Hierarchie
-          und bessere Lesbarkeit für das Wesentliche.
-        </p>
       </div>
 
       <div class="premium-home-workflow-stage">
@@ -319,28 +303,12 @@ const schemas = [organizationSchema(), websiteSchema()];
             <h3>{featuredWorkflow.name}</h3>
             <p class="premium-home-workflow-lead">{featuredWorkflow.short}</p>
           </div>
-          <div class="premium-home-workflow-feature-grid">
-            <div class="premium-home-workflow-problem-box">
-              <span class="workflow-col-label">Problem</span>
-              <p>{featuredWorkflow.problem}</p>
-            </div>
-            <div class="premium-home-workflow-problem-box">
-              <span class="workflow-col-label">Was Contentfluss daraus macht</span>
-              <p>{featuredWorkflow.solution}</p>
-            </div>
-          </div>
-          <div class="premium-home-workflow-feature-foot">
-            <div>
-              <span class="workflow-col-label">Im Alltag spürbar</span>
-              <ul class="workflow-benefits">
-                {featuredWorkflow.benefits.map((benefit) => <li>{benefit}</li>)}
-              </ul>
-            </div>
-            <div class="premium-home-workflow-proof">
-              <span class="workflow-col-label">Geeignet für</span>
-              <p>{featuredWorkflow.who}</p>
-              <p class="premium-home-workflow-effect">{featuredWorkflow.effect}</p>
-            </div>
+          <div class="premium-home-workflow-feature-detail">
+            <p class="premium-home-workflow-problem-inline">{featuredWorkflow.problem}</p>
+            <ul class="workflow-benefits">
+              {featuredWorkflow.benefits.map((benefit) => <li>{benefit}</li>)}
+            </ul>
+            <p class="premium-home-workflow-effect">{featuredWorkflow.effect}</p>
           </div>
         </article>
 
@@ -352,7 +320,6 @@ const schemas = [organizationSchema(), websiteSchema()];
                 <span class="mono-tag">{index === 0 ? 'Handwerk' : 'Immo'}</span>
               </div>
               <p class="premium-home-workflow-lead">{workflow.short}</p>
-              <p class="premium-home-workflow-support-problem">{workflow.problem}</p>
               <ul class="workflow-benefits">
                 {workflow.benefits.map((benefit) => <li>{benefit}</li>)}
               </ul>
