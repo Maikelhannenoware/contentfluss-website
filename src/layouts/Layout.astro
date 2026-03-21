@@ -327,8 +327,9 @@ const allSchemas = schemas
         window.innerWidth >= 769
       ) {
         const els = document.querySelectorAll<HTMLElement>('[data-hero-parallax]');
-        const liquidEls = document.querySelectorAll<HTMLElement>('.premium-home-liquid');
-        if (els.length || liquidEls.length) {
+        const liquidEls = document.querySelectorAll<HTMLElement>('.home-hero-blob');
+        const glowEls = document.querySelectorAll<HTMLElement>('.home-hero-glow');
+        if (els.length || liquidEls.length || glowEls.length) {
           let ticking = false;
 
           const syncHeroScrollEffects = () => {
@@ -350,6 +351,19 @@ const allSchemas = schemas
                   const fadeOpacity = Math.max(0, 1 - Math.max(0, y - fadeStart) / (fadeEnd - fadeStart));
 
                   liquidEls.forEach((el) => {
+                    const baseOpacity = parseFloat(el.dataset.baseOpacity || getComputedStyle(el).opacity || '1');
+                    el.dataset.baseOpacity = String(baseOpacity);
+                    el.style.opacity = String(baseOpacity * fadeOpacity);
+                  });
+                }
+
+                if (glowEls.length) {
+                  const vh = window.innerHeight;
+                  const fadeStart = vh * 0.2;
+                  const fadeEnd = vh * 0.9;
+                  const fadeOpacity = Math.max(0, 1 - Math.max(0, y - fadeStart) / (fadeEnd - fadeStart));
+
+                  glowEls.forEach((el) => {
                     const baseOpacity = parseFloat(el.dataset.baseOpacity || getComputedStyle(el).opacity || '1');
                     el.dataset.baseOpacity = String(baseOpacity);
                     el.style.opacity = String(baseOpacity * fadeOpacity);

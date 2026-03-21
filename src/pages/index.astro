@@ -27,17 +27,31 @@ const trustPills = [
 ];
 
 const inboundFragments = [
-  { channel: 'Telefon', text: 'Telefonische Anfrage ohne Adresse' },
-  { channel: 'WhatsApp', text: 'WhatsApp mit 2 Fotos' },
-  { channel: 'E-Mail', text: 'E-Mail ohne Rückrufnummer' },
-  { channel: 'Schaden', text: 'Schadensmeldung ohne Ticket' },
+  { channel: 'Telefon', text: 'Anfrage ohne Adresse' },
+  { channel: 'WhatsApp', text: 'Foto ohne Kontext' },
+  { channel: 'E-Mail', text: 'Mail ohne Rückrufnummer' },
+  { channel: 'Schaden', text: 'Meldung ohne Ticket' },
 ];
 
 const structuredOutputs = [
-  { label: 'Vollständige Anfrage', detail: 'Adresse, Fotos, Rückrufnummer, Anliegen' },
-  { label: 'Zuständigkeit erkannt', detail: 'richtige Rolle oder Team direkt zugeordnet' },
-  { label: 'Follow-up gesetzt', detail: 'Status und nächste Aktion stehen fest' },
-  { label: 'Bearbeitung vorbereitet', detail: 'Rückruf, Routing oder Ticket sauber angelegt' },
+  { label: 'Vollständige Anfrage', detail: 'Adresse, Fotos und Rückrufnummer ergänzt' },
+  { label: 'Zuständigkeit erkannt', detail: 'passende Rolle oder Team direkt zugeordnet' },
+  { label: 'Follow-up gesetzt', detail: 'Status und nächste Aktion klar' },
+  { label: 'Bearbeitung vorbereitet', detail: 'Rückruf, Routing oder Ticket vorbereitet' },
+];
+
+const handwerkPoints = [
+  'Anfragen ohne Adresse, Foto oder klaren Umfang',
+  'Follow-up ohne festen Takt',
+  'Statusfragen direkt ins Büro statt in den Ablauf',
+];
+
+const handwerkTags = ['Frontoffice', 'Angebot', 'Terminstatus'];
+
+const immoRows = [
+  { label: 'Schadenmeldung', detail: 'Einheit, Fotos und Dringlichkeit ergänzt' },
+  { label: 'Zuständigkeit', detail: 'Sachbearbeitung oder Dienstleister direkt erkannt' },
+  { label: 'Status', detail: 'Rückfrage und Update bleiben im dokumentierten Ablauf' },
 ];
 
 const processSteps = [
@@ -58,131 +72,63 @@ const processSteps = [
   },
 ];
 
+const finalProofs = [
+  'Pilot in 3–5 Wochen',
+  'Für Teams mit 3–30 Mitarbeitenden',
+  'Ohne Systemwechsel in bestehende Abläufe',
+];
+
 const schemas = [organizationSchema(), websiteSchema()];
 ---
 
 <Layout title={meta.title} description={meta.description} schemas={schemas}>
-  <section class="premium-home-hero">
-    <div class="premium-home-liquid premium-home-liquid-a" aria-hidden="true"></div>
-    <div class="premium-home-liquid premium-home-liquid-b" aria-hidden="true"></div>
-    <div class="premium-home-glow premium-home-glow-a" aria-hidden="true"></div>
-    <div class="premium-home-glow premium-home-glow-b" aria-hidden="true"></div>
+  <section class="home-hero">
+    <div class="home-hero-glow home-hero-glow-a" aria-hidden="true"></div>
+    <div class="home-hero-glow home-hero-glow-b" aria-hidden="true"></div>
+    <div class="home-hero-blob home-hero-blob-a" aria-hidden="true"></div>
+    <div class="home-hero-blob home-hero-blob-b" aria-hidden="true"></div>
 
-    <div class="container hero-shell premium-home-hero-shell">
-      <div class="premium-home-copy" data-hero-parallax="0.028">
-        <span class="eyebrow premium-home-eyebrow">
-          <span class="eyebrow-dot"></span>
-          KI-Workflows für Handwerk &amp; Hausverwaltung
+    <div class="container home-hero-content">
+      <span class="eyebrow home-hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        KI-Workflows für Handwerk &amp; Hausverwaltung
+      </span>
+
+      <h1 class="home-hero-headline">
+        <span class="home-hero-line">
+          Weniger operative <span class="serif-accent">Reibung.</span>
         </span>
+        <span class="home-hero-line">Mehr Flow im Tagesgeschäft.</span>
+      </h1>
 
-        <div class="premium-home-copy-body stack gap-6">
-          <h1>
-            <span class="premium-home-line">Weniger operative</span>
-            <span class="premium-home-line"><span class="serif-accent">Reibung.</span> Mehr Flow</span>
-            <span class="premium-home-line">im Tagesgeschäft.</span>
-          </h1>
-          <p class="page-intro">
-            Contentfluss automatisiert Anfragen, Meldungen, Angebote und Kommunikation
-            — auf euren bestehenden Abläufen, ohne Systemwechsel.
-          </p>
-        </div>
+      <p class="page-intro home-hero-sub">
+        Contentfluss automatisiert Anfragen, Meldungen und Angebote
+        — auf euren bestehenden Abläufen, ohne Systemwechsel.
+      </p>
 
-        <div class="premium-home-actions">
-          <a href="/kontakt" class="btn btn-primary btn-lg premium-home-primary" data-track="home_hero_cta">
-            Fit-Call buchen
-          </a>
-          <a href="/workflows" class="btn premium-home-secondary" data-track="home_hero_workflows">
-            Workflows ansehen
-          </a>
-        </div>
-
-        <ul class="premium-home-trust" aria-label="Eckpunkte zum Einstieg">
-          {trustPills.map((pill) => <li>{pill}</li>)}
-        </ul>
+      <div class="home-hero-actions">
+        <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_hero_cta">
+          Fit-Call buchen
+        </a>
+        <a href="/workflows" class="btn btn-ghost" data-track="home_hero_workflows">
+          Workflows ansehen
+        </a>
       </div>
 
-      <div class="premium-home-visual" data-hero-parallax="-0.032" aria-hidden="true">
-        <div class="premium-home-kpi premium-home-kpi-left">
-          <span class="premium-home-kpi-label">Effekt</span>
-          <strong>–18 Min / Tag</strong>
-        </div>
-        <div class="premium-home-kpi premium-home-kpi-right">
-          <span class="premium-home-kpi-label">Heute</span>
-          <strong>12 verarbeitet</strong>
-        </div>
+      <ul class="home-hero-trust" aria-label="Eckpunkte">
+        {trustPills.map((pill) => <li>{pill}</li>)}
+      </ul>
 
-        <div class="premium-home-canvas">
-          <div class="premium-home-canvas-header">
-            <span class="premium-home-canvas-title">Operations Canvas</span>
-            <span class="premium-home-canvas-status">
-              <span class="status-dot status-dot-live"></span>
-              aktiv
-            </span>
-          </div>
-
-          <div class="premium-home-node-track">
-            <article class="premium-home-node premium-home-node-anfrage">
-              <span class="premium-home-node-index">01</span>
-              <h2>Anfrage</h2>
-              <p>Telefon, Mail und Messenger laufen in einen lesbaren Eingang.</p>
-            </article>
-            <article class="premium-home-node premium-home-node-qualifizierung">
-              <span class="premium-home-node-index">02</span>
-              <h2>Qualifizierung</h2>
-              <p>Fehlende Infos werden nachgezogen und der Kontext strukturiert.</p>
-            </article>
-            <article class="premium-home-node premium-home-node-routing">
-              <span class="premium-home-node-index">03</span>
-              <h2>Routing</h2>
-              <p>Der Vorgang landet mit Zuständigkeit und nächster Aktion im Team.</p>
-            </article>
-          </div>
-
-          <div class="premium-home-canvas-panels">
-            <div class="premium-home-input-stack">
-              <span class="premium-home-panel-label">Unsortierte Eingänge</span>
-              <div class="premium-home-signal-list">
-                <div class="premium-home-signal premium-home-signal-mail">
-                  <span>Mail</span>
-                  <small>ohne Rückrufnummer</small>
-                </div>
-                <div class="premium-home-signal premium-home-signal-phone">
-                  <span>Telefon</span>
-                  <small>Adresse fehlt</small>
-                </div>
-                <div class="premium-home-signal premium-home-signal-chat">
-                  <span>WhatsApp</span>
-                  <small>2 Fotos, kein Kontext</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="premium-home-output-board">
-              <span class="premium-home-panel-label">Bearbeitbarer Output</span>
-              <div class="premium-home-output-rows">
-                <div class="premium-home-output-row">
-                  <span>Vollständigkeit</span>
-                  <strong>Adresse, Fotos, Kontakt</strong>
-                </div>
-                <div class="premium-home-output-row">
-                  <span>Zuständigkeit</span>
-                  <strong>Service-Team oder Sachbearbeitung</strong>
-                </div>
-                <div class="premium-home-output-row">
-                  <span>Nächster Schritt</span>
-                  <strong>Rückruf, Ticket oder Statusmail</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="home-hero-scroll" aria-hidden="true">
+        <span class="home-hero-scroll-line"></span>
+        Scroll
       </div>
     </div>
   </section>
 
-  <section class="section premium-home-signature">
-    <div class="container premium-home-shell">
-      <div class="premium-home-section-head premium-home-section-head-center" data-reveal>
+  <section class="section home-signature">
+    <div class="container home-shell">
+      <div class="home-section-head home-section-head-center" data-reveal>
         <span class="section-label">Signature Transformation</span>
         <h2>Vom täglichen Durcheinander zum klaren Ablauf</h2>
         <p>
@@ -191,36 +137,36 @@ const schemas = [organizationSchema(), websiteSchema()];
         </p>
       </div>
 
-      <div class="premium-home-transformation-stage" data-reveal>
-        <div class="premium-home-before-side">
-          <div class="premium-home-stage-head">
-            <span class="premium-home-stage-label">Before</span>
+      <div class="home-signature-stage" data-stagger>
+        <div class="home-before">
+          <div class="home-stage-head">
+            <span class="home-stage-label">Before</span>
             <h3>Fragmente statt Vorgang</h3>
           </div>
-          <div class="premium-home-fragment-stack">
+          <div class="home-fragment-stack">
             {inboundFragments.map((fragment, index) => (
-              <article class:list={['premium-home-fragment', index === 1 && 'premium-home-fragment-glass', index === 3 && 'premium-home-fragment-glass']}>
-                <span class="premium-home-fragment-channel">{fragment.channel}</span>
+              <article class:list={['home-fragment', index === 1 && 'home-fragment-glass', index === 3 && 'home-fragment-glass']}>
+                <span class="home-fragment-channel">{fragment.channel}</span>
                 <p>{fragment.text}</p>
               </article>
             ))}
           </div>
         </div>
 
-        <div class="premium-home-transformation-spine">
-          <span class="premium-home-spine-label">Contentfluss Workflow</span>
-          <span class="premium-home-spine-line"></span>
-          <p>liest, ergänzt und routet den Eingang, bevor operative Zeit verloren geht.</p>
+        <div class="home-spine">
+          <span class="home-spine-label">Contentfluss Workflow</span>
+          <span class="home-spine-line"></span>
+          <p>ordnet Eingang und Routing, bevor operative Zeit verloren geht.</p>
         </div>
 
-        <div class="premium-home-after-side">
-          <div class="premium-home-stage-head">
-            <span class="premium-home-stage-label">After</span>
+        <div class="home-after">
+          <div class="home-stage-head">
+            <span class="home-stage-label">After</span>
             <h3>Strukturierter operativer Flow</h3>
           </div>
-          <div class="premium-home-after-board">
+          <div class="home-after-board">
             {structuredOutputs.map((item) => (
-              <div class="premium-home-after-row">
+              <div class="home-after-row">
                 <span>{item.label}</span>
                 <strong>{item.detail}</strong>
               </div>
@@ -231,52 +177,42 @@ const schemas = [organizationSchema(), websiteSchema()];
     </div>
   </section>
 
-  <section class="section premium-home-industries">
-    <div class="container premium-home-shell">
-      <div class="premium-home-section-head" data-reveal>
+  <section class="section home-industries">
+    <div class="container home-shell">
+      <div class="home-section-head home-section-head-center" data-reveal>
         <span class="section-label">Zwei Branchen, ein Prinzip</span>
-        <h2>Gleiche Präzision. Unterschiedlicher operativer Rhythmus.</h2>
+        <h2>Gleiche <span class="serif-accent">Präzision.</span> Unterschiedlicher operativer Rhythmus.</h2>
       </div>
 
-      <div class="premium-home-industry-stage">
-        <article class="premium-home-industry premium-home-industry-handwerk" data-reveal>
-          <div class="premium-home-industry-top">
-            <span class="premium-home-industry-chip">Handwerk</span>
-            <span class="premium-home-industry-kicker">Viele Eingänge, wenig Puffer</span>
+      <div class="home-industry-grid" data-stagger>
+        <article class="home-industry-card home-industry-card-handwerk">
+          <div class="home-industry-top">
+            <span class="home-industry-chip">Handwerk</span>
+            <span class="home-industry-kicker">Viele Eingänge, wenig Puffer</span>
           </div>
           <h3>Frontoffice, Angebot und Dispo gleichzeitig unter Druck.</h3>
-          <ul class="premium-home-industry-list">
-            <li>Anfragen ohne Adresse, Foto oder klaren Umfang</li>
-            <li>Follow-up ohne festen Takt</li>
-            <li>Statusfragen direkt ins Büro statt in den Ablauf</li>
+          <ul class="home-industry-list">
+            {handwerkPoints.map((point) => <li>{point}</li>)}
           </ul>
-          <div class="premium-home-industry-tags">
-            <span>Frontoffice</span>
-            <span>Angebot</span>
-            <span>Terminstatus</span>
+          <div class="home-industry-tags">
+            {handwerkTags.map((tag) => <span>{tag}</span>)}
           </div>
           <a href="/handwerk" class="btn btn-secondary" data-track="home_industry_handwerk">Mehr für Handwerk</a>
         </article>
 
-        <article class="premium-home-industry premium-home-industry-immo" data-reveal>
-          <div class="premium-home-industry-top">
-            <span class="premium-home-industry-chip">Hausverwaltung</span>
-            <span class="premium-home-industry-kicker">Koordination statt Kanalchaos</span>
+        <article class="home-industry-card home-industry-card-immo">
+          <div class="home-industry-top">
+            <span class="home-industry-chip">Hausverwaltung</span>
+            <span class="home-industry-kicker">Koordination statt Kanalchaos</span>
           </div>
           <h3>Meldung, Rückfrage und Dienstleister-Status in einer Spur.</h3>
-          <div class="premium-home-immo-board">
-            <div class="premium-home-immo-row">
-              <span>Schadenmeldung</span>
-              <strong>Einheit, Fotos und Dringlichkeit ergänzt</strong>
-            </div>
-            <div class="premium-home-immo-row">
-              <span>Zuständigkeit</span>
-              <strong>Sachbearbeitung oder Dienstleister direkt erkannt</strong>
-            </div>
-            <div class="premium-home-immo-row">
-              <span>Status</span>
-              <strong>Rückfrage und Update laufen dokumentiert mit</strong>
-            </div>
+          <div class="home-industry-board">
+            {immoRows.map((row) => (
+              <div class="home-industry-board-row">
+                <span>{row.label}</span>
+                <strong>{row.detail}</strong>
+              </div>
+            ))}
           </div>
           <a href="/immobilienverwaltung" class="btn btn-secondary" data-track="home_industry_immo">
             Mehr für Hausverwaltung
@@ -286,65 +222,65 @@ const schemas = [organizationSchema(), websiteSchema()];
     </div>
   </section>
 
-  <section class="section premium-home-workflows">
-    <div class="container premium-home-shell">
-      <div class="premium-home-section-head" data-reveal>
+  <section class="section home-workflows">
+    <div class="container home-shell">
+      <div class="home-section-head home-section-head-center" data-reveal>
         <span class="section-label">Kuratiert statt katalogisiert</span>
         <h2>Drei Workflows, die im Alltag wirklich etwas verändern</h2>
       </div>
 
-      <div class="premium-home-workflow-stage">
-        <article class="premium-home-workflow-feature" data-reveal>
-          <div class="premium-home-workflow-feature-top">
-            <span class="premium-home-workflow-chip">Featured Workflow</span>
+      <div class="home-workflow-stage" data-stagger>
+        <article class="home-workflow-feature">
+          <div class="home-workflow-feature-top">
+            <span class="home-workflow-chip">Featured Workflow</span>
             <span class="mono-tag">Handwerk</span>
           </div>
-          <div class="premium-home-workflow-feature-copy">
+          <div class="home-workflow-feature-copy">
             <h3>{featuredWorkflow.name}</h3>
-            <p class="premium-home-workflow-lead">{featuredWorkflow.short}</p>
+            <p class="home-workflow-lead">{featuredWorkflow.short}</p>
           </div>
-          <div class="premium-home-workflow-feature-detail">
-            <p class="premium-home-workflow-problem-inline">{featuredWorkflow.problem}</p>
+          <div class="home-workflow-feature-detail">
+            <p class="home-workflow-problem-inline">{featuredWorkflow.problem}</p>
             <ul class="workflow-benefits">
               {featuredWorkflow.benefits.map((benefit) => <li>{benefit}</li>)}
             </ul>
-            <p class="premium-home-workflow-effect">{featuredWorkflow.effect}</p>
+            <p class="home-workflow-effect">{featuredWorkflow.effect}</p>
           </div>
         </article>
 
-        <div class="premium-home-workflow-support" data-stagger>
+        <div class="home-workflow-support" data-stagger>
           {supportingWorkflows.map((workflow, index) => (
-            <article class={`premium-home-workflow-support-card premium-home-workflow-support-card-${index + 1}`}>
-              <div class="premium-home-workflow-support-head">
+            <article class={`home-workflow-card home-workflow-card-${index + 1}`}>
+              <div class="home-workflow-card-head">
                 <h3>{workflow.name}</h3>
                 <span class="mono-tag">{index === 0 ? 'Handwerk' : 'Immo'}</span>
               </div>
-              <p class="premium-home-workflow-lead">{workflow.short}</p>
+              <p class="home-workflow-lead">{workflow.short}</p>
               <ul class="workflow-benefits">
-                {workflow.benefits.map((benefit) => <li>{benefit}</li>)}
+                {workflow.benefits.slice(0, 2).map((benefit) => <li>{benefit}</li>)}
               </ul>
             </article>
           ))}
         </div>
       </div>
 
-      <div class="premium-home-workflow-cta" data-reveal>
+      <div class="home-workflow-cta">
         <a href="/workflows" class="btn btn-secondary" data-track="home_workflows_all">Alle Workflows ansehen</a>
       </div>
     </div>
   </section>
 
-  <section class="section-sm premium-home-process">
-    <div class="container premium-home-shell">
-      <div class="premium-home-section-head premium-home-section-head-center" data-reveal>
+  <section class="section-sm home-process">
+    <div class="container home-shell">
+      <div class="home-section-head home-section-head-center" data-reveal>
         <span class="section-label">Zusammenarbeit</span>
         <h2>So läuft die Zusammenarbeit ab</h2>
       </div>
 
-      <div class="premium-home-process-rail" data-stagger>
+      <div class="home-process-rail" data-stagger>
         {processSteps.map((step) => (
-          <article class="premium-home-process-step">
-            <span class="premium-home-process-number">{step.number}</span>
+          <article class="home-process-step">
+            <span class="home-process-number">{step.number}</span>
             <h3>{step.title}</h3>
             <p>{step.body}</p>
           </article>
@@ -353,16 +289,19 @@ const schemas = [organizationSchema(), websiteSchema()];
     </div>
   </section>
 
-  <section class="section premium-home-final">
-    <div class="container premium-home-shell premium-home-final-shell">
-      <div class="premium-home-final-card" data-reveal>
+  <section class="section home-final">
+    <div class="container home-shell home-final-shell">
+      <div class="home-final-card" data-reveal>
         <span class="section-label">Fit-Call</span>
-        <h2>Wenn täglich zu viel hängen bleibt, ist es Zeit für einen besseren Ablauf.</h2>
+        <h2>Wenn täglich zu viel <span class="serif-accent">hängen bleibt,</span> ist es Zeit für einen besseren Ablauf.</h2>
         <p class="page-intro">
           Im Fit-Call schauen wir auf euren Engpass und prüfen, ob ein Workflow in eurem Alltag
           wirklich Sinn ergibt.
         </p>
-        <a href="/kontakt" class="btn btn-primary btn-lg premium-home-primary" data-track="home_final_cta">
+        <ul class="home-final-proof" aria-label="Proof">
+          {finalProofs.map((item) => <li>{item}</li>)}
+        </ul>
+        <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_final_cta">
           Fit-Call buchen
         </a>
       </div>
