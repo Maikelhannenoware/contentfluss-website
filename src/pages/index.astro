@@ -83,12 +83,13 @@ const schemas = [organizationSchema(), websiteSchema()];
 
 <Layout title={meta.title} description={meta.description} schemas={schemas}>
   <section class="home-hero">
-    <div class="home-hero-glow home-hero-glow-a" aria-hidden="true"></div>
-    <div class="home-hero-glow home-hero-glow-b" aria-hidden="true"></div>
-    <div class="home-hero-blob home-hero-blob-a" aria-hidden="true"></div>
-    <div class="home-hero-blob home-hero-blob-b" aria-hidden="true"></div>
+    <div class="home-hero-aurora home-hero-ambient" aria-hidden="true"></div>
+    <div class="home-hero-glow home-hero-glow-a home-hero-ambient" aria-hidden="true"></div>
+    <div class="home-hero-glow home-hero-glow-b home-hero-ambient" aria-hidden="true"></div>
+    <div class="home-hero-blob home-hero-blob-a home-hero-ambient" aria-hidden="true"></div>
+    <div class="home-hero-blob home-hero-blob-b home-hero-ambient" aria-hidden="true"></div>
 
-    <div class="container home-hero-content">
+    <div class="container home-hero-content" data-hero-scroll-out>
       <span class="eyebrow home-hero-eyebrow">
         <span class="eyebrow-dot"></span>
         KI-Workflows für Handwerk &amp; Hausverwaltung
@@ -137,13 +138,13 @@ const schemas = [organizationSchema(), websiteSchema()];
         </p>
       </div>
 
-      <div class="home-signature-stage" data-stagger>
-        <div class="home-before">
+      <div class="home-signature-stage">
+        <div class="home-before" data-reveal="slide-left">
           <div class="home-stage-head">
             <span class="home-stage-label">Before</span>
             <h3>Fragmente statt Vorgang</h3>
           </div>
-          <div class="home-fragment-stack">
+          <div class="home-fragment-stack" data-stagger="chaos">
             {inboundFragments.map((fragment, index) => (
               <article class:list={['home-fragment', index === 1 && 'home-fragment-glass', index === 3 && 'home-fragment-glass']}>
                 <span class="home-fragment-channel">{fragment.channel}</span>
@@ -153,18 +154,18 @@ const schemas = [organizationSchema(), websiteSchema()];
           </div>
         </div>
 
-        <div class="home-spine">
+        <div class="home-spine" data-reveal>
           <span class="home-spine-label">Contentfluss Workflow</span>
           <span class="home-spine-line"></span>
           <p>ordnet Eingang und Routing, bevor operative Zeit verloren geht.</p>
         </div>
 
-        <div class="home-after">
+        <div class="home-after" data-reveal="slide-right">
           <div class="home-stage-head">
             <span class="home-stage-label">After</span>
             <h3>Strukturierter operativer Flow</h3>
           </div>
-          <div class="home-after-board">
+          <div class="home-after-board" data-stagger="order">
             {structuredOutputs.map((item) => (
               <div class="home-after-row">
                 <span>{item.label}</span>
@@ -184,7 +185,7 @@ const schemas = [organizationSchema(), websiteSchema()];
         <h2>Gleiche <span class="serif-accent">Präzision.</span> Unterschiedlicher operativer Rhythmus.</h2>
       </div>
 
-      <div class="home-industry-grid" data-stagger>
+      <div class="home-industry-grid" data-stagger="scale">
         <article class="home-industry-card home-industry-card-handwerk">
           <div class="home-industry-top">
             <span class="home-industry-chip">Handwerk</span>
@@ -229,8 +230,8 @@ const schemas = [organizationSchema(), websiteSchema()];
         <h2>Drei Workflows, die im Alltag wirklich etwas verändern</h2>
       </div>
 
-      <div class="home-workflow-stage" data-stagger>
-        <article class="home-workflow-feature">
+      <div class="home-workflow-stage">
+        <article class="home-workflow-feature" data-reveal="scale">
           <div class="home-workflow-feature-top">
             <span class="home-workflow-chip">Featured Workflow</span>
             <span class="mono-tag">Handwerk</span>
@@ -248,7 +249,7 @@ const schemas = [organizationSchema(), websiteSchema()];
           </div>
         </article>
 
-        <div class="home-workflow-support" data-stagger>
+        <div class="home-workflow-support" data-stagger="workflow-support">
           {supportingWorkflows.map((workflow, index) => (
             <article class={`home-workflow-card home-workflow-card-${index + 1}`}>
               <div class="home-workflow-card-head">
@@ -264,7 +265,7 @@ const schemas = [organizationSchema(), websiteSchema()];
         </div>
       </div>
 
-      <div class="home-workflow-cta">
+      <div class="home-workflow-cta" data-reveal>
         <a href="/workflows" class="btn btn-secondary" data-track="home_workflows_all">Alle Workflows ansehen</a>
       </div>
     </div>
@@ -277,13 +278,22 @@ const schemas = [organizationSchema(), websiteSchema()];
         <h2>So läuft die Zusammenarbeit ab</h2>
       </div>
 
-      <div class="home-process-rail" data-stagger>
-        {processSteps.map((step) => (
-          <article class="home-process-step">
-            <span class="home-process-number">{step.number}</span>
-            <h3>{step.title}</h3>
-            <p>{step.body}</p>
-          </article>
+      <div class="home-process-rail" data-reveal>
+        {processSteps.map((step, index) => (
+          <>
+            <article class="home-process-step" style={`--process-step-delay:${index * 320}ms`}>
+              <span class="home-process-number">{step.number}</span>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </article>
+            {index < processSteps.length - 1 && (
+              <span
+                class="home-process-connector"
+                aria-hidden="true"
+                style={`--process-connector-delay:${index * 320 + 200}ms`}
+              ></span>
+            )}
+          </>
         ))}
       </div>
     </div>
@@ -291,7 +301,7 @@ const schemas = [organizationSchema(), websiteSchema()];
 
   <section class="section home-final">
     <div class="container home-shell home-final-shell">
-      <div class="home-final-card" data-reveal>
+      <div class="home-final-card" data-reveal="dramatic">
         <span class="section-label">Fit-Call</span>
         <h2>Wenn täglich zu viel <span class="serif-accent">hängen bleibt,</span> ist es Zeit für einen besseren Ablauf.</h2>
         <p class="page-intro">
@@ -301,7 +311,7 @@ const schemas = [organizationSchema(), websiteSchema()];
         <ul class="home-final-proof" aria-label="Proof">
           {finalProofs.map((item) => <li>{item}</li>)}
         </ul>
-        <a href="/kontakt" class="btn btn-primary btn-lg" data-track="home_final_cta">
+        <a href="/kontakt" class="btn btn-primary btn-lg home-final-cta-button" data-track="home_final_cta">
           Fit-Call buchen
         </a>
       </div>
