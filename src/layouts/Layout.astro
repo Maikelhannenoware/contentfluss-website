@@ -324,24 +324,45 @@ const allSchemas = schemas
       if (
         document.documentElement.classList.contains('motion-ready') &&
         !matchMedia('(prefers-reduced-motion: reduce)').matches &&
-        window.innerWidth >= 960
+        window.innerWidth >= 769
       ) {
         const els = document.querySelectorAll<HTMLElement>('[data-hero-parallax]');
-        if (els.length) {
+        const liquidEls = document.querySelectorAll<HTMLElement>('.premium-home-liquid');
+        if (els.length || liquidEls.length) {
           let ticking = false;
-          window.addEventListener('scroll', () => {
+
+          const syncHeroScrollEffects = () => {
             if (!ticking) {
               ticking = true;
               requestAnimationFrame(() => {
                 const y = window.scrollY;
-                els.forEach((el) => {
-                  const factor = parseFloat(el.dataset.heroParallax || '0');
-                  el.style.transform = `translateY(${y * factor}px)`;
-                });
+                if (els.length) {
+                  els.forEach((el) => {
+                    const factor = parseFloat(el.dataset.heroParallax || '0');
+                    el.style.transform = `translateY(${y * factor}px)`;
+                  });
+                }
+
+                if (liquidEls.length) {
+                  const vh = window.innerHeight;
+                  const fadeStart = vh * 0.2;
+                  const fadeEnd = vh * 0.9;
+                  const fadeOpacity = Math.max(0, 1 - Math.max(0, y - fadeStart) / (fadeEnd - fadeStart));
+
+                  liquidEls.forEach((el) => {
+                    const baseOpacity = parseFloat(el.dataset.baseOpacity || getComputedStyle(el).opacity || '1');
+                    el.dataset.baseOpacity = String(baseOpacity);
+                    el.style.opacity = String(baseOpacity * fadeOpacity);
+                  });
+                }
+
                 ticking = false;
               });
             }
-          }, { passive: true });
+          };
+
+          window.addEventListener('scroll', syncHeroScrollEffects, { passive: true });
+          syncHeroScrollEffects();
         }
       }
     </script>
