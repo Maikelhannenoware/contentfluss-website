@@ -88,6 +88,8 @@ const schemas = [organizationSchema(), websiteSchema()];
     <div class="home-hero-glow home-hero-glow-b home-hero-ambient" aria-hidden="true"></div>
     <div class="home-hero-blob home-hero-blob-a home-hero-ambient" aria-hidden="true"></div>
     <div class="home-hero-blob home-hero-blob-b home-hero-ambient" aria-hidden="true"></div>
+    <div class="home-hero-blob home-hero-blob-c home-hero-ambient" aria-hidden="true"></div>
+    <div class="home-hero-cursor-glow home-hero-ambient" aria-hidden="true"></div>
 
     <div class="container home-hero-content" data-hero-scroll-out>
       <span class="eyebrow home-hero-eyebrow">
@@ -146,7 +148,10 @@ const schemas = [organizationSchema(), websiteSchema()];
           </div>
           <div class="home-fragment-stack" data-stagger="chaos">
             {inboundFragments.map((fragment, index) => (
-              <article class:list={['home-fragment', index === 1 && 'home-fragment-glass', index === 3 && 'home-fragment-glass']}>
+              <article
+                class:list={['home-fragment', index === 1 && 'home-fragment-glass', index === 3 && 'home-fragment-glass']}
+                style={`--chaos-i:${index}`}
+              >
                 <span class="home-fragment-channel">{fragment.channel}</span>
                 <p>{fragment.text}</p>
               </article>
@@ -166,8 +171,8 @@ const schemas = [organizationSchema(), websiteSchema()];
             <h3>Strukturierter operativer Flow</h3>
           </div>
           <div class="home-after-board" data-stagger="order">
-            {structuredOutputs.map((item) => (
-              <div class="home-after-row">
+            {structuredOutputs.map((item, index) => (
+              <div class="home-after-row" style={`--order-i:${index}`}>
                 <span>{item.label}</span>
                 <strong>{item.detail}</strong>
               </div>

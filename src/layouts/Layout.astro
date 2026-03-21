@@ -366,5 +366,55 @@ const allSchemas = schemas
         }
       }
     </script>
+
+    <!-- JS Block 5: Hero cursor glow -->
+    <script>
+      (() => {
+        if (!document.documentElement.classList.contains('motion-ready')) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (window.innerWidth < 769 || !window.matchMedia('(pointer: fine)').matches) return;
+
+        const hero = document.querySelector<HTMLElement>('.home-hero');
+        const glow = document.querySelector<HTMLElement>('.home-hero-cursor-glow');
+        if (!hero || !glow) return;
+
+        let targetX = 0;
+        let targetY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let ticking = false;
+
+        const updateGlow = () => {
+          currentX += (targetX - currentX) * 0.15;
+          currentY += (targetY - currentY) * 0.15;
+          glow.style.transform = `translate(${currentX - 200}px, ${currentY - 200}px)`;
+
+          if (Math.abs(targetX - currentX) > 0.5 || Math.abs(targetY - currentY) > 0.5) {
+            requestAnimationFrame(updateGlow);
+          } else {
+            ticking = false;
+          }
+        };
+
+        hero.addEventListener('mousemove', (event) => {
+          const rect = hero.getBoundingClientRect();
+          targetX = event.clientX - rect.left;
+          targetY = event.clientY - rect.top;
+
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(updateGlow);
+          }
+        });
+
+        hero.addEventListener('mouseenter', () => {
+          glow.style.opacity = '1';
+        });
+
+        hero.addEventListener('mouseleave', () => {
+          glow.style.opacity = '0';
+        });
+      })();
+    </script>
   </body>
 </html>
