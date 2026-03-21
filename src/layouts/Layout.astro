@@ -318,5 +318,32 @@ const allSchemas = schemas
         staggerItems.forEach((item) => item.classList.add('is-visible'));
       }
     </script>
+
+    <!-- JS Block 4: Hero parallax -->
+    <script>
+      if (
+        document.documentElement.classList.contains('motion-ready') &&
+        !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+        window.innerWidth >= 960
+      ) {
+        const els = document.querySelectorAll<HTMLElement>('[data-hero-parallax]');
+        if (els.length) {
+          let ticking = false;
+          window.addEventListener('scroll', () => {
+            if (!ticking) {
+              ticking = true;
+              requestAnimationFrame(() => {
+                const y = window.scrollY;
+                els.forEach((el) => {
+                  const factor = parseFloat(el.dataset.heroParallax || '0');
+                  el.style.transform = `translateY(${y * factor}px)`;
+                });
+                ticking = false;
+              });
+            }
+          }, { passive: true });
+        }
+      }
+    </script>
   </body>
 </html>
